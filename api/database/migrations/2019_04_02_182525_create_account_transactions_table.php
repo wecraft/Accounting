@@ -15,10 +15,14 @@ class CreateAccountTransactionsTable extends Migration
     {
         Schema::create('account_transactions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('account1_id')->nullable();
-            $table->integer('account2_id')->nullable();
-            $table->decimal('amount');
-            $table->integer('currency_id')->nullable();
+            $table->integer('account1_id')->unsigned()->nullable();
+            $table->integer('account2_id')->unsigned()->nullable();
+            $table->decimal('amount1');
+            $table->decimal('amount2');
+            $table->integer('currency1_id')->unsigned()->nullable();
+            $table->integer('currency2_id')->unsigned()->nullable();
+            $table->date('date');
+            $table->integer('model_id');
             $table->timestamps();
 
             $table->foreign('account1_id')
@@ -31,7 +35,11 @@ class CreateAccountTransactionsTable extends Migration
                 ->on('accounts')
                 ->onDelete('set null');
 
-            $table->foreign('currency_id')
+            $table->foreign('currency1_id')
+                ->references('id')
+                ->on('currencies')
+                ->onDelete('set null');
+            $table->foreign('currency2_id')
                 ->references('id')
                 ->on('currencies')
                 ->onDelete('set null');

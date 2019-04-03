@@ -1,0 +1,34 @@
+<div class="widg-toast d-flex align-items-center" [class.active]="active" [ngClass]="'bg-' + toast.type">
+	<div class="toast-icon p-5">
+		<i class="icon icon-info"></i>
+	</div>
+	<div class="toast-text p-5" [ngSwitch]="toast.text">
+		<span *ngSwitchCase="'changes_saved'">The changes have been saved!</span>
+		<span *ngSwitchCase="'form_error'">The form you submitted has invalid fields!</span>
+		<span *ngSwitchCase="'invalid_credentials'">Invalid email or password!</span>
+		<span *ngSwitchCase="'create_payment'">Thank you for your subscription!
+			<br />The payment is being processed.</span>
+		<span *ngSwitchCase="'default_error'">Oops! Something went wrong.
+			<br />Please try again later or contact administrator.</span>
+		<span *ngSwitchCase="'request_sent'">Request sent!</span>
+		<span *ngSwitchCase="'request_approved'">Request approved!</span>
+		<span *ngSwitchCase="'request_rejected'">Request rejected!</span>
+		<span *ngSwitchCase="'confirm_email_resent'">The confirmation instructions have been sent to your email
+			<b>{{toast.data['email']}}</b>!</span>
+		<span *ngSwitchCase="'account_confirmed'">Your account has been successfully confirmed!</span>
+		<span *ngSwitchCase="'account_confirm_error'">Invalid confirmation link!</span>
+		<span *ngSwitchCase="'invalid_coupon'">Invalid coupon code!</span>
+		<span *ngSwitchCase="'reset_pw_error'">Invalid or expired Reset Password link!</span>
+		<span *ngSwitchCase="'reset_pw_done'">Your password has been changed.</span>
+		<span *ngSwitchCase="'reset_pw_request'">Please check your email for the reset password link.</span>
+		<span *ngSwitchCase="'deleted_user'">The user has been deleted.</span>
+		<span *ngSwitchCase="'deleted_video'">The video has been deleted.</span>
+		<span *ngSwitchCase="'deleted_article'">The article has been deleted.</span>
+		<span *ngSwitchCase="'video_created'">The Video has been created successfully.</span>
+		<span *ngSwitchCase="'article_created'">The Article has been created successfully.</span>
+		<span *ngSwitchCase="'invitation_sent'">Invitation sent.</span>
+		<span *ngSwitchCase="'survey_completed'">Thank you for completing this survey!<br />This data will help researchers address succession issues, and us better serve our members.</span>
+
+		<span *ngSwitchDefault>{{toast.text}}</span>
+	</div>
+</div>

@@ -8,12 +8,14 @@
 
 namespace App\Services;
 
+use App\Currency;
+use App\CurrencyRate;
 use App\Events\Pusher;
+use App\Http\Resources\Resource;
 use App\Jobs\SocketIoEmitterJob;
 use App\Model;
-use App\Http\Resources\Resource;
-use Predis\Client as PredisClient;
 use Goez\SocketIO\Emitter;
+use Predis\Client as PredisClient;
 
 class AppService
 {
@@ -46,7 +48,7 @@ class AppService
         if (!$this->redisClient) {
             $this->redisClient = new PredisClient(config('database.redis.default'));
         }
-        
+
         (new Emitter($this->redisClient))->to($room)->emit('message', [
             'topic' => $topic,
             'data'  => $data,
@@ -87,5 +89,46 @@ class AppService
         $data = $response->getData(true);
 
         return $data;
+    }
+
+    public function getCurrencyRate($currency, $date = null, $yesterday = false, $to = 'BGN')
+    {
+        if (!($currency instanceof Currency)) {
+            $currency = Currency::where('id', $currency)->first();
+        }
+
+        if ($currency->name == $to) {
+            return 1;
+        }
+
+        if (!$date) {
+            $date = date("Y-m-d");
+        }
+
+        if ($yesterday) {
+            $date = date('Y-m-d', strtotime("$date -1 day"));
+        }
+
+        $check = CurrencyRate::where('currency_id', $currency->id)->date($date)->first();
+
+        if ($check) {
+            return $check->rate;
+        }
+
+        $from = $currency->name;
+
+        $amount = getCurrencyRate($date, $from, $to);
+
+        $rate = new CurrencyRate([
+            'rate' => $amount,
+        ]);
+
+        $rate->currency()->associate($currency);
+        $rate->created_at = date("Y-m-d H:i:s", strtotime($date));
+
+        $rate->save();
+
+        return $amount;
+
     }
 }

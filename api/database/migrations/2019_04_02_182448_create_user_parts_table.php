@@ -15,11 +15,14 @@ class CreateUserPartsTable extends Migration
     {
         Schema::create('user_parts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->morphs('operation');
             $table->decimal('amount');
             $table->integer('type'); //-1 or 1
-            $table->integer('currency_id')->nullable();
+            $table->date('date');
+            $table->boolean('tax');
+            $table->boolean('vat');
+            $table->integer('currency_id')->unsigned()->nullable();
             $table->timestamps();
 
             $table->foreign('currency_id')

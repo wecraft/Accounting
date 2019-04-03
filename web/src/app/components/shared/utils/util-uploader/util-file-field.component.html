@@ -1,0 +1,9 @@
+<div class="widg-file-upload d-flex justify-content-between align-items-center">
+	<p class="text-secondary mb-0">{{fileName || 'No file selected'}}</p>
+	<button class="btn btn-primary padded" util-file-selector [accept]="accept" (onSelect)="_onSelectFile($event)">Select File ...</button>
+</div>
+<div class="vspacer-10"></div>
+<p class="text-secondary">
+	<b>Note:</b> Please make sure the file size does not exceed
+	<b>10 MB</b>
+</p>

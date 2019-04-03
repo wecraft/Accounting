@@ -18,15 +18,16 @@ class CreateInvoicesTable extends Migration
             $table->integer('prefix');
             $table->string('lang');
             $table->integer('number');
-            $table->integer('currency_id')->nullable();
-            $table->integer('account_id')->nullable();
-            $table->integer('client_id')->nullable();
+            $table->integer('currency_id')->unsigned()->nullable();
+            $table->integer('account_id')->unsigned()->nullable();
+            $table->integer('client_id')->unsigned()->nullable();
             $table->text('meta');
             $table->boolean('advance');
             $table->boolean('proforma');
             $table->date('issue_date');
             $table->date('pmt_date');
             $table->date('adv_pmt_date');
+            $table->integer('model_id');
             $table->timestamps();
 
             $table->foreign('currency_id')

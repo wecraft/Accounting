@@ -16,7 +16,7 @@ class CreateUserPiesTable extends Migration
         Schema::create('user_pies', function (Blueprint $table) {
             $table->increments('id');
             $table->morphs('model');
-            $table->integer('user_id')->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->decimal('amount'); //percent
             $table->timestamps();
 

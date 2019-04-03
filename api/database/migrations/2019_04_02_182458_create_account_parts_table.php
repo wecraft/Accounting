@@ -15,11 +15,11 @@ class CreateAccountPartsTable extends Migration
     {
         Schema::create('account_parts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('account_id')->nullable();
+            $table->integer('account_id')->unsigned()->nullable();
             $table->morphs('operation');
             $table->decimal('amount');
             $table->integer('type'); //-1 or 1
-            $table->integer('currency_id')->nullable();
+            $table->integer('currency_id')->unsigned()->nullable();
             $table->timestamps();
 
             $table->foreign('currency_id')

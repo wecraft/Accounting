@@ -15,10 +15,12 @@ class CreateUserTransactionsTable extends Migration
     {
         Schema::create('user_transactions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user1_id')->nullable();
-            $table->integer('user2_id')->nullable();
+            $table->integer('user1_id')->unsigned()->nullable();
+            $table->integer('user2_id')->unsigned()->nullable();
             $table->decimal('amount');
-            $table->integer('currency_id')->nullable();
+            $table->integer('currency_id')->unsigned()->nullable();
+            $table->string('desc');
+            $table->integer('model_id');
             $table->timestamps();
 
             $table->foreign('user1_id')

@@ -15,13 +15,16 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('account_id')->unsigned()->nullable();
+            $table->integer('currency_id')->unsigned()->nullable();
             $table->integer('type'); //-1 or 1
             $table->decimal('amount');
-            $table->decimal('rate');
+            $table->decimal('rate', 8, 5);
             $table->date('date');
             $table->string('desc');
             $table->boolean('tax');
             $table->boolean('vat');
+            $table->integer('model_id');
 
             $table->foreign('currency_id')
                 ->references('id')

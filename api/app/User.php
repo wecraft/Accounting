@@ -7,30 +7,22 @@ use App\Extensions\PermissionableTrait;
 use App\Extensions\User as Authenticatable;
 use DB;
 use Hash;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
 
-    use
-        SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['email', 'password', 'firstName', 'lastName'];
-    public $dates
-        = [
-            'created_at',
-            'updated_at',
-            'deleted_at',
-        ];
+    protected $fillable = ['email', 'password', 'firstName', 'lastName', 'role'];
+
     public $casts = [];
     public $includes = [];
     public $collectionIncludes = [];
-    public $resourcable = ['email', 'firstName', 'lastName'];
+    public $resourcable = ['email', 'firstName', 'lastName', 'role'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -41,6 +33,19 @@ class User extends Authenticatable implements JWTSubject
         = [
             'password',
         ];
+
+    public function __construct(array $attributes = [])
+    {
+        if ($this->getFillable() && $attributes) {
+            foreach ($attributes as $k => $v) {
+                if (!in_array($k, $this->getFillable()) || !$k) {
+                    unset($attributes[$k]);
+                }
+            }
+        }
+
+        parent::__construct($attributes);
+    }
 
 
     public function getJWTCustomClaims(): array
@@ -63,5 +68,5 @@ class User extends Authenticatable implements JWTSubject
         return "{$this->firstName} {$this->lastName}";
     }
 
-    
+
 }

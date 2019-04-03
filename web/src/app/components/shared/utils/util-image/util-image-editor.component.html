@@ -1,0 +1,5 @@
+<div class="widg-util-image-editor" [ngClass]="editorClass" #el [class.has-image]="imageSrc">
+	<div class="util-image-wrap" #elWrap>
+		<img [src]="imageSrc || ''" #elImg class="util-image-img" app-draggable draggable="false" ondragstart="return false;" (onDrop)="onDrag($event)">
+	</div>
+</div>

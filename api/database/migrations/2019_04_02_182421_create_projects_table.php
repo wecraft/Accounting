@@ -16,9 +16,11 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->decimal('price');
-            $table->integer('currency_id')->nullable();
-            $table->integer('client_id')->nullable();
+            $table->decimal('price')->nullable();
+            $table->integer('currency_id')->unsigned()->nullable();
+            $table->integer('client_id')->unsigned()->nullable();
+            $table->string('status')->default('progress');
+            $table->integer('model_id');
             $table->timestamps();
 
             $table->foreign('currency_id')

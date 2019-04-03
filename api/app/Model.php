@@ -31,9 +31,33 @@ class Model extends EModel
             'updated_at',
         ];
 
+
+    public function __construct(array $attributes = [])
+    {
+        if ($this->getFillable() && $attributes) {
+            foreach ($attributes as $k => $v) {
+                if (!in_array($k, $this->getFillable())) {
+                    unset($attributes[$k]);
+                }
+            }
+        }
+        
+        parent::__construct($attributes);
+    }
+
     public function getAttribute($key)
     {
         return parent::getAttribute(snake_case($key));
+    }
+
+    public function scopeDate($query, $date, $column = 'created_at')
+    {
+        $time = strtotime($date);
+        $year = date('Y', $time);
+        $month = date('n', $time);
+        $day = date('j', $time);
+
+        $query->whereRaw("YEAR($column) = ? AND MONTH($column) = ? AND DAY($column) = ?", [$year, $month, $day]);
     }
 
     public function setAttribute($key, $value)
@@ -74,5 +98,18 @@ class Model extends EModel
     public function getCollectionIncludes()
     {
         return $this->collectionIncludes;
+    }
+
+    public function update($attributes = [], $options = [])
+    {
+        if ($this->getFillable() && $attributes) {
+            foreach ($attributes as $k => $v) {
+                if (!in_array($k, $this->getFillable())) {
+                    unset($attributes[$k]);
+                }
+            }
+        }
+
+        parent::update($attributes, $options);
     }
 }
