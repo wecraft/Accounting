@@ -7,9 +7,10 @@ import {
 	MatButtonModule,
 	MatCheckboxModule,
 	MatRadioModule,
-	MatDialogModule
+	MatDialogModule,
+	MatInputModule,
+	MatIconModule
 } from "@angular/material";
-import { MaterialDialogHeaderModule } from "./material-dialog-header/material-dialog-header.module";
 
 @NgModule({
 	imports: [
@@ -20,7 +21,8 @@ import { MaterialDialogHeaderModule } from "./material-dialog-header/material-di
 		MatCheckboxModule,
 		MatRadioModule,
 		MatDialogModule,
-		MaterialDialogHeaderModule
+		MatInputModule,
+		MatIconModule
 	],
 	exports: [
 		MatSelectModule,
@@ -29,7 +31,8 @@ import { MaterialDialogHeaderModule } from "./material-dialog-header/material-di
 		MatCheckboxModule,
 		MatRadioModule,
 		MatDialogModule,
-		MaterialDialogHeaderModule
+		MatInputModule,
+		MatIconModule
 	]
 })
 export class MaterialModule {}

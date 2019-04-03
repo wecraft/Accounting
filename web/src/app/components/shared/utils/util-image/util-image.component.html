@@ -1,9 +1,0 @@
-<p class="modal-title text-secondary" i18n>{{label}}</p>
-<div class="modal-body px-0">
-	<util-image-editor #editor="utilImageEditor" [image]="image" (onChange)="onChangeImage($event)" [editorClass]="editorClass"></util-image-editor>
-	<util-image-zoom [editor]="editor" [value]="image && image.meta && image.meta.z ? image.meta.z : 0"></util-image-zoom>
-</div>
-<div class="d-flex align-items-center justify-content-center mt-3">
-	<button class="btn btn-primary padded border-0 mx-2" util-file-selector accept="image/*" (onSelect)="onFileSelect($event)" format="editor" i18n>Browse</button>
-	<button class="btn btn-outline-danger padded mx-2" *ngIf="image" (click)="remove()" i18n>Remove</button>
-</div>

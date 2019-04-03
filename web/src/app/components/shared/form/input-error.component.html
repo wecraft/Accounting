@@ -1,5 +1,3 @@
-<div class="input-error" *ngIf="error.controlName">
-	<ul class="error-messages" *ngFor="let item of error.errors">
-		<li>{{item.message}}</li>
-	</ul>
-</div>
+<mat-error *ngFor="let item of error.errors">
+	{{item.message}}
+</mat-error>

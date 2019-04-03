@@ -1,0 +1,19 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="container container-sm mt-5">
+	<mat-card class="example-card">
+		<mat-card-content>
+			<mat-form-field class="w-100">
+				<input matInput placeholder="E-mail" formControlName="email">
+			</mat-form-field>
+			<app-input-error [errors]="formErrors" control="email"></app-input-error>
+
+			<mat-form-field class="w-100">
+				<input type="password" matInput placeholder="Password" formControlName="password">
+			</mat-form-field>
+			<app-input-error [errors]="formErrors" control="email"></app-input-error>
+
+		</mat-card-content>
+		<mat-card-actions>
+			<button mat-raised-button color="primary" (click)="submit()">Login</button>
+		</mat-card-actions>
+	</mat-card>
+</form>

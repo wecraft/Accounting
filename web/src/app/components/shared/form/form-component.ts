@@ -1,10 +1,4 @@
-import {
-	FormBuilder,
-	FormGroup,
-	AbstractControl,
-	AbstractControlDirective,
-	AbstractFormGroupDirective
-} from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { Observable } from "rxjs";
 
 import { AppService } from "../../../app.service";
@@ -19,7 +13,6 @@ import {
 	EventEmitter
 } from "@angular/core";
 import { FormModelMap } from "./form-model-map";
-import { FormPrivacyMap, FormPrivacyMapItem } from "./form-privacy-map";
 import { Toast } from "../../toast/toast";
 
 export abstract class FormComponent implements OnChanges {
@@ -39,7 +32,6 @@ export abstract class FormComponent implements OnChanges {
 	mode: string = "create";
 
 	formModelMap: FormModelMap;
-	formPrivacyMap: FormPrivacyMap;
 
 	constructor(protected fb: FormBuilder, protected service: AppService) {}
 
@@ -208,12 +200,6 @@ export abstract class FormComponent implements OnChanges {
 			});
 		}
 		return options;
-	}
-
-	extractPrivacyMap() {
-		this.formPrivacyMap.items.forEach((item: FormPrivacyMapItem) => {
-			this.formModelMap.fillable.push(item.key);
-		});
 	}
 
 	onSend() {

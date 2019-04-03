@@ -1,0 +1,126 @@
+/* --------------------------------------------- Font face mixin */
+
+@mixin icon-font($iconFontName) {
+    @font-face {
+        font-family: $iconFontName;
+        src: url("#{$icomoon-font-path}#{$iconFontName}.eot#{$build_version}");
+        src: url("#{$icomoon-font-path}#{$iconFontName}.eot#{$build_version}#iefix") format("embedded-opentype"),
+        url("#{$icomoon-font-path}#{$iconFontName}.ttf#{$build_version}") format("truetype"),
+        url("#{$icomoon-font-path}#{$iconFontName}.woff#{$build_version}") format("woff"),
+        url("#{$icomoon-font-path}#{$iconFontName}.svg#{$build_version}##{$iconFontName}") format("svg");
+        font-weight: normal;
+        font-style: normal;
+    }
+    .icon {
+        /* use !important to prevent issues with browser extensions that change fonts*/
+        font-family: $iconFontName !important;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        /* Better Font Rendering*/
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        vertical-align: middle;
+    }
+}
+
+/* ------------------------------------------- Misc mixins */
+
+@mixin box-sizing($val) {
+    -webkit-box-sizing: $val;
+    box-sizing: $val;
+}
+
+@mixin placeholder($set) {
+    &::-webkit-input-placeholder {
+        /* Chrome/Opera/Safari */
+        color: $set !important;
+    }
+    &::-moz-placeholder {
+        /* Firefox 19+ */
+        color: $set !important;
+    }
+    &:-ms-input-placeholder {
+        /* IE 10+ */
+        color: $set !important;
+    }
+    &:-moz-placeholder {
+        /* Firefox 18- */
+        color: $set !important;
+    }
+}
+
+@mixin appearance($app) {
+    -webkit-appearance: $app;
+    -moz-appearance: $app;
+    appearance: $app;
+}
+
+/* Custom Animation Mixin */
+
+@mixin animation($anim) {
+    -webkit-animation: $anim;
+    animation: $anim;
+}
+
+/* --------------------------------------------- default CSS transition*/
+
+@mixin transition($transition) {
+    -webkit-transition: $transition;
+    transition: $transition;
+}
+
+@mixin transit() {
+    -webkit-transition: all 0.42s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+    transition: all 0.42s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+@mixin transit-fast() {
+    -webkit-transition: all 0.55s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: all 0.55s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+@mixin filter-drop-shadow($shadow-prefs) {
+    -webkit-filter: drop-shadow($shadow-prefs);
+    filter: drop-shadow($shadow-prefs);
+}
+
+/* --------------------------------------------- Misc transform mixins */
+
+@mixin transform($prop) {
+    -webkit-transform: $prop;
+    transform: $prop;
+}
+
+@mixin transform-origin($x,
+$y) {
+    -webkit-transform-origin: $x $y;
+    transform-origin: $x $y;
+}
+
+/* --------------------------------------------- Misc layout mixins */
+
+@mixin pad($prop) {
+    padding: $prop;
+}
+
+@mixin user-select($sel) {
+    -webkit-user-select: $sel;
+    -moz-user-select: $sel;
+    -ms-user-select: $sel;
+    user-select: $sel;
+}
+
+/* ---------------------------------------------- Filter blur */
+
+@mixin filter($filter) {
+    -webkit-filter: $filter;
+    filter: $filter;
+}
+
+@mixin box-shadow($val) {
+    -webkit-box-shadow: $val;
+    box-shadow: $val;
+}

@@ -1,0 +1,44 @@
+.widg-toast {
+    position: fixed;
+    left: 5rem;
+    bottom: 0;
+    z-index: 1000;
+    @include transit;
+    opacity: .8;
+    visibility: hidden;
+
+    .toast-icon {
+        font-size: 3.6rem;
+    }
+
+    .toast-text {
+        width: 26rem;
+        border-left: 1px solid rgba(#fff, .5);
+    }
+
+    color: #fff;
+    -webkit-box-shadow: 0 10px 26px rgba(#000, .4);
+    box-shadow: 0 10px 26px rgba(#000, .4);
+    @include transform(translate(0, 110%));
+
+    &.active {
+        @include transform(translate(0, -5rem));
+        visibility: visible;
+    }
+}
+
+.widg-app-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    @include transit;
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}

@@ -7,7 +7,7 @@ import {
 	EventEmitter,
 	Renderer2
 } from "@angular/core";
-import { AppImage } from "../../models/image";
+import { AppImage } from "src/app/models";
 
 @Directive({
 	selector: "[util-file-selector]",
@@ -77,10 +77,10 @@ export class UtilFileSelectorDirective {
 					//Get Image dimensionz
 					const img = new Image();
 					const src = reader.result;
-					img.src = src;
+					img.src = src.toString();
 
 					img.onload = () => {
-						image.orig = src;
+						image.orig = src.toString();
 						image.file = file;
 						image.dimensions = {
 							width: img.width,

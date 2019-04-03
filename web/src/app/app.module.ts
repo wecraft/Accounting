@@ -16,6 +16,8 @@ import { ApiInterceptor } from "./interceptors/api.interceptor";
 import { JwtInterceptor } from "./interceptors/jwt.interceptor";
 import { ErrorInterceptor } from "./interceptors/error.interceptor";
 import { AuthService } from "./components/auth/auth.service";
+import { EmitterService } from "./components/shared/broadcast/emitter.service";
+import { MatIconRegistry } from "@angular/material";
 
 @NgModule({
 	declarations: [AppComponent],
@@ -31,9 +33,11 @@ import { AuthService } from "./components/auth/auth.service";
 	providers: [
 		AppService,
 		AuthService,
+		EmitterService,
 		AuthGuard,
 		GuestGuard,
 		AdminGuard,
+		MatIconRegistry,
 		{ provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }

@@ -15,22 +15,10 @@ export class JwtInterceptor implements HttpInterceptor {
 	): Observable<HttpEvent<any>> {
 		let authUser: string = localStorage.getItem("authUser");
 
-		let authProfile: string = localStorage.getItem("authProfile");
-
-		let authListing: string = localStorage.getItem("authListing");
-
 		let headers: any = {};
 
 		if (authUser) {
 			headers.Authorization = `Bearer ${authUser}`;
-		}
-
-		if (authProfile) {
-			headers.profile = authProfile;
-		}
-
-		if (authListing) {
-			headers.listing = authListing;
 		}
 
 		request = request.clone({

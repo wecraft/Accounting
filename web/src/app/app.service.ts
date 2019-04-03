@@ -6,6 +6,7 @@ import { Observable, BehaviorSubject } from "rxjs";
 import { FormError } from "./components/shared/form/form-error";
 import { EmitterService } from "./components/shared/broadcast/emitter.service";
 import { Toast } from "./components/toast/toast";
+import { AuthService } from "./components/auth/auth.service";
 
 @Injectable()
 export class AppService {

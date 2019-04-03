@@ -1,14 +1,15 @@
 import { Component, ViewChild } from "@angular/core";
 import { AuthenticableComponent } from "./components/shared/extends/AuthenticableComponent";
 import { AppService } from "./app.service";
-import { TopicEvent } from "./components/shared/models/topic-event";
-import { MatDialog } from "@angular/material";
+import { MatDialog, MatIconRegistry } from "@angular/material";
 import { ConfirmComponent } from "./components/confirm/confirm.component";
 import { MaterialDialogConfig } from "./globals/material-dialog-config";
 import { Toast } from "./components/toast/toast";
 import { ToastComponent } from "./components/toast/toast.component";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
+import { TopicEvent } from "./models";
+import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
 	selector: "app-root",
@@ -26,9 +27,17 @@ export class AppRootComponent extends AuthenticableComponent {
 	constructor(
 		service: AppService,
 		private dialog: MatDialog,
-		private route: ActivatedRoute
+		private route: ActivatedRoute,
+		iconRegistry: MatIconRegistry,
+		sanitizer: DomSanitizer
 	) {
 		super(service);
+		iconRegistry.addSvgIcon(
+			"thumbs-up",
+			sanitizer.bypassSecurityTrustResourceUrl(
+				"assets/img/examples/thumbup-icon.svg"
+			)
+		);
 	}
 
 	ngOnInit() {

@@ -1,9 +1,36 @@
-<router-outlet></router-outlet>
-
 <div class="widg-app-progress" [class.active]="preloaderState">
 	<mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
 </div>
 
 <div [subscribe]="['confirm-dialog', 'show-toast']" (onEvent)="onEvent($event)"></div>
 
+<ng-container *ngIf="authUser">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container">
+			<a class="navbar-brand" routerLink="/">Accounting</a>
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item" routerLinkActive="active">
+					<a class="nav-link" routerLink="/dashboard">Dashboard</a>
+				</li>
+				<li class="nav-item" routerLinkActive="active">
+					<a class="nav-link" routerLink="/transactions">Transactions</a>
+				</li>
+				<li class="nav-item" routerLinkActive="active">
+					<a class="nav-link" routerLink="/projects">Projects</a>
+				</li>
+				<li class="nav-item" routerLinkActive="active">
+					<a class="nav-link" routerLink="/clients">Clients</a>
+				</li>
+			</ul>
+			<ul class="navbar-nav">
+				<li class="nav-item" routerLinkActive="active">
+					<a class="nav-link" routerLink="/auth/logout">Sign Out</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+</ng-container>
+
 <app-toast #toastRef="appToast" [toast]="toast"></app-toast>
+
+<router-outlet></router-outlet>
