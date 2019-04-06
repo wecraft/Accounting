@@ -1,11 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { OrderComponent } from '../order/order.component';
+import { NgModule } from "@angular/core";
+import { OrderComponent } from "../order/order.component";
+import { SharedModule } from "../shared/shared.module";
+import { MatDialogModule } from "@angular/material";
+import { OrderFormModule } from "./order-form/order-form.module";
 
 @NgModule({
-  declarations: [OrderComponent],
-  imports: [
-    CommonModule
-  ]
+	imports: [SharedModule, MatDialogModule, OrderFormModule],
+	declarations: [OrderComponent],
+	entryComponents: [OrderComponent]
 })
-export class OrderModule { }
+export class OrderModule {}

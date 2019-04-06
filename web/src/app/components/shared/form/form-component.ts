@@ -60,43 +60,6 @@ export abstract class FormComponent implements OnChanges {
 		}
 	}
 
-	submit() {
-		if (!this.loading) {
-			this.loading = true;
-			this.formToData();
-			let send = this.onSend();
-			if (send !== false) {
-				this.service.submit(
-					this.action(this.formData),
-					res => {
-						this.loading = false;
-						this.formErrors = [];
-						this.onResponse();
-						this.onSuccess(res);
-
-						if (this.toast) {
-							this.service.toast(this.toast);
-						}
-					},
-					(err: HttpErrorResponse, errorObj: FormError[]) => {
-						this.loading = false;
-						this.onResponse();
-						this.onError(err);
-						this.formErrors = errorObj;
-
-						if (this.errorToast) {
-							this.service.toast(this.errorToast);
-						}
-					}
-				);
-			}
-		}
-	}
-
-	formToData() {
-		this.formData = this.service.createFormData(this.form.getRawValue());
-	}
-
 	formBuildMapping() {
 		if (this.formModelMap) {
 			let options = {};

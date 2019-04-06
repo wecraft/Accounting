@@ -146,12 +146,12 @@ class Migrate extends Command
                 'currency' => $currency->id,
                 'pies'     => [
                     [
-                        'user' => 1,
-                        'part' => $content->team_rates->{1} ?: .5,
+                        'userId' => 1,
+                        'amount' => $content->team_rates->{1} ?: .5,
                     ],
                     [
-                        'user' => 2,
-                        'part' => $content->team_rates->{2} ?: .5,
+                        'userId' => 2,
+                        'amount' => $content->team_rates->{2} ?: .5,
                     ],
                 ],
                 'modelId'  => $item->model,
@@ -214,12 +214,12 @@ class Migrate extends Command
                 'currency' => $currency->id,
                 'pies'     => [
                     [
-                        'user' => 1,
-                        'part' => $item->team_1_rate,
+                        'userId' => 1,
+                        'amount' => $item->team_1_rate,
                     ],
                     [
-                        'user' => 2,
-                        'part' => $item->team_2_rate,
+                        'userId' => 2,
+                        'amount' => $item->team_2_rate,
                     ],
                 ],
                 'modelId'  => $item->id,

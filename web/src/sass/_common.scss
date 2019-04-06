@@ -1,0 +1,115 @@
+.container-sm {
+    max-width: 480px;
+}
+
+
+.navbar-nav {
+    .nav-item {
+        margin-right: 1rem;
+
+        .nav-link {
+            >* {
+                display: inline-block;
+                vertical-align: middle;
+
+            }
+
+            .mat-icon {
+                margin-right: .5rem;
+            }
+        }
+    }
+}
+
+table {
+    width: 100%;
+}
+
+.account-icon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 64px;
+    height: 64px;
+    background: transparent no-repeat center center;
+    background-size: cover;
+
+    &.small {
+        width: 32px;
+        height: 32px;
+    }
+
+    &.medium {
+        width: 50px;
+        height: 50px;
+    }
+
+    &.RL {
+        background-image: url('/assets/img/RL.png');
+    }
+
+    &.RE {
+        background-image: url('/assets/img/RE.png');
+    }
+
+    &.PP {
+        background-image: url('/assets/img/PP.png');
+    }
+
+    &.FRL {
+        background-image: url('/assets/img/FRL.png');
+    }
+
+    &.CH {
+        background-image: url('/assets/img/CH.png');
+    }
+}
+
+.text-income {
+    color: $green;
+}
+
+.text-cost {
+    color: $danger;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+
+.accounts-buttons {
+    .item {
+        padding: 1rem 1rem;
+        border: 1px solid $gray-300;
+        text-align: center;
+        margin: 1px 5px;
+        cursor: pointer;
+        width: 19%;
+        font-size: 12px;
+
+        &.active {
+            border: 2px solid $primary;
+            margin: 0 4px;
+        }
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+.order-type {
+    cursor: pointer;
+
+    &.income {
+        color: $green;
+    }
+
+    &.cost {
+        color: $danger;
+    }
+}

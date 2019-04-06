@@ -17,10 +17,16 @@ class Account extends Model
             "name",
             "code",
             'meta',
+            'defCurrency',
         ];
 
     public $casts
         = [
             'meta' => 'array',
         ];
+
+    public function getDefCurrencyResourcable()
+    {
+        return $this->currency_id;
+    }
 }

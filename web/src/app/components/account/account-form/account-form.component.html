@@ -1,0 +1,7 @@
+<div [formGroup]="form" class="accounts-buttons d-flex justify-content-between align-items-center">
+	<div class="item" *ngFor="let account of accounts" [class.active]="account.id == control.value" (click)="onClick(account)">
+		<app-account-icon [account]="account"></app-account-icon>
+		<br />
+		<span class="label">{{account.name}}</span>
+	</div>
+</div>

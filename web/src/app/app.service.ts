@@ -7,6 +7,11 @@ import { FormError } from "./components/shared/form/form-error";
 import { EmitterService } from "./components/shared/broadcast/emitter.service";
 import { Toast } from "./components/toast/toast";
 import { AuthService } from "./components/auth/auth.service";
+import { TransactionService } from "./components/transactions/transaction.service";
+import { ProjectService } from "./components/project/project.service";
+import { InvoiceService } from "./components/invoice/invoice.service";
+import { AccountService } from "./components/account/account.service";
+import { ClientService } from "./components/client/client.service";
 
 @Injectable()
 export class AppService {
@@ -30,7 +35,12 @@ export class AppService {
 		public router: Router,
 		public http: HttpClient,
 		public emitter: EmitterService,
-		public auth: AuthService
+		public auth: AuthService,
+		public transaction: TransactionService,
+		public project: ProjectService,
+		public invoice: InvoiceService,
+		public account: AccountService,
+		public client: ClientService
 	) {}
 
 	parseErrors(error: HttpErrorResponse) {
@@ -79,41 +89,6 @@ export class AppService {
 				}
 			}
 		);
-	}
-
-	createFormData(
-		object: Object,
-		form?: FormData,
-		_namespace?: string
-	): FormData {
-		const formData = form || new FormData();
-		for (let property in object) {
-			if (!object.hasOwnProperty(property)) {
-				continue;
-			}
-			const formKey = _namespace
-				? `${_namespace}[${property}]`
-				: property;
-			if (object[property] instanceof Date) {
-				formData.append(formKey, object[property].toISOString());
-			} else if (
-				typeof object[property] === "object" &&
-				!(object[property] instanceof File)
-			) {
-				this.createFormData(object[property], formData, formKey);
-			} else {
-				let formValue = object[property];
-
-				if (formValue === false) {
-					formValue = 0;
-				} else if (formValue === true) {
-					formValue = 1;
-				}
-
-				formData.append(formKey, formValue);
-			}
-		}
-		return formData;
 	}
 
 	confirm(type: string, onConfirm = () => {}, data: any = {}) {

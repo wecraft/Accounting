@@ -68,5 +68,10 @@ class User extends Authenticatable implements JWTSubject
         return "{$this->firstName} {$this->lastName}";
     }
 
+    public function isAdmin()
+    {
+        return $this->role == 'admin';
+    }
+
 
 }

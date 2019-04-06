@@ -13,39 +13,46 @@ class AccountsTableSeeder extends Seeder
     {
         $data = [
             [
-                'name' => 'Разплащателна ЛВ',
-                'code' => 'RL',
-                'meta' => [
+                'name'        => 'Разпл. ЛВ',
+                'code'        => 'RL',
+                'meta'        => [
                     'bank'  => 'ProCredit Bank',
                     'iban'  => 'BG66PRCB92301042936319',
                     'swift' => 'PRCBBGSF',
                 ],
+                'currency_id' => 2,
             ],
             [
-                'name' => 'Разплащателна Евро',
-                'code' => 'RE',
-                'meta' => [
+                'name'        => 'Разпл. Евро',
+                'code'        => 'RE',
+                'meta'        => [
                     'bank'  => 'ProCredit Bank',
                     'iban'  => 'BG16PRCB92301442936313',
                     'swift' => 'PRCBBGSF',
                 ],
+                'currency_id' => 3,
             ],
             [
-                'name' => 'Freelancer',
-                'code' => 'FRL',
+                'name'        => 'Freelancer',
+                'code'        => 'FRL',
+                'currency_id' => 1,
             ],
             [
-                'name' => 'PayPal',
-                'code' => 'PP',
+                'name'        => 'PayPal',
+                'code'        => 'PP',
+                'currency_id' => 1,
             ],
             [
-                'name' => 'Cash',
-                'code' => 'CH',
+                'name'        => 'Cash',
+                'code'        => 'CH',
+                'currency_id' => 2,
             ],
         ];
 
         foreach ($data as $d) {
-            \App\Account::create($d);
+            $acc = new \App\Account($d);
+            $acc->currency_id = $d['currency_id'];
+            $acc->save();
         }
     }
 }

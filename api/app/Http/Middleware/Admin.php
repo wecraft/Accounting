@@ -18,11 +18,8 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        $profile_id = $request->header('Profile');
-        define("USER_PROFILE", $profile_id);
-        Auth::user()->load('profile.model');
 
-        if (!Auth::user()->profile->inAdminGroup()) {
+        if (!Auth::user()->isAdmin()) {
             throw new \Exception('Not authorized!', 403);
         }
 

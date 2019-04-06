@@ -1,0 +1,16 @@
+<div class="row" [formGroup]="form">
+	<div class="col-sm-6" formArrayName="pies">
+		<div [formGroupName]="0">
+			<mat-form-field class="w-100">
+				<input type="number" min="0" max="100" matInput placeholder="Alexander" formControlName="amount">
+			</mat-form-field>
+		</div>
+	</div>
+	<div class="col-sm-6" formArrayName="pies">
+		<div [formGroupName]="1">
+			<mat-form-field class="w-100">
+				<input type="number" min="0" max="100" matInput placeholder="Valentin" formControlName="amount">
+			</mat-form-field>
+		</div>
+	</div>
+</div>

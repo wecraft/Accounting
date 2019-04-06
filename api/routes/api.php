@@ -20,7 +20,24 @@ Route::$namespace('Api')->group(function () use ($namespace) {
         Route::group([
             'middleware' => ['admin'],
         ], function ($router) use ($namespace) {
-            Route::apiResource('video', 'VideoController');
+
+
+            Route::get('order/count', 'OrderController@count');
+            Route::apiResource('order', 'OrderController');
+
+            Route::apiResource('account_trans', 'AccountTransactionController');
+
+            Route::apiResource('user_trans', 'UserTransactionController');
+
+            Route::apiResource('invoice', 'UserTransactionController');
+
+            Route::apiResource('project', 'ProjectController');
+
+            Route::apiResource('currency', 'CurrencyController');
+
+            Route::apiResource('account', 'AccountController');
+
+            Route::apiResource('client', 'ClientController');
         });
     });
 });

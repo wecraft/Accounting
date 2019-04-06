@@ -5,21 +5,44 @@
 <div [subscribe]="['confirm-dialog', 'show-toast']" (onEvent)="onEvent($event)"></div>
 
 <ng-container *ngIf="authUser">
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-2">
 		<div class="container">
-			<a class="navbar-brand" routerLink="/">Accounting</a>
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item" routerLinkActive="active">
-					<a class="nav-link" routerLink="/dashboard">Dashboard</a>
+					<a class="nav-link" routerLink="/dashboard">
+						<mat-icon>home</mat-icon>
+						<span>Dashboard</span>
+					</a>
 				</li>
 				<li class="nav-item" routerLinkActive="active">
-					<a class="nav-link" routerLink="/transactions">Transactions</a>
+					<a class="nav-link" routerLink="/transactions">
+						<mat-icon>swap_horiz</mat-icon>
+						<span>Transactions</span>
+					</a>
 				</li>
 				<li class="nav-item" routerLinkActive="active">
-					<a class="nav-link" routerLink="/projects">Projects</a>
+					<a class="nav-link" routerLink="/projects">
+						<mat-icon>work_outline</mat-icon>
+						<span>Projects</span>
+					</a>
 				</li>
 				<li class="nav-item" routerLinkActive="active">
-					<a class="nav-link" routerLink="/clients">Clients</a>
+					<a class="nav-link" routerLink="/clients">
+						<mat-icon>supervisor_account</mat-icon>
+						<span>Clients</span>
+					</a>
+				</li>
+				<li class="nav-item" routerLinkActive="active">
+					<a class="nav-link" routerLink="/invoices">
+						<mat-icon>description</mat-icon>
+						<span>Invoices</span>
+					</a>
+				</li>
+				<li class="nav-item" routerLinkActive="active">
+					<a class="nav-link" routerLink="/reports">
+						<mat-icon>trending_up</mat-icon>
+						<span>Reports</span>
+					</a>
 				</li>
 			</ul>
 			<ul class="navbar-nav">

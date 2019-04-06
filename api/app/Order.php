@@ -29,6 +29,19 @@ class Order extends Model
             'vat',
         ];
 
+    public $includes = ['currency', 'account'];
+    public $collectionIncludes = ['projects', 'invoices', 'pies'];
+
+    public function getTypeResourcable()
+    {
+        return $this->type == -1 ? 'cost' : 'income';
+    }
+
+    public function getDateResourcable()
+    {
+        return strtotime($this->date) * 1000;
+    }
+
     public function currency()
     {
         return $this->belongsTo(Currency::class);
@@ -64,14 +77,19 @@ class Order extends Model
         return $this->morphedByMany(Project::class, 'orderable');
     }
 
+    public function files()
+    {
+        return $this->morphMany(File::class, 'object');
+    }
+
     public function updatePies($data)
     {
         $this->pies()->delete();
         $this->user_parts()->delete();
 
         foreach ($data as $item) {
-            $user = User::where('id', $item['user'])->first();
-            $part = $item['part'];
+            $user = User::where('id', $item['userId'])->first();
+            $part = $item['amount'];
 
             if (!$part) {
                 continue;

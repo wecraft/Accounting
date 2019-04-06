@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core";
+import { AccountTransComponent } from "./account-trans.component";
+import { SharedModule } from "../shared/shared.module";
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ]
+	imports: [SharedModule],
+	declarations: [AccountTransComponent],
+	exports: [AccountTransComponent]
 })
-export class AccountTransModule { }
+export class AccountTransModule {}

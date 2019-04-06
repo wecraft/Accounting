@@ -46,8 +46,8 @@ class Project extends Model
         $this->pies()->delete();
 
         foreach ($data as $item) {
-            $user = User::where('id', $item['user'])->first();
-            $part = $item['part'];
+            $user = User::where('id', $item['userId'])->first();
+            $part = $item['amount'];
 
             if (!$part) {
                 continue;

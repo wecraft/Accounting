@@ -18,7 +18,13 @@ class CreateAccountsTable extends Migration
             $table->string('name');
             $table->string('code');
             $table->text('meta')->nullable();
+            $table->integer('currency_id')->unsigned()->nullable();
             $table->timestamps();
+
+            $table->foreign('currency_id')
+                ->references('id')
+                ->on('currencies')
+                ->onDelete('set null');
         });
     }
 

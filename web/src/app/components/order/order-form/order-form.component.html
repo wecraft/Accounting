@@ -1,0 +1,59 @@
+<div [formGroup]="form" class="container">
+	<div class="row">
+		<div class="col-sm-4">
+			<mat-form-field class="w-100">
+				<input matInput [matDatepicker]="picker" placeholder="Date" formControlName="date" (click)="picker.open()" autocomplete="off">
+				<mat-datepicker #picker></mat-datepicker>
+			</mat-form-field>
+		</div>
+		<div class="col-sm-8">
+			<mat-form-field class="w-100">
+				<input matInput placeholder="Description" formControlName="desc">
+			</mat-form-field>
+		</div>
+	</div>
+	<div class="row pb-4">
+		<div class="col-sm-12">
+			<app-account-form [form]="form" name="account"></app-account-form>
+		</div>
+	</div>
+	<div class="row align-items-center">
+		<div class="col-sm-1">
+			<span class="order-type" [ngClass]="form.value.type" (click)="changeType()">
+				<mat-icon *ngIf="form.value.type == 'income'">add_circle</mat-icon>
+				<mat-icon *ngIf="form.value.type == 'cost'">remove_circle</mat-icon>
+			</span>
+		</div>
+		<div class="col-sm-3">
+			<mat-form-field class="w-100">
+				<input matInput placeholder="Amount" formControlName="amount">
+			</mat-form-field>
+		</div>
+		<div class="col-sm-2">
+			<mat-form-field class="w-100">
+				<mat-select formControlName="currency">
+					<mat-option *ngFor="let currency of currencies" [value]="currency.id">{{currency.name}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+		<div class="col-sm-6">
+			<app-user-pie-form [form]="form"></app-user-pie-form>
+		</div>
+	</div>
+	<div class="row align-items-center">
+		<div class="col-sm-4">
+			<section class="example-section">
+				<mat-checkbox formControlName="vat" class="mr-4">Vat</mat-checkbox>
+				<mat-checkbox formControlName="tax">Tax</mat-checkbox>
+			</section>
+		</div>
+		<div class="col-sm-8">
+			<mat-form-field class="w-100">
+				<mat-select formControlName="projects" multiple="true" placeholder="Projects">
+					<mat-option *ngFor="let project of projects" [value]="project.id">{{project.name}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+
+	</div>
+</div>

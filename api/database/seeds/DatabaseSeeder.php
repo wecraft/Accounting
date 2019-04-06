@@ -12,9 +12,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(CurrenciesTableSeeder::class);
         $this->call(AccountsTableSeeder::class);
         $this->call(CountriesTableSeeder::class);
-        $this->call(CurrenciesTableSeeder::class);
 
         //Migrations
         \Illuminate\Support\Facades\Artisan::call('create:user', [

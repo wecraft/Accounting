@@ -23,6 +23,11 @@ const routes: Routes = [
 						component: DashboardComponent
 					},
 					{
+						path: "transactions",
+						loadChildren:
+							"./components/transactions/transactions.module#TransactionsModule"
+					},
+					{
 						path: "",
 						pathMatch: "full",
 						redirectTo: "dashboard"
