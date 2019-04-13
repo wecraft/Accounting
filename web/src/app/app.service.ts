@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 
-import { Observable, BehaviorSubject } from "rxjs";
+import { Observable, BehaviorSubject, of } from "rxjs";
 import { FormError } from "./components/shared/form/form-error";
 import { EmitterService } from "./components/shared/broadcast/emitter.service";
 import { Toast } from "./components/toast/toast";
@@ -12,9 +12,14 @@ import { ProjectService } from "./components/project/project.service";
 import { InvoiceService } from "./components/invoice/invoice.service";
 import { AccountService } from "./components/account/account.service";
 import { ClientService } from "./components/client/client.service";
+import { Country } from "./models";
+import { map } from "rxjs/operators";
+import { plainToClass } from "class-transformer";
 
 @Injectable()
 export class AppService {
+	private _countries: Country[];
+
 	//Cache authUser
 	private _preloaderState: boolean;
 	preloaderStateSubject: BehaviorSubject<boolean> = new BehaviorSubject(
@@ -122,5 +127,22 @@ export class AppService {
 			},
 			confirm.data
 		);
+	}
+
+	getCountries(params: any = {}): Observable<Country[]> {
+		if (this._countries) {
+			return of(this._countries);
+		}
+		return this.http
+			.get(`/country`, {
+				params: params
+			})
+			.pipe(
+				map(data => {
+					let res = plainToClass(Country, data["data"]);
+					this._countries = res;
+					return res;
+				})
+			);
 	}
 }

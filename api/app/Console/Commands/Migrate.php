@@ -383,8 +383,12 @@ class Migrate extends Command
             $order = Order::where("model_id", $item->id)->first();
             $project = Project::where('model_id', $item->project_id)->first();
 
-            if ($order && $project) {
-                $order->projects()->sync([$project->id]);
+            if ($order) {
+                $order->projects()->detach();
+                if ($project) {
+                    $this->line("Order: {$order->id} -- Project: {$project->id}");
+                    $order->projects()->attach($project->id);
+                }
             }
         });
     }

@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { Country } from "src/app/models";
+import { AppService } from "src/app/app.service";
 
 @Component({
-  selector: 'app-client-form',
-  templateUrl: './client-form.component.html',
-  styles: []
+	selector: "app-client-form",
+	templateUrl: "./client-form.component.html",
+	styles: []
 })
 export class ClientFormComponent implements OnInit {
+	@Input() form: FormGroup;
+	countries: Country[];
 
-  constructor() { }
+	constructor(protected service: AppService) {}
 
-  ngOnInit() {
-  }
-
+	ngOnInit() {
+		this.service.getCountries().subscribe(data => (this.countries = data));
+	}
 }

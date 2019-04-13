@@ -33,6 +33,11 @@ const routes: Routes = [
 							"./components/project/project-lazy.module#ProjectLazyModule"
 					},
 					{
+						path: "clients",
+						loadChildren:
+							"./components/client/client-lazy.module#ClientLazyModule"
+					},
+					{
 						path: "",
 						pathMatch: "full",
 						redirectTo: "dashboard"

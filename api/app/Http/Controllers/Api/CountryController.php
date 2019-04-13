@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Client;
+use App\Country;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Resource;
-use App\Services\ClientService;
 use Illuminate\Http\Request;
 
-class ClientController extends Controller
+class CountryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,24 +16,9 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->get('chunk')) {
-            $chunk = min($request->get('chunk', 100), 500);
-
-            $data = Client::orderBy('id', 'desc')->simplePaginate($chunk);
-        } else {
-            $data = Client::orderBy('name', 'asc')->get();
-
-        }
+        $data = Country::orderBy('name', 'asc')->get();
 
         return Resource::collection($data, $request->include);
-    }
-
-    public function count()
-    {
-
-        $count = Client::count();
-
-        return response()->json(['data' => $count]);
     }
 
     /**
@@ -56,11 +40,9 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id, Request $request)
+    public function show($id)
     {
-        $client = Client::where('id', $id)->firstOrFail();
-
-        return new Resource($client, $request->include);
+        //
     }
 
     /**
@@ -71,15 +53,9 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ClientService $clientService, $id)
+    public function update(Request $request, $id)
     {
-        $data = $request->all();
-
-        $client = Client::where('id', $id)->firstOrFail();
-
-        $clientService->update($client, $data);
-
-        return new Resource($client, $request->include);
+        //
     }
 
     /**

@@ -20,4 +20,29 @@ export class ClientService {
 				})
 			);
 	};
+
+	getClientsCount(): Observable<number> {
+		return this.http.get(`/client/count`).pipe(map(data => data["data"]));
+	}
+
+	getClient(id: number, params: any = {}): Observable<Client> {
+		return this.http
+			.get(`/client/${id}`, {
+				params: params
+			})
+			.pipe(
+				map(data => {
+					return plainToClass(Client, data["data"] as Client);
+				})
+			);
+	}
+
+	updateClient = (id: number, data: FormData): Observable<Client> => {
+		data.append("_method", "PUT");
+		return this.http.post(`/client/${id}`, data).pipe(
+			map(data => {
+				return plainToClass(Client, data["data"] as Client);
+			})
+		);
+	};
 }

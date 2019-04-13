@@ -30,7 +30,7 @@ export class ProjectComponent implements OnInit {
 	ngOnInit() {
 		this.service.project
 			.getProject(this.data.projectId, {
-				include: "currency,client,pies,orders"
+				include: "currency,client,pies,orders.account,orders.currency"
 			})
 			.subscribe(data => {
 				this.project = data;

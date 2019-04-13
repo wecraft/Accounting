@@ -7,6 +7,33 @@
 	</h1>
 	<div mat-dialog-content>
 		<app-project-form [form]="form" *ngIf="project"></app-project-form>
+
+		<ng-container *ngIf="project && project.orders.length > 0">
+			<h6>Transactions</h6>
+
+			<table class="table">
+				<tr>
+					<th>Date</th>
+					<th>Account</th>
+					<th class="text-right">Ammount</th>
+				</tr>
+				<tr *ngFor="let order of project.orders">
+					<td class="text-nowrap">
+						{{order.date | date:"mediumDate"}}
+					</td>
+					<td class="text-nowrap">
+						<app-account-icon [account]="order.account" class="mr-2"></app-account-icon>
+						<span>{{order.account.name}}</span>
+					</td>
+					<td>
+						<div class="text-right text-nowrap" [ngClass]="'text-' + order.type">
+							{{order.amount}} {{order.currency.name}}
+						</div>
+					</td>
+				</tr>
+			</table>
+		</ng-container>
+
 	</div>
 	<div mat-dialog-actions class="d-flex justify-content-end">
 		<button mat-raised-button color="primary" (click)="formModel.submit()">Save</button>

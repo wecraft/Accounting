@@ -1,3 +1,58 @@
-<p>
-  client-form works!
-</p>
+<div [formGroup]="form" class="container">
+	<div class="row align-items-center">
+		<div class="col-sm-4">
+			<mat-form-field class="w-100">
+				<input matInput placeholder="Name" formControlName="name">
+			</mat-form-field>
+		</div>
+		<div class="col-sm-4">
+			<mat-form-field class="w-100">
+				<input matInput placeholder="EIK" formControlName="eik">
+			</mat-form-field>
+		</div>
+		<div class="col-sm-4">
+			<section class="example-section">
+				<mat-checkbox formControlName="company" class="mr-4">Company</mat-checkbox>
+				<mat-checkbox formControlName="vat">Vat</mat-checkbox>
+			</section>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-4">
+			<mat-form-field class="w-100">
+				<input matInput placeholder="MOL" formControlName="mol">
+			</mat-form-field>
+		</div>
+		<div class="col-sm-4">
+			<mat-form-field class="w-100">
+				<input matInput placeholder="Email" formControlName="email">
+			</mat-form-field>
+		</div>
+		<div class="col-sm-4">
+			<mat-form-field class="w-100">
+				<mat-select formControlName="country" placeholder="Country">
+					<mat-option *ngFor="let country of countries" [value]="country.id">{{country.name}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-2">
+			<mat-form-field class="w-100">
+				<input matInput placeholder="City" formControlName="city">
+			</mat-form-field>
+		</div>
+		<div class="col-sm-2">
+			<mat-form-field class="w-100">
+				<input matInput placeholder="Post Code" formControlName="postCode">
+			</mat-form-field>
+		</div>
+		<div class="col-sm-8">
+			<mat-form-field class="w-100">
+				<input matInput placeholder="Address" formControlName="address">
+			</mat-form-field>
+		</div>
+	</div>
+</div>
