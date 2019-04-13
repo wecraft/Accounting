@@ -1,15 +1,19 @@
 <ng-container>
 	<h1 mat-dialog-title class="d-flex justify-content-between align-items-center">
-		<div><span *ngIf="accountTrans">Account Transfer #{{accountTrans.id}}</span></div>
+		<div *ngIf="mode == 'create'">Create Account Transfers</div>
+		<div *ngIf="mode == 'update'"><span *ngIf="accountTrans">Account Transfer #{{accountTrans.id}}</span></div>
 		<button mat-button mat-dialog-close tabindex='-1'>
 			<mat-icon>clear</mat-icon>
 		</button>
 	</h1>
 	<div mat-dialog-content>
-		<app-account-trans-form [form]="form" *ngIf="accountTrans"></app-account-trans-form>
+		<app-account-trans-form [form]="form" *ngIf="mode == 'update' && form"></app-account-trans-form>
+		<app-account-trans-group-form [form]="form" *ngIf="mode == 'create' && form" #accountTransGroupForm="accountTransGroupForm"></app-account-trans-group-form>
 	</div>
 	<div mat-dialog-actions class="d-flex justify-content-end">
-		<button mat-raised-button color="primary" (click)="formModel.submit()">Save</button>
+		<button mat-raised-button color="primary" class="mr-auto" *ngIf="mode == 'create'" (click)="accountTransGroupForm.addTransaction()">Add Transaction</button>
+		<button mat-raised-button color="warn" class="mr-auto" *ngIf="mode == 'update'" (click)="deleteTrans()">Delete</button>
+		<button mat-raised-button color="primary" (click)="formModel.submit()" i18n>{mode, select, create {Create} update {Save}}</button>
 	</div>
 
 </ng-container>

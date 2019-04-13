@@ -110,4 +110,10 @@ class AccountTransaction extends Model
             $userPart->save();
         });
     }
+
+    public function onDelete()
+    {
+        $this->account_parts()->delete();
+        $this->user_parts()->delete();
+    }
 }

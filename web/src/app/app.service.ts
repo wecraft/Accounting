@@ -96,11 +96,10 @@ export class AppService {
 		);
 	}
 
-	confirm(type: string, onConfirm = () => {}, data: any = {}) {
+	confirm(text: string, onConfirm = () => {}) {
 		this.emitter.emit("confirm-dialog", {
-			type: type,
-			onConfirm: onConfirm,
-			data: data
+			text: text,
+			onConfirm: onConfirm
 		});
 	}
 
@@ -110,23 +109,19 @@ export class AppService {
 
 	delete(
 		endpoint: Observable<any>,
-		confirm: { type: string; data?: any; onConfirm?: (data?: any) => void },
+		confirm: { text: string; onConfirm?: (data?: any) => void },
 		toast?: Toast
 	) {
-		this.confirm(
-			confirm.type,
-			() => {
-				this.submit(endpoint, (data: any) => {
-					if (confirm.onConfirm) {
-						confirm.onConfirm(data);
-					}
-					if (toast) {
-						this.toast(toast);
-					}
-				});
-			},
-			confirm.data
-		);
+		this.confirm(confirm.text, () => {
+			this.submit(endpoint, (data: any) => {
+				if (confirm.onConfirm) {
+					confirm.onConfirm(data);
+				}
+				if (toast) {
+					this.toast(toast);
+				}
+			});
+		});
 	}
 
 	getCountries(params: any = {}): Observable<Country[]> {

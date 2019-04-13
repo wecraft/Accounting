@@ -11,6 +11,7 @@ import { AppService } from "src/app/app.service";
 export class AccountFormComponent implements OnInit {
 	@Input() form: FormGroup;
 	@Input() name: string;
+	@Input() currencyControlName: string;
 	accounts: Account[];
 	control: any;
 
@@ -25,7 +26,11 @@ export class AccountFormComponent implements OnInit {
 
 	onClick(account: Account) {
 		this.control.setValue(account.id);
-		console.log(this.form.value);
-		console.log(this.control.value);
+
+		if (this.currencyControlName) {
+			this.form.controls[this.currencyControlName].setValue(
+				account.defCurrency
+			);
+		}
 	}
 }

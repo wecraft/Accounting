@@ -150,4 +150,13 @@ class Order extends Model
         $part->save();
     }
 
+    public function onDelete()
+    {
+        $this->projects()->detach();
+        $this->invoices()->detach();
+        $this->account_parts()->delete();
+        $this->pies()->delete();
+        $this->user_parts()->delete();
+    }
+
 }

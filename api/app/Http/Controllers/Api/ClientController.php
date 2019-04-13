@@ -44,9 +44,13 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, ClientService $clientService)
     {
-        //
+        $data = $request->all();
+
+        $client = $clientService->create($data);
+
+        return new Resource($client, $request->include);
     }
 
     /**

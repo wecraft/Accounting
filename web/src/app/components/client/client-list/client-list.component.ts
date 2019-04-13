@@ -62,4 +62,17 @@ export class ClientListComponent extends TableDataComponent<Client> {
 			}
 		});
 	}
+
+	create() {
+		const dialogRef = this.dialog.open(
+			ClientComponent,
+			new MaterialDialogConfig()
+		);
+
+		dialogRef.afterClosed().subscribe(data => {
+			if (data) {
+				this.loadPage();
+			}
+		});
+	}
 }

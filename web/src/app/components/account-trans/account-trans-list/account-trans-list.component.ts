@@ -45,7 +45,10 @@ export class AccountTransListComponent extends TableDataComponent<
 		const dialogRef = this.dialog.open(
 			AccountTransComponent,
 			new MaterialDialogConfig({
-				accountTransId: accountTrans.id
+				accountTransId: accountTrans.id,
+				onDelete: () => {
+					this.loadPage();
+				}
 			})
 		);
 
@@ -58,6 +61,19 @@ export class AccountTransListComponent extends TableDataComponent<
 				accountTrans.amount1 = newAccountTrans.amount1;
 				accountTrans.amount2 = newAccountTrans.amount2;
 				accountTrans.date = new Date(newAccountTrans.date);
+			}
+		});
+	}
+
+	create() {
+		const dialogRef = this.dialog.open(
+			AccountTransComponent,
+			new MaterialDialogConfig()
+		);
+
+		dialogRef.afterClosed().subscribe(data => {
+			if (data) {
+				this.loadPage();
 			}
 		});
 	}

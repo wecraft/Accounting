@@ -11,8 +11,7 @@ export class ConfirmComponent implements OnInit {
 		public dialogRef: MatDialogRef<ConfirmComponent>,
 		@Inject(MAT_DIALOG_DATA)
 		public data: {
-			type: string;
-			data: any;
+			text: string;
 			onConfirm: () => {};
 		}
 	) {}

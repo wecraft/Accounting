@@ -57,4 +57,17 @@ export class ProjectListComponent extends TableDataComponent<Project> {
 			}
 		});
 	}
+
+	create() {
+		const dialogRef = this.dialog.open(
+			ProjectComponent,
+			new MaterialDialogConfig()
+		);
+
+		dialogRef.afterClosed().subscribe(data => {
+			if (data) {
+				this.loadPage();
+			}
+		});
+	}
 }

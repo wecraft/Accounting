@@ -71,4 +71,9 @@ class UserTransaction extends Model
         $part->save();
 
     }
+
+    public function onDelete()
+    {
+        $this->user_parts()->delete();
+    }
 }

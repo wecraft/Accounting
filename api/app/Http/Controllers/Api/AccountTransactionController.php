@@ -39,9 +39,17 @@ class AccountTransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, AccountTransactionService $accountTransactionService)
     {
-        //
+        $transactions = $request->transactions;
+
+        foreach ((array)$transactions as $data) {
+
+            $accountTransactionService->create($data);
+
+        }
+
+        return $this->noContent();
     }
 
     /**
@@ -86,6 +94,12 @@ class AccountTransactionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $trans = AccountTransaction::where('id', $id)->firstOrFail();
+
+        $trans->onDelete();
+
+        $trans->delete();
+
+        return $this->noContent();
     }
 }

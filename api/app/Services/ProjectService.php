@@ -29,6 +29,8 @@ class ProjectService
         $project->save();
 
         $project->updatePies($data['pies']);
+
+        return $project;
     }
 
     public function update(Project $project, $data)

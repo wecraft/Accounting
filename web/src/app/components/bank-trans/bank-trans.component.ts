@@ -43,7 +43,10 @@ export class BankTransComponent extends TableDataComponent<Order> {
 		const dialogRef = this.dialog.open(
 			OrderComponent,
 			new MaterialDialogConfig({
-				orderId: order.id
+				orderId: order.id,
+				onDelete: () => {
+					this.loadPage();
+				}
 			})
 		);
 
@@ -55,6 +58,19 @@ export class BankTransComponent extends TableDataComponent<Order> {
 				order.currency = newOrder.currency;
 				order.desc = newOrder.desc;
 				order.type = newOrder.type;
+			}
+		});
+	}
+
+	create() {
+		const dialogRef = this.dialog.open(
+			OrderComponent,
+			new MaterialDialogConfig()
+		);
+
+		dialogRef.afterClosed().subscribe(data => {
+			if (data) {
+				this.loadPage();
 			}
 		});
 	}

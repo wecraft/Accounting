@@ -64,4 +64,16 @@ export class ProjectService {
 			})
 		);
 	};
+
+	createProject = (data: FormData): Observable<Project> => {
+		return this.http.post(`/project`, data).pipe(
+			map(data => {
+				return plainToClass(Project, data["data"] as Project);
+			})
+		);
+	};
+
+	deleteProject(id: number): Observable<any> {
+		return this.http.delete(`/project/${id}`);
+	}
 }

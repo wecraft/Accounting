@@ -13,7 +13,7 @@ import { MaterialDialogConfig } from "src/app/globals/material-dialog-config";
 	styles: []
 })
 export class UserTransListComponent extends TableDataComponent<UserTrans> {
-	displayedColumns: string[] = ["date", "users", "amount"];
+	displayedColumns: string[] = ["date", "users", "desc", "amount"];
 	dataSource: AppDataSource<UserTrans>;
 	dataCount: number;
 	chunk: number = 100;
@@ -43,7 +43,10 @@ export class UserTransListComponent extends TableDataComponent<UserTrans> {
 		const dialogRef = this.dialog.open(
 			UserTransComponent,
 			new MaterialDialogConfig({
-				userTransId: userTrans.id
+				userTransId: userTrans.id,
+				onDelete: () => {
+					this.loadPage();
+				}
 			})
 		);
 
@@ -53,6 +56,19 @@ export class UserTransListComponent extends TableDataComponent<UserTrans> {
 				userTrans.currency = newUserTrans.currency;
 				userTrans.user1 = newUserTrans.user1;
 				userTrans.user2 = newUserTrans.user2;
+			}
+		});
+	}
+
+	create() {
+		const dialogRef = this.dialog.open(
+			UserTransComponent,
+			new MaterialDialogConfig()
+		);
+
+		dialogRef.afterClosed().subscribe(data => {
+			if (data) {
+				this.loadPage();
 			}
 		});
 	}

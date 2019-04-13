@@ -19,7 +19,7 @@ class OrderController extends Controller
     {
         $chunk = min($request->get('chunk', 100), 500);
 
-        $data = Order::orderBy('date', 'desc')->simplePaginate($chunk);
+        $data = Order::orderBy('date', 'desc')->orderBy('id', 'desc')->simplePaginate($chunk);
 
         return Resource::collection($data, $request->include);
     }
@@ -39,9 +39,21 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, OrderService $orderService)
     {
-        //
+        $orders = $request->orders;
+
+        foreach ((array)$orders as $data) {
+            $data['pies'][0]['amount'] = $data['pies'][0]['amount'] / 100;
+            $data['pies'][1]['amount'] = $data['pies'][1]['amount'] / 100;
+
+            $data['type'] = $data['type'] == 'cost' ? -1 : 1;
+
+            $orderService->create($data);
+
+        }
+
+        return $this->noContent();
     }
 
     /**
@@ -90,6 +102,12 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $order = Order::where('id', $id)->firstOrFail();
+
+        $order->onDelete();
+
+        $order->delete();
+
+        return $this->noContent();
     }
 }

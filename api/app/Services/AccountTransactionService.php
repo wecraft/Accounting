@@ -34,6 +34,8 @@ class AccountTransactionService
 
         $transaction->updateAccounts();
         $transaction->updateUsers();
+
+        return $transaction;
     }
 
     public function update(AccountTransaction $transaction, $data)

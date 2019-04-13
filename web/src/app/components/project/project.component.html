@@ -1,12 +1,13 @@
 <ng-container>
 	<h1 mat-dialog-title class="d-flex justify-content-between align-items-center">
-		<div><span *ngIf="project">Project #{{project.id}}</span></div>
+		<div *ngIf="mode == 'create'">Create Project</div>
+		<div *ngIf="mode == 'update'"><span *ngIf="project">Project #{{project.id}}</span></div>
 		<button mat-button mat-dialog-close tabindex='-1'>
 			<mat-icon>clear</mat-icon>
 		</button>
 	</h1>
 	<div mat-dialog-content>
-		<app-project-form [form]="form" *ngIf="project"></app-project-form>
+		<app-project-form [form]="form" *ngIf="form"></app-project-form>
 
 		<ng-container *ngIf="project && project.orders.length > 0">
 			<h6>Transactions</h6>
@@ -36,7 +37,7 @@
 
 	</div>
 	<div mat-dialog-actions class="d-flex justify-content-end">
-		<button mat-raised-button color="primary" (click)="formModel.submit()">Save</button>
+		<button mat-raised-button color="primary" (click)="formModel.submit()" i18n>{mode, select, create {Create} update {Save}}</button>
 	</div>
 
 </ng-container>

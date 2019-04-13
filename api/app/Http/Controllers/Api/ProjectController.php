@@ -44,9 +44,17 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, ProjectService $projectService)
     {
-        //
+        $data = $request->all();
+        $data['pies'][0]['amount'] = $data['pies'][0]['amount'] / 100;
+        $data['pies'][1]['amount'] = $data['pies'][1]['amount'] / 100;
+
+        $data['status'] = in_array($data['status'], ['progress', 'completed']) ? $data['status'] : 'progress';
+
+        $project = $projectService->create($data);
+
+        return new Resource($project, $request->include);
     }
 
     /**
@@ -76,6 +84,8 @@ class ProjectController extends Controller
         $data = $request->all();
         $data['pies'][0]['amount'] = $data['pies'][0]['amount'] / 100;
         $data['pies'][1]['amount'] = $data['pies'][1]['amount'] / 100;
+
+        $data['status'] = in_array($data['status'], ['progress', 'completed']) ? $data['status'] : 'progress';
 
 
         $project = Project::where('id', $id)->firstOrFail();

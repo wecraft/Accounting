@@ -40,6 +40,8 @@ class OrderService
         $order->updateRels($data);
 
         $order->updateAccounts();
+
+        return $order;
     }
 
     public function update(Order $order, $data)
@@ -60,7 +62,7 @@ class OrderService
 
         $order->updatePies($data['pies']);
         $order->updateRels($data);
-        
+
         $order->updateAccounts();
     }
 }

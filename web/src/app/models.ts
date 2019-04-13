@@ -84,6 +84,7 @@ export class Account {
 	name: string;
 	code: string;
 	meta: any;
+	defCurrency: number;
 }
 
 export class AccountTrans {

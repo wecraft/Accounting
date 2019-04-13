@@ -39,9 +39,13 @@ class UserTransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, UserTransactionService $userTransactionService)
     {
-        //
+        $data = $request->all();
+
+        $transaction = $userTransactionService->create($data);
+
+        return new Resource($transaction, $request->include);
     }
 
     /**
@@ -86,6 +90,12 @@ class UserTransactionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $trans = UserTransaction::where('id', $id)->firstOrFail();
+
+        $trans->onDelete();
+
+        $trans->delete();
+
+        return $this->noContent();
     }
 }

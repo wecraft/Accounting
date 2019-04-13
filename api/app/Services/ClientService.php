@@ -23,6 +23,8 @@ class ClientService
         $client->country()->associate($country);
 
         $client->save();
+
+        return $client;
     }
 
     public function update(Client $client, $data)

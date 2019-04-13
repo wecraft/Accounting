@@ -45,4 +45,16 @@ export class ClientService {
 			})
 		);
 	};
+
+	createClient = (data: FormData): Observable<Client> => {
+		return this.http.post(`/client`, data).pipe(
+			map(data => {
+				return plainToClass(Client, data["data"] as Client);
+			})
+		);
+	};
+
+	deleteClient(id: number): Observable<any> {
+		return this.http.delete(`/client/${id}`);
+	}
 }

@@ -37,6 +37,10 @@ export class TransactionService {
 			);
 	}
 
+	createOrder = (data: FormData): Observable<any> => {
+		return this.http.post(`/order`, data);
+	};
+
 	updateOrder = (id: number, data: FormData): Observable<Order> => {
 		data.append("_method", "PUT");
 		return this.http.post(`/order/${id}`, data).pipe(
@@ -45,6 +49,10 @@ export class TransactionService {
 			})
 		);
 	};
+
+	deleteOrder(id: number): Observable<any> {
+		return this.http.delete(`/order/${id}`);
+	}
 
 	getAccountTransactions = (params: any = {}): Observable<AccountTrans[]> => {
 		return this.http
@@ -78,6 +86,10 @@ export class TransactionService {
 			);
 	}
 
+	createAccountTrans = (data: FormData): Observable<any> => {
+		return this.http.post(`/account_trans`, data);
+	};
+
 	updateAccountTrans = (
 		id: number,
 		data: FormData
@@ -89,6 +101,10 @@ export class TransactionService {
 			})
 		);
 	};
+
+	deleteAccountTrans(id: number): Observable<any> {
+		return this.http.delete(`/account_trans/${id}`);
+	}
 
 	getUserTransactions = (params: any = {}): Observable<UserTrans[]> => {
 		return this.http
@@ -120,6 +136,10 @@ export class TransactionService {
 			);
 	}
 
+	createUserTrans = (data: FormData): Observable<any> => {
+		return this.http.post(`/user_trans`, data);
+	};
+
 	updateUserTrans = (id: number, data: FormData): Observable<UserTrans> => {
 		data.append("_method", "PUT");
 		return this.http.post(`/user_trans/${id}`, data).pipe(
@@ -128,4 +148,8 @@ export class TransactionService {
 			})
 		);
 	};
+
+	deleteUserTrans(id: number): Observable<any> {
+		return this.http.delete(`/user_trans/${id}`);
+	}
 }

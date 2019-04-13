@@ -1,0 +1,10 @@
+<div [formGroup]="form">
+	<div formArrayName="orders">
+		<div class="form-item" *ngFor="let item of orders.controls; let i = index;">
+			<app-order-form [form]="item"></app-order-form>
+			<a class="form-item-remove cursor-pointer" *ngIf="orders.length > 1" (click)="deleteOrder(i)">
+				<mat-icon>clear</mat-icon>
+			</a>
+		</div>
+	</div>
+</div>

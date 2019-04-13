@@ -30,6 +30,8 @@ class UserTransactionService
         $transaction->save();
 
         $transaction->updateUsers();
+
+        return $transaction;
     }
 
     public function update(UserTransaction $transaction, $data)

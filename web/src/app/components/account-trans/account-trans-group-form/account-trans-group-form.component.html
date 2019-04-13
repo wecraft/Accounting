@@ -1,0 +1,10 @@
+<div [formGroup]="form">
+	<div formArrayName="transactions">
+		<div class="form-item" *ngFor="let item of transactions.controls; let i = index;">
+			<app-account-trans-form [form]="item"></app-account-trans-form>
+			<a class="form-item-remove cursor-pointer" *ngIf="transactions.length > 1" (click)="deleteTransaction(i)">
+				<mat-icon>clear</mat-icon>
+			</a>
+		</div>
+	</div>
+</div>
