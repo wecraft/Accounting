@@ -1,16 +1,31 @@
-<div class="row" [formGroup]="form">
-	<div class="col-sm-6" formArrayName="pies">
+<div class="row align-items-center no-gutters" [formGroup]="form">
+	<div class="col-sm-2 text-right">
+		<a (click)="toIndex(0)" class="cursor-pointer">
+			<mat-icon>arrow_back</mat-icon>
+		</a>
+	</div>
+	<div class="col-sm-3" formArrayName="pies">
 		<div [formGroupName]="0">
 			<mat-form-field class="w-100">
 				<input type="number" min="0" max="100" matInput placeholder="Alexander" formControlName="amount">
 			</mat-form-field>
 		</div>
 	</div>
-	<div class="col-sm-6" formArrayName="pies">
+	<div class="col-sm-2 text-center">
+		<a (click)="toDefault()" class="cursor-pointer">
+			<mat-icon>device_hub</mat-icon>
+		</a>
+	</div>
+	<div class="col-sm-3" formArrayName="pies">
 		<div [formGroupName]="1">
 			<mat-form-field class="w-100">
 				<input type="number" min="0" max="100" matInput placeholder="Valentin" formControlName="amount">
 			</mat-form-field>
 		</div>
+	</div>
+	<div class="col-sm-2">
+		<a (click)="toIndex(1)" class="cursor-pointer">
+			<mat-icon>arrow_forward</mat-icon>
+		</a>
 	</div>
 </div>

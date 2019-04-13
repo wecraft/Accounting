@@ -1,0 +1,51 @@
+<div [formGroup]="form" class="container">
+	<div class="row">
+		<div class="col-sm-4">
+			<mat-form-field class="w-100">
+				<input matInput [matDatepicker]="picker" placeholder="Date" formControlName="date" (click)="picker.open()" autocomplete="off">
+				<mat-datepicker #picker></mat-datepicker>
+			</mat-form-field>
+		</div>
+	</div>
+	<h5>From</h5>
+	<div class="row pb-4">
+		<div class="col-sm-12">
+			<app-account-form [form]="form" name="account1"></app-account-form>
+		</div>
+	</div>
+	<div class="row align-items-center">
+		<div class="col-sm-3">
+			<mat-form-field class="w-100">
+				<input matInput placeholder="Amount" formControlName="amount1">
+			</mat-form-field>
+		</div>
+		<div class="col-sm-2">
+			<mat-form-field class="w-100">
+				<mat-select formControlName="currency1">
+					<mat-option *ngFor="let currency of currencies" [value]="currency.id">{{currency.name}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+	</div>
+
+	<h5>To</h5>
+	<div class="row pb-4">
+		<div class="col-sm-12">
+			<app-account-form [form]="form" name="account2"></app-account-form>
+		</div>
+	</div>
+	<div class="row align-items-center">
+		<div class="col-sm-3">
+			<mat-form-field class="w-100">
+				<input matInput placeholder="Amount" formControlName="amount2">
+			</mat-form-field>
+		</div>
+		<div class="col-sm-2">
+			<mat-form-field class="w-100">
+				<mat-select formControlName="currency2">
+					<mat-option *ngFor="let currency of currencies" [value]="currency.id">{{currency.name}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+	</div>
+</div>

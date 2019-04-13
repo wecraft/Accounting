@@ -25,12 +25,15 @@ Route::$namespace('Api')->group(function () use ($namespace) {
             Route::get('order/count', 'OrderController@count');
             Route::apiResource('order', 'OrderController');
 
+            Route::get('account_trans/count', 'AccountTransactionController@count');
             Route::apiResource('account_trans', 'AccountTransactionController');
 
+            Route::get('user_trans/count', 'UserTransactionController@count');
             Route::apiResource('user_trans', 'UserTransactionController');
 
             Route::apiResource('invoice', 'UserTransactionController');
 
+            Route::get('project/count', 'ProjectController@count');
             Route::apiResource('project', 'ProjectController');
 
             Route::apiResource('currency', 'CurrencyController');

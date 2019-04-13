@@ -90,6 +90,7 @@ export class AccountTrans {
 	id: number;
 	amount1: number;
 	amount2: number;
+	date: Date;
 	createdAt: Date;
 
 	@Type(() => Account)

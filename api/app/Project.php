@@ -21,6 +21,9 @@ class Project extends Model
             'modelId',
         ];
 
+    public $includes = ['currency', 'client'];
+    public $collectionIncludes = ['pies', 'orders'];
+
     public function currency()
     {
         return $this->belongsTo(Currency::class);

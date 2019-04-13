@@ -7,6 +7,8 @@ use App\Client;
 use App\Country;
 use App\Currency;
 use App\CurrencyRate;
+use App\Order;
+use App\Project;
 use App\Services\AccountTransactionService;
 use App\Services\ClientService;
 use App\Services\OrderService;
@@ -368,5 +370,22 @@ class Migrate extends Command
         $this->info("Orders:");
 
         echo "<pre>".print_r($sum, true)."</pre>";
+    }
+
+    public function handleOrderProjects()
+    {
+        $data = $this->db->table('orders')
+            ->where('code', '<', 300)
+            ->get();
+
+
+        $data->each(function ($item) {
+            $order = Order::where("model_id", $item->id)->first();
+            $project = Project::where('model_id', $item->project_id)->first();
+
+            if ($order && $project) {
+                $order->projects()->sync([$project->id]);
+            }
+        });
     }
 }

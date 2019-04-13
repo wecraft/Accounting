@@ -2,13 +2,14 @@ import { NgModule } from "@angular/core";
 import { TransactionsComponent } from "../transactions/transactions.component";
 import { SharedModule } from "../shared/shared.module";
 import { RouterModule, Routes } from "@angular/router";
-import { AccountTransModule } from "../account-trans/account-trans.module";
 import { UserTransModule } from "../user-trans/user-trans.module";
 import { BankTransModule } from "../bank-trans/bank-trans.module";
-import { AccountTransComponent } from "../account-trans/account-trans.component";
 import { BankTransComponent } from "../bank-trans/bank-trans.component";
-import { UserTransComponent } from "../user-trans/user-trans.component";
-import { MatTabsModule, MatTabNav } from "@angular/material";
+import { MatTabsModule } from "@angular/material";
+import { AccountTransListComponent } from "../account-trans/account-trans-list/account-trans-list.component";
+import { AccountTransListModule } from "../account-trans/account-trans-list/account-trans-list.module";
+import { UserTransListModule } from "../user-trans/user-trans-list/user-trans-list.module";
+import { UserTransListComponent } from "../user-trans/user-trans-list/user-trans-list.component";
 
 const routes: Routes = [
 	{
@@ -21,11 +22,11 @@ const routes: Routes = [
 			},
 			{
 				path: "account",
-				component: AccountTransComponent
+				component: AccountTransListComponent
 			},
 			{
 				path: "user",
-				component: UserTransComponent
+				component: UserTransListComponent
 			},
 			{
 				path: "",
@@ -42,9 +43,9 @@ const routes: Routes = [
 		SharedModule,
 		RouterModule.forChild(routes),
 		MatTabsModule,
-		AccountTransModule,
-		UserTransModule,
-		BankTransModule
+		AccountTransListModule,
+		BankTransModule,
+		UserTransListModule
 	],
 	exports: [RouterModule]
 })

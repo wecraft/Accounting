@@ -35,4 +35,16 @@ export class UserPieFormComponent implements OnInit {
 			});
 		});
 	}
+
+	toIndex(index: number) {
+		const pies = this.form.get("pies") as FormArray;
+
+		pies.controls[index]["controls"]["amount"].setValue(100);
+	}
+
+	toDefault() {
+		const pies = this.form.get("pies") as FormArray;
+
+		pies.controls[0]["controls"]["amount"].setValue(50);
+	}
 }

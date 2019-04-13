@@ -3,7 +3,6 @@ import { AppService } from "src/app/app.service";
 import { MatPaginator, MatDialog } from "@angular/material";
 import { Order } from "src/app/models";
 import { AppDataSource } from "../shared/extends/AppDataSource";
-import { tap } from "rxjs/operators";
 import { TableDataComponent } from "../shared/extends/TableDataComponent";
 import { OrderComponent } from "../order/order.component";
 import { MaterialDialogConfig } from "src/app/globals/material-dialog-config";
@@ -52,9 +51,10 @@ export class BankTransComponent extends TableDataComponent<Order> {
 			if (newOrder) {
 				order.account = newOrder.account;
 				order.amount = newOrder.amount;
-				order.date = newOrder.date;
+				order.date = new Date(newOrder.date);
 				order.currency = newOrder.currency;
 				order.desc = newOrder.desc;
+				order.type = newOrder.type;
 			}
 		});
 	}

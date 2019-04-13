@@ -21,7 +21,7 @@ export class OrderFormComponent implements OnInit {
 			.subscribe(data => (this.currencies = data));
 
 		this.service.project
-			.getProjects()
+			.getProgressProjects()
 			.subscribe(data => (this.projects = data));
 	}
 

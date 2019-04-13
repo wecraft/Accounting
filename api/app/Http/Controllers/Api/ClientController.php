@@ -16,7 +16,7 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Client::orderBy('created_at', 'desc')->get();
+        $data = Client::orderBy('name', 'asc')->get();
 
         return Resource::collection($data, $request->include);
     }

@@ -2,7 +2,6 @@
     max-width: 480px;
 }
 
-
 .navbar-nav {
     .nav-item {
         margin-right: 1rem;
@@ -11,11 +10,10 @@
             >* {
                 display: inline-block;
                 vertical-align: middle;
-
             }
 
             .mat-icon {
-                margin-right: .5rem;
+                margin-right: 0.5rem;
             }
         }
     }
@@ -44,23 +42,23 @@ table {
     }
 
     &.RL {
-        background-image: url('/assets/img/RL.png');
+        background-image: url("/assets/img/RL.png");
     }
 
     &.RE {
-        background-image: url('/assets/img/RE.png');
+        background-image: url("/assets/img/RE.png");
     }
 
     &.PP {
-        background-image: url('/assets/img/PP.png');
+        background-image: url("/assets/img/PP.png");
     }
 
     &.FRL {
-        background-image: url('/assets/img/FRL.png');
+        background-image: url("/assets/img/FRL.png");
     }
 
     &.CH {
-        background-image: url('/assets/img/CH.png');
+        background-image: url("/assets/img/CH.png");
     }
 }
 
@@ -76,15 +74,14 @@ table {
     cursor: pointer;
 }
 
-
-.accounts-buttons {
+.radio-buttons {
     .item {
         padding: 1rem 1rem;
         border: 1px solid $gray-300;
         text-align: center;
         margin: 1px 5px;
         cursor: pointer;
-        width: 19%;
+
         font-size: 12px;
 
         &.active {
@@ -100,6 +97,18 @@ table {
             margin-right: 0;
         }
     }
+
+    &.accounts {
+        .item {
+            width: 19%;
+        }
+    }
+
+    &.users {
+        .item {
+            width: 49%;
+        }
+    }
 }
 
 .order-type {
@@ -111,5 +120,16 @@ table {
 
     &.cost {
         color: $danger;
+    }
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.--va {
+    >* {
+        display: inline-block;
+        vertical-align: middle;
     }
 }

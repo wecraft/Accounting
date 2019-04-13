@@ -9,7 +9,7 @@ import { Client } from "src/app/models";
 export class ClientService {
 	constructor(public http: HttpClient) {}
 
-	getClients(params: any = {}): Observable<Client[]> {
+	getClients = (params: any = {}): Observable<Client[]> => {
 		return this.http
 			.get(`/client`, {
 				params: params
@@ -19,5 +19,5 @@ export class ClientService {
 					return plainToClass(Client, data["data"]);
 				})
 			);
-	}
+	};
 }

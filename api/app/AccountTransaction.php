@@ -20,6 +20,8 @@ class AccountTransaction extends Model
             'date',
         ];
 
+    public $includes = ['account1', 'account2', 'currency1', 'currency2'];
+
     public function account1()
     {
         return $this->belongsTo(Account::class);

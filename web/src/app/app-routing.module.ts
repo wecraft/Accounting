@@ -28,6 +28,11 @@ const routes: Routes = [
 							"./components/transactions/transactions.module#TransactionsModule"
 					},
 					{
+						path: "projects",
+						loadChildren:
+							"./components/project/project-lazy.module#ProjectLazyModule"
+					},
+					{
 						path: "",
 						pathMatch: "full",
 						redirectTo: "dashboard"

@@ -10,10 +10,23 @@ export class ProjectService {
 	private _projects: Project[];
 	constructor(public http: HttpClient) {}
 
-	getProjects(params: any = {}): Observable<Project[]> {
+	getProjects = (params: any = {}): Observable<Project[]> => {
+		return this.http
+			.get(`/project`, {
+				params: params
+			})
+			.pipe(
+				map(data => {
+					return plainToClass(Project, data["data"]);
+				})
+			);
+	};
+
+	getProgressProjects(params: any = {}): Observable<Project[]> {
 		if (this._projects) {
 			return of(this._projects);
 		}
+		params.in_progress = 1;
 		return this.http
 			.get(`/project`, {
 				params: params
@@ -26,4 +39,29 @@ export class ProjectService {
 				})
 			);
 	}
+
+	getProjectsCount(): Observable<number> {
+		return this.http.get(`/project/count`).pipe(map(data => data["data"]));
+	}
+
+	getProject(id: number, params: any = {}): Observable<Project> {
+		return this.http
+			.get(`/project/${id}`, {
+				params: params
+			})
+			.pipe(
+				map(data => {
+					return plainToClass(Project, data["data"] as Project);
+				})
+			);
+	}
+
+	updateProject = (id: number, data: FormData): Observable<Project> => {
+		data.append("_method", "PUT");
+		return this.http.post(`/project/${id}`, data).pipe(
+			map(data => {
+				return plainToClass(Project, data["data"] as Project);
+			})
+		);
+	};
 }

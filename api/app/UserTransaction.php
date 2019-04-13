@@ -18,6 +18,8 @@ class UserTransaction extends Model
             'desc',
         ];
 
+    public $includes = ['user1', 'user2', 'currency'];
+
     public function user1()
     {
         return $this->belongsTo(User::class);

@@ -1,6 +1,6 @@
 <ng-container>
 	<h1 mat-dialog-title class="d-flex justify-content-between align-items-center">
-		<div><span *ngIf="order"><span i18n>{order.type, select, income {Income} cost {Cost}}</span> Order #{{order.id}}</span></div>
+		<div><span *ngIf="order">Order #{{order.id}}</span></div>
 		<button mat-button mat-dialog-close tabindex='-1'>
 			<mat-icon>clear</mat-icon>
 		</button>
