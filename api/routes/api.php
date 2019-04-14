@@ -43,8 +43,10 @@ Route::$namespace('Api')->group(function () use ($namespace) {
             Route::get('client/count', 'ClientController@count');
             Route::apiResource('client', 'ClientController');
 
+            Route::apiResource('dashboard', 'DashboardController');
+
         });
-        
+
         Route::apiResource('country', 'CountryController');
     });
 });

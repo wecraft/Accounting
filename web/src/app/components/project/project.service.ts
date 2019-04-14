@@ -22,7 +22,7 @@ export class ProjectService {
 			);
 	};
 
-	getProgressProjects(params: any = {}): Observable<Project[]> {
+	getProgressProjects = (params: any = {}): Observable<Project[]> => {
 		if (this._projects) {
 			return of(this._projects);
 		}
@@ -38,7 +38,7 @@ export class ProjectService {
 					return res;
 				})
 			);
-	}
+	};
 
 	getProjectsCount(): Observable<number> {
 		return this.http.get(`/project/count`).pipe(map(data => data["data"]));

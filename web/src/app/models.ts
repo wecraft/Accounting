@@ -193,6 +193,19 @@ export class Project {
 
 	@Type(() => Order)
 	orders: Order[];
+
+	get payments() {
+		if (!this.orders) {
+			return 0;
+		}
+
+		const sum = this.orders
+			.filter(item => item.type == "income")
+			.reduce((sum, current) => sum + current.amount, 0);
+		const percent = Math.round((sum / this.price) * 100);
+
+		return percent;
+	}
 }
 
 export class UserPie {

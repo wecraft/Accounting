@@ -1,4 +1,71 @@
-<p>
-	Some text
-	<mat-icon>home</mat-icon>
-</p>
+<div class="container py-4">
+	<ng-container *ngIf="data">
+		<h5 class="mb-2">Parts</h5>
+
+		<div class="row">
+			<div class="col-6">
+				<div class=" bg-secondary-light d-flex justify-content-between align-items-center py-2 px-4">
+					<h4>Alex</h4>
+					<h4>{{data.users[1].amount}}</h4>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="bg-secondary-light d-flex justify-content-between align-items-center py-2 px-4">
+					<h4>Valentin</h4>
+					<h4>{{data.users[2].amount}}</h4>
+				</div>
+
+			</div>
+		</div>
+
+
+		<h5 class="mt-4 mb-2">Accounts</h5>
+		<div class="radio-buttons accounts d-flex justify-content-between align-items-stretch">
+			<ng-container *ngFor="let account of accounts">
+				<div class="item" *ngIf="account.code != 'CH'">
+					<app-account-icon [account]="account"></app-account-icon>
+					<br />
+					<br />
+					<h4 *ngFor="let item of data.accounts[account.id]">{{item.amount}} {{item.currency}}</h4>
+				</div>
+				<div class="item" *ngIf="account.code == 'CH'">
+					<app-account-icon [account]="account"></app-account-icon>
+					<br />
+					<br />
+					<h4>{{data.total}}</h4>
+				</div>
+			</ng-container>
+		</div>
+
+
+
+	</ng-container>
+
+	<ng-container>
+		<h5 class="mt-4 mb-2">Current Projects</h5>
+
+		<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+			<ng-container matColumnDef="date">
+				<th mat-header-cell *matHeaderCellDef> Date </th>
+				<td mat-cell *matCellDef="let element" class="text-nowrap"> {{element.createdAt | date:"mediumDate"}} </td>
+			</ng-container>
+			<ng-container matColumnDef="name">
+				<th mat-header-cell *matHeaderCellDef> Name </th>
+				<td mat-cell *matCellDef="let element" class="text-nowrap">
+					<span>{{element.name}}</span>
+				</td>
+			</ng-container>
+			<ng-container matColumnDef="payments">
+				<th mat-header-cell *matHeaderCellDef> Payments </th>
+				<td mat-cell *matCellDef="let element">
+					{{element.payments}}%
+				</td>
+			</ng-container>
+			<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onClickRow(row)" class="clickable"></tr>
+		</table>
+
+	</ng-container>
+
+</div>

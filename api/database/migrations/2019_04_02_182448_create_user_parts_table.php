@@ -18,6 +18,7 @@ class CreateUserPartsTable extends Migration
             $table->integer('user_id')->unsigned()->nullable();
             $table->morphs('operation');
             $table->decimal('amount');
+            $table->decimal('rate', 8, 5);
             $table->integer('type'); //-1 or 1
             $table->date('date');
             $table->boolean('tax');

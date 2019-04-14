@@ -140,4 +140,8 @@ export class AppService {
 				})
 			);
 	}
+
+	getDashboard(): Observable<any> {
+		return this.http.get(`/dashboard`);
+	}
 }

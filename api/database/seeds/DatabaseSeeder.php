@@ -38,14 +38,20 @@ class DatabaseSeeder extends Seeder
         \Illuminate\Support\Facades\Artisan::call('migration', [
             'type' => 'projects',
         ]);
-        //        \Illuminate\Support\Facades\Artisan::call('migration', [
-        //            'type' => 'orders',
-        //        ]);
+        \Illuminate\Support\Facades\Artisan::call('migration', [
+            'type' => 'orders',
+        ]);
         \Illuminate\Support\Facades\Artisan::call('migration', [
             'type' => 'accountTransactions',
         ]);
         \Illuminate\Support\Facades\Artisan::call('migration', [
             'type' => 'userTransactions',
+        ]);
+        \Illuminate\Support\Facades\Artisan::call('migration', [
+            'type' => 'orderProjects',
+        ]);
+        \Illuminate\Support\Facades\Artisan::call('migration', [
+            'type' => 'modelDates',
         ]);
     }
 }

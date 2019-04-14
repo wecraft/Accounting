@@ -9,6 +9,7 @@ class UserPart extends Model
     protected $fillable
         = [
             'amount',
+            'rate',
             'type',
             'date',
             'tax',
@@ -17,6 +18,7 @@ class UserPart extends Model
     public $resourcable
         = [
             'amount',
+            'rate',
             'type',
             'date',
             'tax',

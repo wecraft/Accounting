@@ -14,6 +14,7 @@ use App\Services\ClientService;
 use App\Services\OrderService;
 use App\Services\ProjectService;
 use App\Services\UserTransactionService;
+use App\UserTransaction;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
@@ -390,6 +391,40 @@ class Migrate extends Command
                     $order->projects()->attach($project->id);
                 }
             }
+        });
+    }
+
+    public function handleModelDates()
+    {
+        $userTrans = UserTransaction::all();
+
+        $userTrans->each(function ($item) {
+            $model = $this->db->table('orders')
+                ->where('id', $item->model_id)
+                ->first();
+
+            $item->created_at = $model->date;
+            $item->save();
+        });
+
+        $projects = Project::all();
+        $projects->each(function ($item) {
+            $model = $this->db->table('wfw_models')
+                ->where('id', $item->model_id)
+                ->first();
+
+            $item->created_at = $model->date;
+            $item->save();
+        });
+
+        $clients = Client::all();
+        $clients->each(function ($item) {
+            $model = $this->db->table('wfw_models')
+                ->where('id', $item->model_id)
+                ->first();
+
+            $item->created_at = $model->date;
+            $item->save();
         });
     }
 }

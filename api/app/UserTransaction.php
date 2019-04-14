@@ -45,10 +45,15 @@ class UserTransaction extends Model
 
         $this->user_parts()->delete();
 
+        $date = date("Y-m-d");
+
+        $rate = app('service')->getCurrencyRate($this->currency, $date);
+
         $part = new UserPart([
             'amount' => $this->amount,
             'type'   => -1,
-            'date'   => date("Y-m-d"),
+            'date'   => $date,
+            'rate'   => $rate,
         ]);
 
         $part->operation()->associate($this);
@@ -57,11 +62,11 @@ class UserTransaction extends Model
 
         $part->save();
 
-
         $part = new UserPart([
             'amount' => $this->amount,
             'type'   => 1,
-            'date'   => date("Y-m-d"),
+            'date'   => $date,
+            'rate'   => $rate,
         ]);
 
         $part->operation()->associate($this);

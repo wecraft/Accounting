@@ -83,12 +83,15 @@ class AccountTransaction extends Model
 
         $part = 1 / $users->count();
 
-        $users->each(function ($user) use ($part) {
+        $rate = app('service')->getCurrencyRate($this->currency_id, $this->date);
+
+        $users->each(function ($user) use ($part, $rate) {
 
             $userPart = new UserPart([
                 'amount' => $this->amount1 * $part,
                 'type'   => -1,
                 'date'   => $this->date,
+                'rate'   => $rate,
             ]);
             $userPart->currency_id = $this->currency1_id;
 
@@ -101,6 +104,7 @@ class AccountTransaction extends Model
                 'amount' => $this->amount2 * $part,
                 'type'   => 1,
                 'date'   => $this->date,
+                'rate'   => $rate,
             ]);
             $userPart->currency_id = $this->currency2_id;
 

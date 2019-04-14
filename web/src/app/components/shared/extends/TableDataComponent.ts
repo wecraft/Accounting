@@ -18,7 +18,9 @@ export abstract class TableDataComponent<T> implements OnInit {
 	constructor(protected service: AppService) {}
 
 	ngOnInit() {
-		this.getCountMethod().subscribe(data => (this.dataCount = data));
+		if (this.getCountMethod()) {
+			this.getCountMethod().subscribe(data => (this.dataCount = data));
+		}
 
 		this.dataSource = new AppDataSource(this.getEndpoint());
 		this.dataSource.load(0, this.chunk, this.params);
@@ -28,14 +30,20 @@ export abstract class TableDataComponent<T> implements OnInit {
 	abstract getCountMethod(): Observable<number>;
 
 	ngAfterViewInit() {
-		this.paginator.page.pipe(tap(() => this.loadPage())).subscribe();
+		if (this.paginator) {
+			this.paginator.page.pipe(tap(() => this.loadPage())).subscribe();
+		}
 	}
 
 	loadPage() {
-		this.dataSource.load(
-			this.paginator.pageIndex,
-			this.paginator.pageSize,
-			this.params
-		);
+		if (this.paginator) {
+			this.dataSource.load(
+				this.paginator.pageIndex,
+				this.paginator.pageSize,
+				this.params
+			);
+		} else {
+			this.dataSource.load(0, this.chunk, this.params);
+		}
 	}
 }

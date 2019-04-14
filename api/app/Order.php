@@ -87,6 +87,8 @@ class Order extends Model
         $this->pies()->delete();
         $this->user_parts()->delete();
 
+        $rate = app('service')->getCurrencyRate($this->currency_id, $this->date);
+
         foreach ($data as $item) {
             $user = User::where('id', $item['userId'])->first();
             $part = $item['amount'];
@@ -115,6 +117,7 @@ class Order extends Model
                     'date'   => $this->date,
                     'tax'    => $this->tax,
                     'vat'    => $this->vat,
+                    'rate'   => $rate,
                 ]);
                 $userPart->currency_id = $this->currency_id;
 
