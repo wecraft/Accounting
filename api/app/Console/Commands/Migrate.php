@@ -11,10 +11,12 @@ use App\Order;
 use App\Project;
 use App\Services\AccountTransactionService;
 use App\Services\ClientService;
+use App\Services\InvoiceService;
 use App\Services\OrderService;
 use App\Services\ProjectService;
 use App\Services\UserTransactionService;
 use App\UserTransaction;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
@@ -425,6 +427,79 @@ class Migrate extends Command
 
             $item->created_at = $model->date;
             $item->save();
+        });
+    }
+
+    //    public function handleFix()
+    //    {
+    //        $data = $this->db->table('wfw_models_meta')->where("type", 'invoice')
+    //            ->whereIn('name', ['payment', 'invoice_date', 'proform'])
+    //            ->get();
+    //
+    //        $data->each(function ($item) {
+    //            $orig = $this->db->table('wfw_models_meta_2')->where('id', $item->id)->first();
+    //
+    //            $this->db->table('wfw_models_meta')->where('id', $item->id)->update([
+    //                'content' => $orig->content,
+    //            ]);
+    //        });
+    //    }
+
+    public function handleInvoices()
+    {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::table('invoices')->truncate();
+        DB::table('invoice_items')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
+        $data = $this->db->table('wfw_models_meta')->where("type", 'invoice')
+            ->where('name', 'data')
+            ->get();
+
+        $data->each(function ($item) {
+            $content = json_decode($item->content);
+            $payment = $this->db->table('wfw_models_meta')->where("type", 'invoice')
+                ->where('model', $item->model)
+                ->first()->content;
+            $currency = Currency::where('name', $this->currencies[$content->currency])->first();
+            $account = Account::where('id', $content->account)->first();
+            $project = Project::where('model_id', $content->project)->with('client.country')->first();
+
+            $items = [];
+            foreach ((array)$content->items as $it) {
+                if ($it->amount > 0) {
+                    $items[] = [
+                        'descBg' => $it->description->bg,
+                        'descEn' => $it->description->en,
+                        'qty'    => $it->qty,
+                        'amount' => $it->amount,
+                    ];
+                }
+            }
+
+            $data = [
+                'prefix'     => $content->invoice_owner_id == 2 ? 1 : 2,
+                'lang'       => $project->client->country->code == 'BG' ? 'bg' : 'en',
+                'number'     => $content->invoice_number_n,
+                'currency'   => $currency->id,
+                'account'    => $account->id,
+                'project'    => $project->id,
+                'advance'    => $content->advance ? 1 : 0,
+                'proforma'   => $content->proform ? 1 : 0,
+                'issueDate'  => Carbon::createFromFormat('d.m.Y', $content->date)->format('Y-m-d'),
+                'pmtDate'    => $payment,
+                'advPmtDate' => $content->advance_date ? Carbon::createFromFormat('d.m.Y', $content->advance_date)->format('Y-m-d') : null,
+                'modelId'    => $item->model,
+                'items'      => $items,
+                'meta'       => [
+                    'rate'      => $content->crate,
+                    'vat'       => $content->vat,
+                    'vatReason' => $content->vat_reason,
+                ],
+            ];
+
+            (new InvoiceService)->create($data);
+
         });
     }
 }

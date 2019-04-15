@@ -2,6 +2,9 @@
 
 namespace App;
 
+
+use Illuminate\Database\Eloquent\Collection;
+
 class Invoice extends Model
 {
 
@@ -17,6 +20,7 @@ class Invoice extends Model
             'issueDate',
             'pmtDate',
             'advPmtDate',
+            'modelId',
         ];
     public $resourcable
         = [
@@ -36,6 +40,18 @@ class Invoice extends Model
             'meta' => 'array',
         ];
 
+    public $includes = ['project', 'account', 'currency'];
+
+    public function getInvoiceNumberAttribute()
+    {
+        if (!$this->proforma) {
+            return 1000000000 * $this->prefix + $this->number;
+
+        } else {
+            return str_pad($this->number, 10, "0", STR_PAD_LEFT);
+        }
+    }
+
     public function currency()
     {
         return $this->belongsTo(Currency::class);
@@ -46,9 +62,9 @@ class Invoice extends Model
         return $this->belongsTo(Account::class);
     }
 
-    public function client()
+    public function project()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(Project::class);
     }
 
     public function items()
@@ -59,6 +75,31 @@ class Invoice extends Model
     public function orders()
     {
         return $this->morphToMany(Order::class, 'orderable');
+    }
+
+    public function createItems($data, $save = true)
+    {
+        if ($this->items) {
+            $this->items->each(function ($item) {
+                $item->delete();
+            });
+        }
+
+
+        if ($save) {
+            foreach ($data as $item) {
+                $this->items()->create($item);
+            }
+        } else {
+            $collection = new Collection();
+
+            foreach ($data as $item) {
+                $collection->push(new InvoiceItem($item));
+            }
+
+            $this->items = $collection;
+        }
+
     }
 
 

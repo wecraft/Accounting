@@ -146,9 +146,9 @@ export class Invoice {
 	meta: any;
 	advance: boolean;
 	proforma: boolean;
-	issueDate: string;
+	issueDate: Date;
 	pmtDate: string;
-	advPmtDate: string;
+	advPmtDate: Date;
 	createdAt: Date;
 
 	@Type(() => Currency)

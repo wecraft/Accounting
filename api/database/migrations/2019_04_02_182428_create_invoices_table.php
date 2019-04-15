@@ -20,13 +20,13 @@ class CreateInvoicesTable extends Migration
             $table->integer('number');
             $table->integer('currency_id')->unsigned()->nullable();
             $table->integer('account_id')->unsigned()->nullable();
-            $table->integer('client_id')->unsigned()->nullable();
+            $table->integer('project_id')->unsigned()->nullable();
             $table->text('meta');
             $table->boolean('advance');
             $table->boolean('proforma');
             $table->date('issue_date');
-            $table->date('pmt_date');
-            $table->date('adv_pmt_date');
+            $table->date('pmt_date')->nullable();
+            $table->date('adv_pmt_date')->nullable();
             $table->integer('model_id');
             $table->timestamps();
 
@@ -40,9 +40,9 @@ class CreateInvoicesTable extends Migration
                 ->on('accounts')
                 ->onDelete('set null');
 
-            $table->foreign('client_id')
+            $table->foreign('project_id')
                 ->references('id')
-                ->on('clients')
+                ->on('projects')
                 ->onDelete('set null');
         });
     }
