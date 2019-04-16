@@ -11,7 +11,9 @@ export class ProjectForm {
 
 	pies = new FormArray([]);
 
-	include = new FormControl("currency,client,pies,orders");
+	include = new FormControl(
+		"currency,client,pies,orders,invoices.items,invoices.currency"
+	);
 
 	constructor(project: Project) {
 		this.name.setValue(project.name);

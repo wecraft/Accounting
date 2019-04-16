@@ -1,0 +1,91 @@
+<div [formGroup]="form" class="container">
+	<div class="row align-items-center">
+		<div class="col-sm-3">
+			<mat-form-field class="w-100">
+				<mat-select formControlName="project" placeholder="Project">
+					<mat-option *ngFor="let project of projects" [value]="project.id">{{project.name}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+		<div class="col-sm-2">
+			<mat-form-field class="w-100">
+				<mat-select formControlName="account" placeholder="Account">
+					<mat-option *ngFor="let account of accounts" [value]="account.id">{{account.name}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+		<div class="col-sm-2">
+			<mat-form-field class="w-100">
+				<mat-select formControlName="currency" placeholder="Currency">
+					<mat-option *ngFor="let currency of currencies" [value]="currency.id">{{currency.name}}</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+		<div class="col-sm-5">
+			<section class="example-section">
+				<mat-checkbox formControlName="advance" class="mr-4">Advance</mat-checkbox>
+				<mat-checkbox formControlName="proforma">Proforma</mat-checkbox>
+			</section>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3">
+			<mat-form-field class="w-100">
+				<input matInput [matDatepicker]="picker" placeholder="Date" formControlName="issueDate" (click)="picker.open()" autocomplete="off">
+				<mat-datepicker #picker></mat-datepicker>
+			</mat-form-field>
+		</div>
+		<div class="col-sm-4">
+			<mat-form-field class="w-100">
+				<input matInput placeholder="Payment Date" formControlName="pmtDate">
+			</mat-form-field>
+		</div>
+		<div class="col-sm-3">
+			<mat-form-field class="w-100">
+				<input matInput [matDatepicker]="picker2" placeholder="Advance Payment Date" formControlName="advPmtDate" (click)="picker2.open()" autocomplete="off">
+				<mat-datepicker #picker2></mat-datepicker>
+			</mat-form-field>
+		</div>
+
+	</div>
+
+	<h4 class="mb-3">Items</h4>
+
+	<div formArrayName="items">
+		<div class="row align-items-end" *ngFor="let item of items.controls; let i = index;" [formGroupName]="i">
+			<div class="col-4">
+				<mat-form-field class="w-100">
+					<input matInput placeholder="Description EN" formControlName="descEn">
+				</mat-form-field>
+			</div>
+			<div class="col-4">
+				<mat-form-field class="w-100">
+					<input matInput placeholder="Description BG" formControlName="descBg">
+				</mat-form-field>
+			</div>
+			<div class="col-1">
+				<mat-form-field class="w-100">
+					<input type="number" min="1" matInput placeholder="Qty" formControlName="qty">
+				</mat-form-field>
+			</div>
+			<div class="col-2">
+				<mat-form-field class="w-100">
+					<input matInput placeholder="Amount" formControlName="amount">
+				</mat-form-field>
+			</div>
+			<div class="col-1 align-self-center" *ngIf="items.controls.length > 1">
+				<a class="text-danger cursor-pointer" (click)="deleteItem(i)">
+					<mat-icon>clear</mat-icon>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="mt-2 text-center">
+		<button mat-fab color="accent" (click)="addItem()">
+			<mat-icon>add</mat-icon>
+		</button>
+	</div>
+
+
+</div>

@@ -13,7 +13,7 @@ return [
     "egn"                 => "SID",
     "description"         => "Description",
     "unit"                => "Unit",
-    "unit_price"          => "Unit&nbsp;Price",
+    "unit_price"          => "Unit Price",
     "amount"              => "Amount",
     "notes"               => "Notes",
     "payment"             => "Payment method: Bank",

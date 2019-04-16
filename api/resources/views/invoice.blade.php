@@ -4,12 +4,26 @@
     <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
     <title>{{$title}}</title>
     <style type="text/css">
+        @page {
+            margin: 16mm 19mm 5mm 19mm;
+        }
+
+        body {
+            margin: 16mm 19mm 5mm 19mm;
+        }
+
         body {
             color: #333;
             margin: 0;
             padding: 0;
-            font-size: 11pt;
-            font-family: Calibri;
+            font-size: 10pt;
+            font-family: dejavu sans;
+            /*line-height: normal;*/
+
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         table {
@@ -19,10 +33,6 @@
 
         table td {
             padding: 2.5mm 3mm;
-        }
-
-        .w-100 {
-            width: 100%;
         }
 
         .al-r {
@@ -43,11 +53,12 @@
     </style>
 </head>
 <body>
-<table style="width: 172mm">
+<table style="width: 100%">
     <tr>
-        <td style="padding: 0; width: 86mm"><img src="{{asset('img/logo.png')}}" style="width: 43mm"/></td>
-        <td style="width: 86mm; padding: 0; padding-top: 1mm;" class="va-t">
-            <table style="width: 86mm;">
+        <td style="padding: 0; width: 50%"><img src="{{asset('img/logo.png')}}" style="width: 43mm"/>
+        </td>
+        <td style="width: 50%; padding: 0; padding-top: 1mm;" class="va-t">
+            <table style="width: 100%;">
                 <tr>
                     <td>{{__('messages.invoice_number', [], $lang)}}:</td>
                     <td class="al-r">{{$invoice->invoiceNumber}}</td>
@@ -64,7 +75,7 @@
         </td>
     </tr>
     <tr>
-        <td colspan="2" class="al-c" style="padding-top: 4mm">
+        <td colspan="2" class="al-c" style="width: 100%; padding-top: 4mm; padding-bottom: 25mm">
             <b style="font-size: 19pt">{{__('messages.invoice', [], $lang)}}</b>
 
             @if($lang == 'bg' || $invoice->proforma)
@@ -74,11 +85,11 @@
         </td>
     </tr>
     <tr>
-        <td colspan="2" style="height: 199mm; vertical-align: middle; padding: 0">
-            <table style="width: 172mm">
+        <td colspan="2" style="width: 100%; vertical-align: middle; padding: 0">
+            <table style="width: 100%">
                 <tr>
-                    <td style="padding: 0; width: 86mm; font-weight: bold; font-size: 14pt;">{{__('messages.provider', [], $lang)}}</td>
-                    <td style="padding: 0; padding-left: 3mm; width: 86mm; font-weight: bold; font-size: 14pt;">{{__('messages.recipient', [], $lang)}}</td>
+                    <td style="padding: 0; width: 50%; font-weight: bold; font-size: 14pt;">{{__('messages.provider', [], $lang)}}</td>
+                    <td style="padding: 0; padding-left: 3mm; width: 50%; font-weight: bold; font-size: 14pt;">{{__('messages.recipient', [], $lang)}}</td>
                 </tr>
                 <tr>
                     <td style="color: #848484; padding: 2.5mm 0 8mm 0" class="va-t">
@@ -98,14 +109,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2" style="padding: 0">
-                        <table style="width: 172mm">
+                    <td colspan="2" style="width: 100%; padding: 0; border: 1px solid transparent">
+                        <table style="width: 100%">
                             <tr style="background: #eaeaea;">
-                                <td style="width: 1mm">#</td>
+                                <td>#</td>
                                 <td>{{__('messages.description', [], $lang)}}</td>
-                                <td style="width: 1mm">{{__('messages.unit', [], $lang)}}</td>
-                                <td style="width: 1mm">{!! __('messages.unit_price', [], $lang) !!}</td>
-                                <td style="width: 1mm">{{__('messages.amount', [], $lang)}}</td>
+                                <td style="text-align: right">{{__('messages.unit', [], $lang)}}</td>
+                                <td style=" white-space: nowrap">{{ __('messages.unit_price', [], $lang)}}</td>
+                                <td>{{__('messages.amount', [], $lang)}}</td>
                             </tr>
                             <?php
                             $i = 1;
@@ -116,14 +127,20 @@
                             $desc = $lang == 'bg' ? $item->desc_bg : $item->desc_en;
                             ?>
                             <tr>
-                                <td style="border-bottom: 1px solid #eaeaea"><?= $i ?></td>
-                                <td style="border-bottom: 1px solid #eaeaea"><?= $desc?></td>
-                                <td style="border-bottom: 1px solid #eaeaea; text-align: right"><?= $item->qty ?></td>
-                                <td style="border-bottom: 1px solid #eaeaea"><?= number_format($amount, 2) ?>
+                                <td><?= $i ?></td>
+                                <td style="width: 100%"><?= $desc?></td>
+                                <td style="text-align: right"><?= $item->qty ?></td>
+                                <td style="white-space: nowrap"><?= number_format($amount, 2) ?>
                                     &nbsp;<?= $invoice->currency->name; ?></td>
-                                <td style="border-bottom: 1px solid #eaeaea"><?= number_format($amount * $item->qty,
+                                <td style="white-space: nowrap"><?= number_format($amount * $item->qty,
                                         2) ?>&nbsp;<?= $invoice->currency->name; ?></td>
                             </tr>
+                            <tr>
+                                <td colspan="5" style="padding: 0">
+                                    <div style="border-bottom: 1px solid #eaeaea;"></div>
+                                </td>
+                            </tr>
+
                             <?php
                             $i++;
                             }
@@ -134,10 +151,10 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="padding: 0; padding-top: 7mm" class="va-t">
-                        <table style="width: 86mm">
+                    <td style="width: 50%; padding: 0; padding-top: 7mm" class="va-t">
+                        <table style="width: 100%">
                             <tr>
-                                <td style="padding: 0; width: 86mm; font-weight: bold; font-size: 14pt;">{{__('messages.notes', [], $lang)}}</td>
+                                <td style="padding: 0; width: 50%; font-weight: bold; font-size: 14pt;">{{__('messages.notes', [], $lang)}}</td>
                             </tr>
                             @if($invoice->meta['vatReason'])
                                 <tr>
@@ -166,8 +183,8 @@
                         </table>
 
                     </td>
-                    <td style="width: 86mm; padding: 0; padding-top: 7mm;" class="va-t">
-                        <table style="width: 86mm;">
+                    <td style="width: 50%; padding: 0; padding-top: 7mm;" class="va-t">
+                        <table style="width: 100%;">
                             <tr>
                                 <td>{{__('messages.subtotal', [], $lang)}}:</td>
                                 <td class="al-r">{{number_format($subtotal, 2)}} {{$bottom_currency->name}}</td>
@@ -183,7 +200,7 @@
                             @endif
                             <tr>
                                 <td>{{__('messages.vat_amount', [], $lang)}}:</td>
-                                <td class="al-r">{{number_format($vat_amount)}} {{$bottom_currency->name}}</td>
+                                <td class="al-r">{{number_format($vat_amount, 2)}} {{$bottom_currency->name}}</td>
                             </tr>
                             <tr style="background: #eaeaea">
                                 <td>{{__('messages.total_amount_bottom', [], $lang)}}:</td>
@@ -209,8 +226,8 @@
     </tr>
     @if($lang == 'bg')
         <tr>
-            <td style="padding: 0; width: 86mm; color: #848484">{{__('messages.provider', [], $lang)}}:</td>
-            <td style="color: #848484">{{__('messages.recipient', [], $lang)}}:</td>
+            <td style="width: 50%; padding: 0; width: 50%; color: #848484">{{__('messages.provider', [], $lang)}}:</td>
+            <td style="width: 50%; color: #848484">{{__('messages.recipient', [], $lang)}}:</td>
         </tr>
     @endif
 </table>

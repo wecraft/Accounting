@@ -33,6 +33,7 @@ class Invoice extends Model
             'issueDate',
             'pmtDate',
             'advPmtDate',
+            'invoiceNumber',
         ];
 
     public $casts
@@ -41,6 +42,7 @@ class Invoice extends Model
         ];
 
     public $includes = ['project', 'account', 'currency'];
+    public $collectionIncludes = ['items'];
 
     public function getInvoiceNumberAttribute()
     {

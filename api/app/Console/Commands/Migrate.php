@@ -459,6 +459,7 @@ class Migrate extends Command
         $data->each(function ($item) {
             $content = json_decode($item->content);
             $payment = $this->db->table('wfw_models_meta')->where("type", 'invoice')
+                ->where("name", "payment")
                 ->where('model', $item->model)
                 ->first()->content;
             $currency = Currency::where('name', $this->currencies[$content->currency])->first();

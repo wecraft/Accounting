@@ -150,6 +150,7 @@ export class Invoice {
 	pmtDate: string;
 	advPmtDate: Date;
 	createdAt: Date;
+	invoiceNumber: string;
 
 	@Type(() => Currency)
 	currency: Currency;
@@ -157,14 +158,26 @@ export class Invoice {
 	@Type(() => Account)
 	account: Account;
 
-	@Type(() => Client)
-	client: Client;
+	@Type(() => Project)
+	project: Project;
 
 	@Type(() => Order)
 	orders: Order[];
 
 	@Type(() => InvoiceItem)
 	items: InvoiceItem[];
+
+	get amount() {
+		let amount = 0;
+
+		if (this.items) {
+			this.items.forEach(item => {
+				amount += item.amount;
+			});
+		}
+
+		return amount;
+	}
 }
 
 export class InvoiceItem {
@@ -193,6 +206,9 @@ export class Project {
 
 	@Type(() => Order)
 	orders: Order[];
+
+	@Type(() => Invoice)
+	invoices: Invoice[];
 
 	get payments() {
 		if (!this.orders) {

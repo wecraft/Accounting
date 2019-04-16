@@ -1,0 +1,47 @@
+<div class="container">
+	<div class="create-btn-line">
+		<button mat-raised-button color="primary" (click)="create()">Add New</button>
+	</div>
+
+	<mat-paginator [length]="dataCount" [pageSize]="chunk" [pageSizeOptions]="pageSizes" showFirstLastButtons></mat-paginator>
+
+	<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+		<ng-container matColumnDef="date">
+			<th mat-header-cell *matHeaderCellDef> Issue Date </th>
+			<td mat-cell *matCellDef="let element" class="text-nowrap"> {{element.issueDate | date:"mediumDate"}} </td>
+		</ng-container>
+		<ng-container matColumnDef="number">
+			<th mat-header-cell *matHeaderCellDef> Number </th>
+			<td mat-cell *matCellDef="let element">
+				<span>{{element.invoiceNumber}}</span>
+			</td>
+		</ng-container>
+		<ng-container matColumnDef="project">
+			<th mat-header-cell *matHeaderCellDef> Project </th>
+			<td mat-cell *matCellDef="let element"> {{element.project?.name}} </td>
+		</ng-container>
+		<ng-container matColumnDef="proforma">
+			<th mat-header-cell *matHeaderCellDef> Proforma </th>
+			<td mat-cell *matCellDef="let element" class="text-success">
+				<mat-icon *ngIf="element.proforma">done</mat-icon>
+			</td>
+		</ng-container>
+		<ng-container matColumnDef="amount">
+			<th mat-header-cell *matHeaderCellDef class="text-right"> Amount </th>
+			<td mat-cell *matCellDef="let element">
+				<div class="text-right text-nowrap">
+					{{element.amount}} {{element.currency?.name}}
+				</div>
+			</td>
+		</ng-container>
+
+
+
+		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+		<tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onClickRow(row)" class="clickable"></tr>
+	</table>
+
+	<mat-paginator [length]="dataCount" [pageSize]="chunk" [pageSizeOptions]="pageSizes" showFirstLastButtons></mat-paginator>
+
+</div>

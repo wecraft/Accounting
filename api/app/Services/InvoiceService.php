@@ -28,6 +28,7 @@ class InvoiceService
         $account = Account::where('id', $data['account'])->firstOrFail();
         $project = Project::where('id', $data['project'])->with('client.country')->firstOrFail();
 
+        $data['lang'] = $project->client->country->code == 'BG' ? 'bg' : 'en';
 
         $invoice = new Invoice($data);
 
@@ -46,7 +47,7 @@ class InvoiceService
             }
 
             $meta += ['rate' => $rate];
-            $this->setMetaVat($meta, $data, $project->client->country);
+            $this->setMetaVat($meta, $data, $project->client);
         }
 
 
@@ -61,6 +62,46 @@ class InvoiceService
         }
 
         $invoice->createItems($data['items'], $save);
+
+
+        return $invoice;
+    }
+
+    public function update(Invoice $invoice, $data)
+    {
+        $currency = Currency::where('id', $data['currency'])->firstOrFail();
+        $account = Account::where('id', $data['account'])->firstOrFail();
+        $project = Project::where('id', $data['project'])->with('client.country')->firstOrFail();
+
+        $data['lang'] = $project->client->country->code == 'BG' ? 'bg' : 'en';
+        $data['number'] = $invoice->number;
+        $data['proforma'] = $invoice->proforma;
+        $data['prefix'] = $invoice->prefix;
+
+        $invoice->update($data);
+
+        $meta = [
+            'client' => app('service')->resource($project->client, 'country'),
+        ];
+        if (!$data['rate']) {
+            $rate = app('service')->getCurrencyRate($currency, $data['date']);
+        } else {
+            $rate = $data['rate'];
+        }
+
+        $meta += ['rate' => $rate];
+        $this->setMetaVat($meta, $data, $project->client);
+
+
+        $invoice->meta = $meta;
+
+        $invoice->currency()->associate($currency);
+        $invoice->project()->associate($project);
+        $invoice->account()->associate($account);
+
+        $invoice->save();
+
+        $invoice->createItems($data['items']);
 
 
         return $invoice;

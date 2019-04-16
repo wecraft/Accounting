@@ -21,6 +21,11 @@ class InvoiceItem extends Model
             'amount',
         ];
 
+    public function getAmountAttribute($value)
+    {
+        return (float)$value;
+    }
+
     public function invoice()
     {
         return $this->belongsTo(Invoice::class);

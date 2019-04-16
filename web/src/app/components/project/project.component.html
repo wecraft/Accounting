@@ -9,30 +9,70 @@
 	<div mat-dialog-content>
 		<app-project-form [form]="form" *ngIf="form"></app-project-form>
 
-		<ng-container *ngIf="project && project.orders.length > 0">
-			<h6>Transactions</h6>
+		<ng-container *ngIf="project">
 
-			<table class="table">
-				<tr>
-					<th>Date</th>
-					<th>Account</th>
-					<th class="text-right">Ammount</th>
-				</tr>
-				<tr *ngFor="let order of project.orders">
-					<td class="text-nowrap">
-						{{order.date | date:"mediumDate"}}
-					</td>
-					<td class="text-nowrap">
-						<app-account-icon [account]="order.account" class="mr-2"></app-account-icon>
-						<span>{{order.account.name}}</span>
-					</td>
-					<td>
-						<div class="text-right text-nowrap" [ngClass]="'text-' + order.type">
-							{{order.amount}} {{order.currency.name}}
-						</div>
-					</td>
-				</tr>
-			</table>
+			<ng-container *ngIf="project.orders.length > 0">
+				<h6>Transactions</h6>
+
+				<table class="table">
+					<tr>
+						<th>Date</th>
+						<th>Account</th>
+						<th class="text-right">Ammount</th>
+					</tr>
+					<tr *ngFor="let order of project.orders">
+						<td class="text-nowrap">
+							{{order.date | date:"mediumDate"}}
+						</td>
+						<td class="text-nowrap">
+							<app-account-icon [account]="order.account" class="mr-2"></app-account-icon>
+							<span>{{order.account.name}}</span>
+						</td>
+						<td>
+							<div class="text-right text-nowrap" [ngClass]="'text-' + order.type">
+								{{order.amount}} {{order.currency.name}}
+							</div>
+						</td>
+					</tr>
+				</table>
+			</ng-container>
+
+			<ng-container *ngIf="project.invoices.length > 0">
+				<h6>Invoices</h6>
+
+				<table class="table">
+					<tr>
+						<th>Date</th>
+						<th>Number</th>
+						<th>Proforma</th>
+						<th>Amount</th>
+						<th class="text-right">Download</th>
+					</tr>
+					<tr *ngFor="let invoice of project.invoices">
+						<td class="text-nowrap">
+							{{invoice.issueDate | date:"mediumDate"}}
+						</td>
+						<td class="text-nowrap">
+							{{invoice.invoiceNumber}}
+						</td>
+						<td>
+							<span *ngIf="invoice.proforma" class="text-success">
+								<mat-icon>done</mat-icon>
+							</span>
+						</td>
+						<td>
+							{{invoice.amount}} {{invoice.currency.name}}
+						</td>
+						<td class="text-right">
+							<a class="text-primary cursor-pointer" (click)="viewPdf(invoice, 'copy')">Copy</a>
+							&nbsp;&middot;&nbsp;
+							<a class="text-primary cursor-pointer" (click)="viewPdf(invoice, 'original')">Original</a>
+						</td>
+					</tr>
+				</table>
+			</ng-container>
+
+
 		</ng-container>
 
 	</div>

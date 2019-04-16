@@ -22,7 +22,7 @@ class Project extends Model
         ];
 
     public $includes = ['currency', 'client'];
-    public $collectionIncludes = ['pies', 'orders'];
+    public $collectionIncludes = ['pies', 'orders', 'invoices'];
 
     public function currency()
     {
@@ -32,6 +32,11 @@ class Project extends Model
     public function client()
     {
         return $this->belongsTo(Client::class);
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
     }
 
     public function pies()

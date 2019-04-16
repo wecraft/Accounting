@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from "@angular/core";
-import { Project, UserPie } from "src/app/models";
+import { Project, UserPie, Invoice } from "src/app/models";
 import { FormGroup, FormBuilder, FormArray } from "@angular/forms";
 import { FormModel } from "../shared/form/form.model";
 import { AppService } from "src/app/app.service";
@@ -36,7 +36,7 @@ export class ProjectComponent implements OnInit {
 			this.service.project
 				.getProject(this.data.projectId, {
 					include:
-						"currency,client,pies,orders.account,orders.currency"
+						"currency,client,pies,orders.account,orders.currency,invoices.items,invoices.currency"
 				})
 				.subscribe(data => {
 					this.project = data;
@@ -84,5 +84,16 @@ export class ProjectComponent implements OnInit {
 				}
 			}
 		});
+	}
+
+	viewPdf(invoice: Invoice, type: "original" | "copy") {
+		this.service.invoice
+			.getInvoicePdf(invoice.id, {
+				responseType: type
+			})
+			.subscribe(data => {
+				const fileURL = URL.createObjectURL(data);
+				window.open(fileURL, "_blank");
+			});
 	}
 }

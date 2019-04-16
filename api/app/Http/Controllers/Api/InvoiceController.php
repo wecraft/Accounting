@@ -6,8 +6,10 @@ use App\Currency;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Resource;
 use App\Invoice;
+use App\Services\InvoiceService;
 use App\User;
 use Illuminate\Http\Request;
+use PDF;
 
 class InvoiceController extends Controller
 {
@@ -18,9 +20,20 @@ class InvoiceController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Invoice::orderBy('created_at', 'desc')->get();
+
+        $chunk = min($request->get('chunk', 100), 500);
+
+        $data = Invoice::orderBy('issue_date', 'desc')->orderBy('number', 'desc')->simplePaginate($chunk);
 
         return Resource::collection($data, $request->include);
+    }
+
+    public function count()
+    {
+
+        $count = Invoice::count();
+
+        return response()->json(['data' => $count]);
     }
 
     /**
@@ -30,9 +43,37 @@ class InvoiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, InvoiceService $invoiceService)
     {
-        //
+        $data = $request->all();
+
+        $data['prefix'] = auth()->user()->id;
+
+        $last = Invoice::orderBy('number', 'desc');
+
+        if ($data['proforma']) {
+            $last->where('proforma', 1);
+        } else {
+            $last->where('prefix', $data['prefix']);
+        }
+
+        $last = $last->first();
+
+        $data['number'] = (int)$last->number + 1;
+
+
+        $action = $data['action'];
+
+
+        if ($action == 'save') {
+            $invoice = $invoiceService->create($data);
+
+            return new Resource($invoice, $request->include);
+        } else {
+            $invoice = $invoiceService->create($data, false);
+
+            return $this->genPdf($invoice, $action);
+        }
     }
 
     /**
@@ -44,7 +85,7 @@ class InvoiceController extends Controller
      */
     public function show($id, Request $request)
     {
-        $responseType = $request->get("response_type", "data");
+        $responseType = $request->get("responseType", "data");
 
         $invoice = Invoice::where('id', $id)->firstOrFail();
 
@@ -100,11 +141,12 @@ class InvoiceController extends Controller
             'title'           => !$invoice->id ? "New Invoice" : "Invoice - #".$invoice->invoiceNumber,
         ];
 
-        return view('invoice', $data);
+        //        return view('invoice', $data);
 
-        //        $pdf = PDF::loadView('myPDF', ['invoice' => $invoice]);
 
-        //        return $pdf->download('itsolutionstuff.pdf');
+        $pdf = PDF::loadView('invoice', $data);
+
+        return $pdf->stream();
     }
 
     /**
@@ -115,9 +157,15 @@ class InvoiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, InvoiceService $invoiceService, $id)
     {
-        //
+        $invoice = Invoice::where('id', $id)->firstOrFail();
+
+        $data = $request->all();
+
+        $invoiceService->update($invoice, $data);
+
+        return new Resource($invoice, $request->include);
     }
 
     /**
@@ -129,6 +177,8 @@ class InvoiceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $invoice = Invoice::where('id', $id)->firstOrFail();
+
+        $invoice->delete();
     }
 }
