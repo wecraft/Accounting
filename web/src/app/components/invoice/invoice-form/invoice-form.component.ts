@@ -1,5 +1,11 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { Currency, Project, Account, InvoiceItem } from "src/app/models";
+import {
+	Currency,
+	Project,
+	Account,
+	InvoiceItem,
+	Invoice
+} from "src/app/models";
 import { FormGroup, FormArray, FormBuilder } from "@angular/forms";
 import { AppService } from "src/app/app.service";
 import { FormMode } from "src/app/types";
@@ -13,6 +19,7 @@ import { InvoiceItemForm } from "./invoice-item.form";
 export class InvoiceFormComponent implements OnInit {
 	@Input() form: FormGroup;
 	@Input() mode: FormMode;
+	@Input() invoice: Invoice;
 	currencies: Currency[];
 	projects: Project[];
 	accounts: Account[];
@@ -32,9 +39,13 @@ export class InvoiceFormComponent implements OnInit {
 			.getAccounts()
 			.subscribe(data => (this.accounts = data));
 
-		this.service.project
-			.getProgressProjects()
-			.subscribe(data => (this.projects = data));
+		this.service.project.getProgressProjects().subscribe(data => {
+			this.projects = data;
+
+			if (this.invoice && this.invoice.project) {
+				this.projects.push(this.invoice.project);
+			}
+		});
 
 		if (!this.form.value.advance) {
 			this.form.controls.advPmtDate.disable();

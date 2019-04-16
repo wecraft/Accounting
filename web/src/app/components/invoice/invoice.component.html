@@ -7,7 +7,7 @@
 		</button>
 	</h1>
 	<div mat-dialog-content>
-		<app-invoice-form [form]="form" *ngIf="form" [mode]="mode"></app-invoice-form>
+		<app-invoice-form [form]="form" *ngIf="form" [mode]="mode" [invoice]="invoice"></app-invoice-form>
 	</div>
 	<div mat-dialog-actions class="d-flex justify-content-end">
 		<button mat-raised-button color="warn" class="mr-auto" *ngIf="mode == 'update'" (click)="deleteInvoice()">Delete</button>

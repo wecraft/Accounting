@@ -25,7 +25,7 @@ class CreateInvoicesTable extends Migration
             $table->boolean('advance');
             $table->boolean('proforma');
             $table->date('issue_date');
-            $table->date('pmt_date')->nullable();
+            $table->string('pmt_date')->nullable();
             $table->date('adv_pmt_date')->nullable();
             $table->integer('model_id');
             $table->timestamps();
