@@ -15,7 +15,6 @@ export class AccountTransFormComponent implements OnInit {
 	constructor(protected service: AppService) {}
 
 	ngOnInit() {
-		console.log(this.form);
 		this.service.account
 			.getCurrencies()
 			.subscribe(data => (this.currencies = data));

@@ -24,7 +24,7 @@ export class OrderFormComponent implements OnInit {
 		this.service.project.getProgressProjects().subscribe(data => {
 			this.projects = data;
 
-			if (this.order.projects) {
+			if (this.order && this.order.projects) {
 				this.projects.push(...this.order.projects);
 			}
 		});

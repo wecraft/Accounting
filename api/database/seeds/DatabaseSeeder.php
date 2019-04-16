@@ -53,5 +53,8 @@ class DatabaseSeeder extends Seeder
         \Illuminate\Support\Facades\Artisan::call('migration', [
             'type' => 'modelDates',
         ]);
+        \Illuminate\Support\Facades\Artisan::call('migration', [
+            'type' => 'invoices',
+        ]);
     }
 }
