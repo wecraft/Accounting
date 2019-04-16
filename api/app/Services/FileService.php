@@ -126,8 +126,12 @@ class FileService
     private function createFile($fileSrc, $attachKey, $meta = [])
     {
 
+        $name = "";
+
         if ($fileSrc instanceof UploadedFile) {
             $tempPath = $fileSrc->store($this->tempFolder, 'local');
+
+            $name = $fileSrc->getClientOriginalName();
         } else {
             if ($fileSrc instanceof FileModel) {
                 $fileContent = Storage::get($fileSrc->path);
@@ -145,6 +149,7 @@ class FileService
 
         $fileModel = FileModel::create([
             "path"        => $fileData['path'],
+            'name'        => $name,
             "size"        => $size,
             "vars"        => $fileData['vars'],
             "meta"        => $meta,
@@ -214,7 +219,7 @@ class FileService
         }
         $tempPaths = array_unique($tempPaths);
 
-        FlushTempFilesJob::dispatch($tempPaths)->onQueue('low');
+        FlushTempFilesJob::dispatchNow($tempPaths);
 
         return [
             'path' => $publicPath,

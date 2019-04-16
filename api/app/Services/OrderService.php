@@ -41,6 +41,10 @@ class OrderService
 
         $order->updateAccounts();
 
+        foreach ((array)$data['files'] as $file) {
+            $order->attachFile($file);
+        }
+
         return $order;
     }
 
@@ -64,5 +68,15 @@ class OrderService
         $order->updateRels($data);
 
         $order->updateAccounts();
+
+        foreach ((array)$data['files'] as $file) {
+            $order->attachFile($file);
+        }
+
+        foreach ((array)$data['deletedFiles'] as $id) {
+            $order->deleteObjectFiles('file', $id);
+        }
+
+
     }
 }

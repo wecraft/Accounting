@@ -216,6 +216,7 @@ class OrderController extends Controller
     public function update(Request $request, OrderService $orderService, $id)
     {
         $data = $request->all();
+
         $data['pies'][0]['amount'] = $data['pies'][0]['amount'] / 100;
         $data['pies'][1]['amount'] = $data['pies'][1]['amount'] / 100;
 

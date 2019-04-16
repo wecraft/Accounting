@@ -4,4 +4,5 @@ return [
     'image'     => \App\Http\Resources\FileResource::class,
     'documents' => \App\Http\Resources\FileResourceCollection::class,
     'photos'    => \App\Http\Resources\FileResourceCollection::class,
+    'files'     => \App\Http\Resources\FileResourceCollection::class,
 ];

@@ -14,9 +14,12 @@ export class OrderForm {
 	projects = new FormControl();
 	type = new FormControl();
 
+	files = new FormControl();
+	deletedFiles = new FormControl();
+
 	pies = new FormArray([]);
 
-	include = new FormControl("account,currency,projects,invoices,pies");
+	include = new FormControl("account,currency,projects,invoices,pies,files");
 
 	constructor(order: Order) {
 		this.amount.setValue(order.amount);

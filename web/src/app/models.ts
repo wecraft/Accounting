@@ -50,6 +50,10 @@ export class AppFile {
 
 	@Type(() => Date)
 	updatedAt: Date;
+
+	constructor(name?: string) {
+		this.name = name;
+	}
 }
 
 export class Order {
@@ -77,6 +81,9 @@ export class Order {
 
 	@Type(() => Project)
 	projects: Project[];
+
+	@Type(() => AppFile)
+	files: AppFile[];
 }
 
 export class Account {

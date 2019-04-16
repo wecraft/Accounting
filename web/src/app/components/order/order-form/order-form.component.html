@@ -58,4 +58,46 @@
 		</div>
 
 	</div>
+	<div class="mt-3">
+		<button mat-raised-button color="primary" util-file-selector [multiple]="true" (onSelect)="upload($event)">Upload Documents</button>
+	</div>
+
+	<table class="table mt-3" *ngIf="form.value.files && form.value.files.length > 0">
+
+		<ng-container *ngFor="let file of form.value.files; let i = index">
+			<tr *ngIf="file.name">
+				<td>{{file.name}}</td>
+				<td class="text-right">
+					<a class="text-danger cursor-pointer" (click)="removeFile(i)">
+						<mat-icon>clear</mat-icon>
+					</a>
+				</td>
+			</tr>
+
+		</ng-container>
+
+	</table>
+
+	<ng-container *ngIf="order && order.files.length > 0">
+		<h4 class="mb-3">Documents</h4>
+		<table class="table mt-3">
+
+			<ng-container *ngFor="let file of order.files">
+				<tr>
+					<td>
+						<a [href]="file.url" target="_blank">{{file.name}}</a>
+					</td>
+					<td class="text-right">
+						<a class="text-danger cursor-pointer" (click)="removeAppFile(file)">
+							<mat-icon>clear</mat-icon>
+						</a>
+					</td>
+				</tr>
+
+			</ng-container>
+
+		</table>
+	</ng-container>
+
+
 </div>

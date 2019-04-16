@@ -2,8 +2,12 @@
 
 namespace App;
 
+use App\Extensions\FilableTrait;
+
 class Order extends Model
 {
+
+    use FilableTrait;
 
     protected $table = 'orders';
     protected $fillable
