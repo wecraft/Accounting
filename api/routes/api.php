@@ -23,6 +23,8 @@ Route::$namespace('Api')->group(function () use ($namespace) {
 
 
             Route::get('order/count', 'OrderController@count');
+            Route::post('order/import', 'OrderController@import');
+            Route::post('order/bank_import', 'OrderController@bankImport');
             Route::apiResource('order', 'OrderController');
 
             Route::get('account_trans/count', 'AccountTransactionController@count');

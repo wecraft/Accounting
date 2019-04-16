@@ -30,7 +30,7 @@ class Order extends Model
         ];
 
     public $includes = ['currency', 'account'];
-    public $collectionIncludes = ['projects', 'invoices', 'pies'];
+    public $collectionIncludes = ['projects', 'invoices', 'pies', 'files'];
 
     public function getTypeResourcable()
     {

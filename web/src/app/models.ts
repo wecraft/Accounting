@@ -250,3 +250,11 @@ export class UserTrans {
 	@Type(() => Currency)
 	currency: Currency;
 }
+
+export class BankImport {
+	@Type(() => Order)
+	orders: Order[];
+
+	@Type(() => AccountTrans)
+	transfers: AccountTrans[];
+}

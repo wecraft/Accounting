@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { plainToClass } from "class-transformer";
-import { Order, AccountTrans, UserTrans } from "src/app/models";
+import { Order, AccountTrans, UserTrans, BankImport } from "src/app/models";
 import { map } from "rxjs/operators";
 
 @Injectable()
@@ -151,5 +151,19 @@ export class TransactionService {
 
 	deleteUserTrans(id: number): Observable<any> {
 		return this.http.delete(`/user_trans/${id}`);
+	}
+
+	importOrders(file: File): Observable<BankImport> {
+		let data = new FormData();
+		data.append("file", file);
+		return this.http.post(`/order/import`, data).pipe(
+			map(data => {
+				return plainToClass(BankImport, data["data"] as BankImport);
+			})
+		);
+	}
+
+	saveBankImport(data: FormData): Observable<any> {
+		return this.http.post(`/order/bank_import`, data);
 	}
 }

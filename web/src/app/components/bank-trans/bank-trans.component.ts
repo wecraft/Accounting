@@ -6,6 +6,7 @@ import { AppDataSource } from "../shared/extends/AppDataSource";
 import { TableDataComponent } from "../shared/extends/TableDataComponent";
 import { OrderComponent } from "../order/order.component";
 import { MaterialDialogConfig } from "src/app/globals/material-dialog-config";
+import { BankTransImportComponent } from "./bank-trans-import/bank-trans-import.component";
 
 @Component({
 	selector: "app-bank-trans",
@@ -73,5 +74,25 @@ export class BankTransComponent extends TableDataComponent<Order> {
 				this.loadPage();
 			}
 		});
+	}
+
+	import(file: File) {
+		this.service.submit(
+			this.service.transaction.importOrders(file),
+			data => {
+				const dialogRef = this.dialog.open(
+					BankTransImportComponent,
+					new MaterialDialogConfig({
+						data: data
+					})
+				);
+
+				dialogRef.afterClosed().subscribe(data => {
+					if (data) {
+						this.loadPage();
+					}
+				});
+			}
+		);
 	}
 }

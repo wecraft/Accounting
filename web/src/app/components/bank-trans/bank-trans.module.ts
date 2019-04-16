@@ -4,6 +4,8 @@ import { BankTransComponent } from "./bank-trans.component";
 import { MatTableModule, MatPaginatorModule } from "@angular/material";
 import { AccountIconModule } from "../account/account-icon/account-icon.module";
 import { OrderModule } from "../order/order.module";
+import { UtilUploaderModule } from "../shared/utils/util-uploader/util-uploader.module";
+import { BankTransImportModule } from "./bank-trans-import/bank-trans-import.module";
 
 @NgModule({
 	imports: [
@@ -11,7 +13,9 @@ import { OrderModule } from "../order/order.module";
 		MatPaginatorModule,
 		MatTableModule,
 		AccountIconModule,
-		OrderModule
+		OrderModule,
+		UtilUploaderModule,
+		BankTransImportModule
 	],
 	declarations: [BankTransComponent],
 	exports: [BankTransComponent]

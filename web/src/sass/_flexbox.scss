@@ -1,0 +1,98 @@
+/* --------------------------------------------- Flexbox settings mixins */
+
+@mixin flex {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+@mixin align-self($pos) {
+	@if $pos=='flex-end' {
+		-ms-flex-item-align: end;
+		align-self: flex-end;
+	}
+	@else if $pos=='flex-start' {
+		-ms-flex-item-align: start;
+		align-self: flex-start;
+	}
+	@else {
+		-ms-flex-item-align: center;
+		-ms-grid-row-align: center;
+		align-self: center;
+	}
+}
+
+@mixin align-items($pos) {
+	-webkit-box-align: $pos;
+	-ms-flex-align: $pos;
+	align-items: $pos;
+}
+
+@mixin align-content($pos) {
+	-ms-flex-line-pack: $pos;
+	align-content: $pos;
+}
+
+@mixin justify-content($pos) {
+	-webkit-box-pack: $pos;
+	-ms-flex-pack: $pos;
+	justify-content: $pos;
+}
+
+@mixin flex-direction($dir) {
+	@if $dir=='column' {
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-ms-flex-direction: column;
+		flex-direction: column;
+	}
+	@else if $dir=='row-reverse' {
+		-webkit-box-orient: horizontal;
+		-webkit-box-direction: reverse;
+		-ms-flex-direction: row-reverse;
+		flex-direction: row-reverse;
+	}
+	@else if $dir=='column-reverse' {
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: reverse;
+		-ms-flex-direction: column-reverse;
+		flex-direction: column-reverse;
+	}
+	@else {
+		-webkit-box-orient: horizontal;
+		-webkit-box-direction: normal;
+		-ms-flex-direction: row;
+		flex-direction: row;
+	}
+}
+
+@mixin flex-grow($val) {
+	-webkit-box-flex: $val;
+	-ms-flex-positive: $val;
+	flex-grow: $val;
+}
+
+@mixin flex-wrap($wrap) {
+	-ms-flex-wrap: $wrap;
+	flex-wrap: $wrap;
+}
+
+@mixin order($order) {
+	-webkit-box-ordinal-group: $order;
+	    -ms-flex-order: $order;
+	        order: $order;
+}
+
+@mixin flex-jus-betw {
+	@include flex;
+	@include justify-content(space-between);
+	@include align-items(center);
+	@include align-content(center);
+}
+
+@mixin flex-cent {
+	@include flex;
+	@include justify-content(center);
+	@include align-items(center);
+	@include align-content(center);
+}

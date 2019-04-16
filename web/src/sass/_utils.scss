@@ -1,0 +1,107 @@
+//Tools
+.widg-util-image-zoom {
+    @include flex;
+    @include align-items(center);
+    background: $gray-300;
+    padding: .4rem 1rem;
+    border: 1px solid $gray-300;
+    border-top: none;
+
+    .mat-slider {
+        width: 100%;
+    }
+
+    .zoom-slider {
+        @include flex-grow(2);
+        padding: 0 8px;
+    }
+
+    .zoom-btn {
+        display: block;
+        background: #B3B3B3;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+        color: #fff;
+        border-radius: 50%;
+    }
+}
+
+.widg-util-image-editor {
+    border: 1px solid $gray-300;
+    padding: .5rem;
+
+    .util-image-wrap {
+        position: relative;
+        overflow: hidden;
+        cursor: move;
+
+        .util-image-img {
+            position: absolute;
+            opacity: 0;
+        }
+    }
+
+    &.has-image {
+        .util-image-wrap {
+            background-image: none !important;
+            background-color: rgba(#000, .5);
+
+            .util-image-img {
+                opacity: 1;
+            }
+
+            img {
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+        }
+    }
+}
+
+.noUi-handle.noUi-handle-lower {
+    @include transit-fast;
+    cursor: e-resize;
+
+    &:focus,
+    &:active {
+        outline: none;
+    }
+}
+
+.noUi-connects {
+    background: $gray-400;
+}
+
+[util-file-selector] {
+    position: relative;
+}
+
+.file-selector-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: block;
+    opacity: 0;
+    cursor: pointer !important;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+::-webkit-file-upload-button {
+    cursor: pointer;
+}
+
+.ng-draggable {
+    cursor: move;
+}
+
+.flex-grow-2 {
+    @include flex-grow(2);
+}
