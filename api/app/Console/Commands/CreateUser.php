@@ -44,6 +44,8 @@ class CreateUser extends Command
 
         if (!$user) {
             $user = new User($this->arguments());
+        } else {
+            $user->update($this->arguments());
         }
 
 
