@@ -230,7 +230,17 @@ class Migrate extends Command
                 'modelId'  => $item->id,
             ];
 
-            (new OrderService)->create($data);
+            $order = (new OrderService)->create($data);
+
+            //Attachments
+            $files = explode(",", $item->files);
+            foreach ($files as $file) {
+                $fileSrc = storage_path('orders/'.$file);
+                if (is_file($fileSrc) && is_readable($fileSrc)) {
+                    $order->attachFile('orders/'.$file);
+
+                }
+            }
 
             $bar->advance();
         });

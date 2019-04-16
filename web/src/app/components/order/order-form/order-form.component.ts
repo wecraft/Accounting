@@ -21,9 +21,13 @@ export class OrderFormComponent implements OnInit {
 			.getCurrencies()
 			.subscribe(data => (this.currencies = data));
 
-		this.service.project
-			.getProgressProjects()
-			.subscribe(data => (this.projects = data));
+		this.service.project.getProgressProjects().subscribe(data => {
+			this.projects = data;
+
+			if (this.order.projects) {
+				this.projects.push(...this.order.projects);
+			}
+		});
 
 		this.form.controls.files.setValue([[]]);
 		this.form.controls.deletedFiles.setValue([[]]);

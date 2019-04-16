@@ -138,8 +138,10 @@ class FileService
                 $ext = pathinfo($fileSrc->path, PATHINFO_EXTENSION);
                 $tempPath = $this->genTempPath($ext);
                 Storage::disk('local')->put($tempPath, $fileContent);
+                $name = $fileSrc->name;
             } else {
                 $tempPath = $fileSrc;
+                $name = pathinfo($fileSrc, PATHINFO_BASENAME);
             }
         }
 
