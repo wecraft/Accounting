@@ -75,7 +75,7 @@
         </td>
     </tr>
     <tr>
-        <td colspan="2" class="al-c" style="width: 100%; padding-top: 4mm; padding-bottom: 25mm">
+        <td colspan="2" class="al-c" style="width: 100%; padding-top: 4mm; padding-bottom: 5mm">
             <b style="font-size: 19pt">{{__('messages.invoice', [], $lang)}}</b>
 
             @if($lang == 'bg' || $invoice->proforma)

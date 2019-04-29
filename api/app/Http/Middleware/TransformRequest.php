@@ -25,6 +25,22 @@ class TransformRequest
             ]);
         }
 
+        if ($request->has('amount')) {
+            $request->merge([
+                'amount' => str_replace(',', '.', $request->amount),
+            ]);
+        }
+        if ($request->has('amount1')) {
+            $request->merge([
+                'amount1' => str_replace(',', '.', $request->amount1),
+            ]);
+        }
+        if ($request->has('amount2')) {
+            $request->merge([
+                'amount2' => str_replace(',', '.', $request->amount2),
+            ]);
+        }
+
         return $next($request);
     }
 
