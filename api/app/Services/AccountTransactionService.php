@@ -23,6 +23,9 @@ class AccountTransactionService
         $currency1 = Currency::where('id', $data['currency1'])->first();
         $currency2 = Currency::where('id', $data['currency2'])->first();
 
+        $data['amount1'] = str_replace(',', '.', $data['amount1']);
+        $data['amount2'] = str_replace(',', '.', $data['amount2']);
+
         $transaction = new AccountTransaction($data);
 
         $transaction->account1()->associate($account1);
@@ -45,6 +48,9 @@ class AccountTransactionService
 
         $currency1 = Currency::where('id', $data['currency1'])->first();
         $currency2 = Currency::where('id', $data['currency2'])->first();
+
+        $data['amount1'] = str_replace(',', '.', $data['amount1']);
+        $data['amount2'] = str_replace(',', '.', $data['amount2']);
 
         $transaction->update($data);
 

@@ -21,6 +21,8 @@ class OrderService
         $currency = Currency::where('id', $data['currency'])->first();
         $account = Account::where('id', $data['account'])->first();
 
+        $data['amount'] = str_replace(',', '.', $data['amount']);
+
         if (!$data['rate']) {
             $rate = app('service')->getCurrencyRate($currency, $data['date']);
         } else {
@@ -52,6 +54,8 @@ class OrderService
     {
         $currency = Currency::where('id', $data['currency'])->first();
         $account = Account::where('id', $data['account'])->first();
+
+        $data['amount'] = str_replace(',', '.', $data['amount']);
 
         $rate = app('service')->getCurrencyRate($currency, $data['date']);
 
