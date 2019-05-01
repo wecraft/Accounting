@@ -21,6 +21,7 @@ export class InvoiceListComponent extends TableDataComponent<Invoice> {
 		"number",
 		"project",
 		"proforma",
+		"payment",
 		"amount"
 	];
 	dataSource: AppDataSource<Invoice>;

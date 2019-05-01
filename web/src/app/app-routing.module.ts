@@ -43,6 +43,11 @@ const routes: Routes = [
 							"./components/invoice/invoice-lazy.module#InvoiceLazyModule"
 					},
 					{
+						path: "regular",
+						loadChildren:
+							"./components/regular/regular-lazy.module#RegularLazyModule"
+					},
+					{
 						path: "",
 						pathMatch: "full",
 						redirectTo: "dashboard"

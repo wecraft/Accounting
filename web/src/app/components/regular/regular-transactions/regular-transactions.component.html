@@ -1,0 +1,45 @@
+<div class="container">
+	<mat-paginator [length]="dataCount" [pageSize]="chunk" [pageSizeOptions]="pageSizes" showFirstLastButtons></mat-paginator>
+
+	<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+		<ng-container matColumnDef="date">
+			<th mat-header-cell *matHeaderCellDef> Date </th>
+			<td mat-cell *matCellDef="let element" class="text-nowrap"> {{element.date | date:"mediumDate"}} </td>
+		</ng-container>
+		<ng-container matColumnDef="account">
+			<th mat-header-cell *matHeaderCellDef> Account </th>
+			<td mat-cell *matCellDef="let element" class="text-nowrap">
+				<app-account-icon [account]="element.account" class="mr-2"></app-account-icon>
+				<span>{{element.account?.name}}</span>
+			</td>
+		</ng-container>
+		<ng-container matColumnDef="desc">
+			<th mat-header-cell *matHeaderCellDef> Description </th>
+			<td mat-cell *matCellDef="let element" class="px-1"> {{element.desc | truncate: 50}} </td>
+		</ng-container>
+		<ng-container matColumnDef="files">
+			<th mat-header-cell *matHeaderCellDef> Files </th>
+			<td mat-cell *matCellDef="let element" class="px-1">
+				<ng-container *ngFor="let file of element.files; let i = index">
+					<a [href]="file.url" target="_blank">{{file.name}}</a><span *ngIf="i < element.files.length - 1">&nbsp;, &nbsp;</span>
+				</ng-container>
+			</td>
+		</ng-container>
+		<ng-container matColumnDef="amount">
+			<th mat-header-cell *matHeaderCellDef class="text-right"> Amount </th>
+			<td mat-cell *matCellDef="let element">
+				<div class="text-right text-nowrap" [ngClass]="'text-' + element.type">
+					{{element.amount}} {{element.currency?.name}}
+				</div>
+			</td>
+		</ng-container>
+
+
+
+		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+		<tr mat-row *matRowDef="let row; columns: displayedColumns;" class="clickable"></tr>
+	</table>
+
+	<mat-paginator [length]="dataCount" [pageSize]="chunk" [pageSizeOptions]="pageSizes" showFirstLastButtons></mat-paginator>
+</div>

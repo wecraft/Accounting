@@ -7,6 +7,10 @@ export class User {
 	firstName: string;
 	lastName: string;
 	role: string;
+
+	get isAdmin() {
+		return this.role == "admin";
+	}
 }
 
 export class TopicEvent {

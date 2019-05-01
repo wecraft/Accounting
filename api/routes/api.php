@@ -51,6 +51,19 @@ Route::$namespace('Api')->group(function () use ($namespace) {
         });
 
         Route::apiResource('country', 'CountryController');
+
+        Route::group([
+            'prefix' => 'regular',
+        ], function ($router) use ($namespace) {
+            Route::get('order/count', 'RegularController@getOrdersCount');
+            Route::get('order/{id}', 'OrderController@show');
+            Route::get('order', 'RegularController@getOrders');
+
+            Route::get('invoice/count', 'InvoiceController@count');
+            Route::get('invoice/{id}', 'InvoiceController@show');
+            Route::get('invoice', 'InvoiceController@index');
+
+        });
     });
 });
 

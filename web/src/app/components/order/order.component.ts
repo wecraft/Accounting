@@ -22,6 +22,7 @@ export class OrderComponent implements OnInit {
 	form: FormGroup;
 	formModel: FormModel;
 	mode: FormMode;
+	canUpdate: boolean;
 
 	constructor(
 		protected service: AppService,
@@ -35,20 +36,32 @@ export class OrderComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
-		this.mode = this.data.orderId ? "update" : "create";
+		this.canUpdate = this.service.auth.authUser.isAdmin;
 
-		if (this.mode == "update") {
+		if (this.canUpdate) {
+			this.mode = this.data.orderId ? "update" : "create";
+
+			if (this.mode == "update") {
+				this.service.transaction
+					.getOrder(this.data.orderId, {
+						include: "account,currency,projects,invoices,pies,files"
+					})
+					.subscribe(data => {
+						this.order = data;
+
+						this.createForm();
+					});
+			} else {
+				this.createForm();
+			}
+		} else {
 			this.service.transaction
 				.getOrder(this.data.orderId, {
-					include: "account,currency,projects,invoices,pies,files"
+					include: "account,currency,projects,invoices,files"
 				})
 				.subscribe(data => {
 					this.order = data;
-
-					this.createForm();
 				});
-		} else {
-			this.createForm();
 		}
 	}
 

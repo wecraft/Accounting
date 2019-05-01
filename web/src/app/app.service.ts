@@ -15,6 +15,7 @@ import { ClientService } from "./components/client/client.service";
 import { Country } from "./models";
 import { map } from "rxjs/operators";
 import { plainToClass } from "class-transformer";
+import { RegularService } from "./components/regular/regular.service";
 
 @Injectable()
 export class AppService {
@@ -45,7 +46,8 @@ export class AppService {
 		public project: ProjectService,
 		public invoice: InvoiceService,
 		public account: AccountService,
-		public client: ClientService
+		public client: ClientService,
+		public regular: RegularService
 	) {}
 
 	parseErrors(error: HttpErrorResponse) {

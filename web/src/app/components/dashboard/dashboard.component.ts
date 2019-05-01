@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { AppService } from "src/app/app.service";
-import { Account, Project } from "src/app/models";
+import { Account, Project, User } from "src/app/models";
 import { TableDataComponent } from "../shared/extends/TableDataComponent";
 import { AppDataSource } from "../shared/extends/AppDataSource";
 import { ProjectComponent } from "../project/project.component";
@@ -23,6 +23,7 @@ export class DashboardComponent extends TableDataComponent<Project> {
 
 	data: any;
 	accounts: Account[];
+	authUser: User;
 
 	constructor(protected service: AppService, public dialog: MatDialog) {
 		super(service);
@@ -31,11 +32,17 @@ export class DashboardComponent extends TableDataComponent<Project> {
 	ngOnInit() {
 		super.ngOnInit();
 
-		this.service.getDashboard().subscribe(data => (this.data = data));
+		this.authUser = this.service.auth.authUser;
 
-		this.service.account
-			.getAccounts()
-			.subscribe(data => (this.accounts = data));
+		if (this.authUser.isAdmin) {
+			this.service.getDashboard().subscribe(data => (this.data = data));
+
+			this.service.account
+				.getAccounts()
+				.subscribe(data => (this.accounts = data));
+		} else {
+			this.service.router.navigate(["/regular"]);
+		}
 	}
 
 	getEndpoint() {

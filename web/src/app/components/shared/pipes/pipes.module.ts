@@ -8,6 +8,7 @@ import { MatchesNamePipe } from "./matches-name.pipe";
 import { MatchesPipe } from "./matches.pipe";
 import { PricePipe } from "./price.pipe";
 import { SafeHtmlPipe } from "./safe-html.pipe";
+import { TruncatePipe } from "./truncate.pipe";
 @NgModule({
 	exports: [
 		ListNamesPipe,
@@ -18,7 +19,8 @@ import { SafeHtmlPipe } from "./safe-html.pipe";
 		MatchesNamePipe,
 		MatchesPipe,
 		PricePipe,
-		SafeHtmlPipe
+		SafeHtmlPipe,
+		TruncatePipe
 	],
 	declarations: [
 		ListNamesPipe,
@@ -29,7 +31,8 @@ import { SafeHtmlPipe } from "./safe-html.pipe";
 		MatchesNamePipe,
 		MatchesPipe,
 		PricePipe,
-		SafeHtmlPipe
+		SafeHtmlPipe,
+		TruncatePipe
 	]
 })
 export class PipesModule {}

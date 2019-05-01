@@ -1,4 +1,4 @@
-<div class="container py-4">
+<div class="container py-4" *ngIf="authUser && authUser.isAdmin">
 	<ng-container *ngIf="data">
 		<h5 class="mb-2">Parts</h5>
 

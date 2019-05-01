@@ -23,6 +23,7 @@ import { ProjectService } from "./components/project/project.service";
 import { InvoiceService } from "./components/invoice/invoice.service";
 import { ClientService } from "./components/client/client.service";
 import { AccountService } from "./components/account/account.service";
+import { RegularService } from "./components/regular/regular.service";
 
 @NgModule({
 	declarations: [AppComponent],
@@ -49,6 +50,7 @@ import { AccountService } from "./components/account/account.service";
 		InvoiceService,
 		ClientService,
 		AccountService,
+		RegularService,
 		{ provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
 		{ provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
