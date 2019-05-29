@@ -11,7 +11,15 @@ if (!function_exists('array_map_assoc')) {
 function getCurrencyRate($date, $from, $to)
 {
 
-    $data = file_get_contents("https://api.exchangeratesapi.io/$date?symbols={$to}&base=${from}");
+    $client = new \GuzzleHttp\Client(); //GuzzleHttp\Client
+    $result = $client->get("https://api.exchangeratesapi.io/$date", [
+        'query' => [
+            'symbols' => $to,
+            'base'    => $from,
+        ],
+    ]);
+
+    $data = $result->getBody()->getContents();
 
     $data = json_decode($data);
 

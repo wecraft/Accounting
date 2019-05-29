@@ -16,6 +16,11 @@ class DashboardController extends Controller
      */
     public function index()
     {
+
+        $rate = getCurrencyRate('2019-05-27', 'USD', 'BGN');
+        echo $rate;
+        exit;
+
         $currencies = Currency::all();
 
         //User parts
