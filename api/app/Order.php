@@ -46,6 +46,13 @@ class Order extends Model
         return strtotime($this->date) * 1000;
     }
 
+    public function setDateAttribute($value)
+    {
+        $time = strtotime($value);
+
+        $this->attributes['date'] = date('Y-m-d', $time);
+    }
+
     public function currency()
     {
         return $this->belongsTo(Currency::class);

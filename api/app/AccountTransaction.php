@@ -22,6 +22,13 @@ class AccountTransaction extends Model
 
     public $includes = ['account1', 'account2', 'currency1', 'currency2'];
 
+    public function setDateAttribute($value)
+    {
+        $time = strtotime($value);
+
+        $this->attributes['date'] = date('Y-m-d', $time);
+    }
+
     public function account1()
     {
         return $this->belongsTo(Account::class);
