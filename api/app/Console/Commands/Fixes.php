@@ -53,8 +53,8 @@ class Fixes extends Command
 
         $data->each(function ($item) {
             $rate = app('service')->getCurrencyRate($item->currency_id, $item->date);
-            $this->rate = $rate;
-            $this->save();
+            $item->rate = $rate;
+            $item->save();
         });
     }
 }
