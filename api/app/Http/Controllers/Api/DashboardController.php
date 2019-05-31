@@ -21,7 +21,6 @@ class DashboardController extends Controller
 
         //User parts
         $data = DB::table('user_parts')->selectRaw('SUM(amount * type) as amount, user_id, currency_id')
-            ->where('date', '<', '2019-05-06')
             ->groupBy('currency_id', 'user_id')->get();
 
         $users = [];
