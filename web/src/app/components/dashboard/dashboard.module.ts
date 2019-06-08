@@ -8,6 +8,7 @@ import {
 	MatProgressSpinnerModule
 } from "@angular/material";
 import { ProjectModule } from "../project/project.module";
+import { AppChartModule } from "../shared/app-chart/app-chart.module";
 
 @NgModule({
 	imports: [
@@ -16,7 +17,8 @@ import { ProjectModule } from "../project/project.module";
 		MatPaginatorModule,
 		MatTableModule,
 		MatProgressSpinnerModule,
-		ProjectModule
+		ProjectModule,
+		AppChartModule
 	],
 	declarations: [DashboardComponent]
 })

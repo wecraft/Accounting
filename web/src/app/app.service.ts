@@ -146,4 +146,12 @@ export class AppService {
 	getDashboard(): Observable<any> {
 		return this.http.get(`/dashboard`);
 	}
+
+	getDashboardStat(type: string): Observable<any> {
+		return this.http.get(`/dashboard/stat`, {
+			params: {
+				type: type
+			}
+		});
+	}
 }

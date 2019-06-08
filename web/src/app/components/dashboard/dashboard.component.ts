@@ -25,6 +25,19 @@ export class DashboardComponent extends TableDataComponent<Project> {
 	accounts: Account[];
 	authUser: User;
 
+	chartType: string = "monthly";
+
+	chartData: any;
+	chartJsType: string = "line";
+
+	showChart: boolean = false;
+
+	summary: {
+		income: number;
+		cost: number;
+		profit: number;
+	};
+
 	constructor(protected service: AppService, public dialog: MatDialog) {
 		super(service);
 	}
@@ -43,6 +56,8 @@ export class DashboardComponent extends TableDataComponent<Project> {
 		} else {
 			this.service.router.navigate(["/regular"]);
 		}
+
+		this.loadGraph();
 	}
 
 	getEndpoint() {
@@ -65,6 +80,17 @@ export class DashboardComponent extends TableDataComponent<Project> {
 			if (newProject) {
 				project.name = newProject.name;
 			}
+		});
+	}
+
+	loadGraph() {
+		this.showChart = false;
+		this.chartJsType = "bar";
+
+		this.service.getDashboardStat(this.chartType).subscribe(data => {
+			this.chartData = data["data"];
+			this.showChart = true;
+			this.summary = data["summary"];
 		});
 	}
 }

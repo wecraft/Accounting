@@ -46,6 +46,7 @@ Route::$namespace('Api')->group(function () use ($namespace) {
             Route::get('client/count', 'ClientController@count');
             Route::apiResource('client', 'ClientController');
 
+            Route::get('dashboard/stat', 'DashboardController@stat');
             Route::apiResource('dashboard', 'DashboardController');
 
         });

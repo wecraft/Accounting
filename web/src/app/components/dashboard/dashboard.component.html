@@ -6,13 +6,13 @@
 			<div class="col-6">
 				<div class=" bg-secondary-light d-flex justify-content-between align-items-center py-2 px-4">
 					<h4>Alex</h4>
-					<h4>{{data.users[1].amount}}</h4>
+					<h4>{{data.users[1].amount | number}}</h4>
 				</div>
 			</div>
 			<div class="col-6">
 				<div class="bg-secondary-light d-flex justify-content-between align-items-center py-2 px-4">
 					<h4>Valentin</h4>
-					<h4>{{data.users[2].amount}}</h4>
+					<h4>{{data.users[2].amount | number}}</h4>
 				</div>
 
 			</div>
@@ -26,13 +26,13 @@
 					<app-account-icon [account]="account"></app-account-icon>
 					<br />
 					<br />
-					<h4 *ngFor="let item of data.accounts[account.id]">{{item.amount}} {{item.currency}}</h4>
+					<h4 *ngFor="let item of data.accounts[account.id]">{{item.amount | number}} {{item.currency}}</h4>
 				</div>
 				<div class="item" *ngIf="account.code == 'CH'">
 					<app-account-icon [account]="account"></app-account-icon>
 					<br />
 					<br />
-					<h4>{{data.total}}</h4>
+					<h4>{{data.total | number}}</h4>
 				</div>
 			</ng-container>
 		</div>
@@ -40,6 +40,24 @@
 
 
 	</ng-container>
+
+	<div class="py-4">
+		<div class="d-flex align-items-center justify-content-between">
+			<div>
+				<h5>Cash flow</h5>
+				<h4><span class="text-success">+{{summary?.income | number}}</span>&nbsp;<span class="text-danger">-{{summary?.cost | number}}</span>&nbsp;<span class="text-primary">{{summary?.profit | number}}</span></h4>
+			</div>
+			<div class="mr-auto"></div>
+			<div style="width: 150px" class="mr-2">
+				<mat-select placeholder="Type" name="type" [(ngModel)]="chartType" (ngModelChange)="loadGraph()">
+					<mat-option value="monthly" i18n>Monthly</mat-option>
+					<mat-option value="annual" i18n>Annual</mat-option>
+				</mat-select>
+			</div>
+		</div>
+		<app-chart *ngIf="showChart" [data]="chartData" title="" [type]="chartJsType"></app-chart>
+	</div>
+
 
 	<ng-container>
 		<h5 class="mt-4 mb-2">Current Projects</h5>
