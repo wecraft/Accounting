@@ -106,6 +106,7 @@
                         {{$invoice->meta['client']['mol']}}<br/>
                         {{$invoice->meta['client']['email']}}<br/>
                         {{$invoice->meta['client']['company'] ? __('messages.eik', [], $lang) : __('messages.egn', [], $lang)}}
+                        : {{$invoice->meta['client']['eik']}}
                     </td>
                 </tr>
                 <tr>
