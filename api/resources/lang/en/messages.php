@@ -36,5 +36,6 @@ return [
     "vat_reason_eu_vat"   => "The delivery is not a subject of VAT taxation in Bulgaria in accordance with art 21, par. 2 from ZDDS",
     "vat_reason_eu_novat" => "The delivery is a subject of VAT taxation in Bulgaria in accordance with art 21, par. 1 from ZDDS",
     "vat_reason_outes"    => "The delivery is not a subject of VAT taxation in Bulgaria in accordance with art 21, par. 5, section 2c. from ZDDS",
+    'bank_recipient'      => 'Recipient: WECRAFT MEDIA Ltd.',
 ];
 

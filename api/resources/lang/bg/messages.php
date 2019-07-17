@@ -38,4 +38,5 @@ return [
                 (accounts@wecraftmedia.com)<br/>
                 ЕИК: BG202346259
             ',
+    'bank_recipient'      => 'Получател: УИКРАФТ МЕДИЯ ООД',
 ];
