@@ -175,8 +175,8 @@
                                     @endif
 
                                     <span style="color: #848484">{{__('messages.payment', [], $lang)}}<br/>
-												{{__('messages.bank_recipient')}}<br/>
 												{{$invoice->account->meta['bank']}}<br/>
+												{{__('messages.bank_recipient')}}<br/>
                                                 IBAN: {{$invoice->account->meta['iban']}}<br/>
 												SWIFT: {{$invoice->account->meta['swift']}}
                                             </span>
