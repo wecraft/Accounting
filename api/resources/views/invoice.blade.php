@@ -155,9 +155,6 @@
                     <td style="width: 50%; padding: 0; padding-top: 7mm" class="va-t">
                         <table style="width: 100%">
                             <tr>
-                                <td style="padding: 0; width: 50%; font-weight: bold; font-size: 14pt;">{{__('messages.bank_recipient', [], $lang)}}</td>
-                            </tr>
-                            <tr>
                                 <td style="padding: 0; width: 50%; font-weight: bold; font-size: 14pt;">{{__('messages.notes', [], $lang)}}</td>
                             </tr>
                             @if($invoice->meta['vatReason'])
@@ -178,6 +175,7 @@
                                     @endif
 
                                     <span style="color: #848484">{{__('messages.payment', [], $lang)}}<br/>
+												{{__('messages.bank_recipient')}}<br/>
 												{{$invoice->account->meta['bank']}}<br/>
                                                 IBAN: {{$invoice->account->meta['iban']}}<br/>
 												SWIFT: {{$invoice->account->meta['swift']}}
