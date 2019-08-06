@@ -53,6 +53,23 @@ class Order extends Model
         $this->attributes['date'] = date('Y-m-d', $time);
     }
 
+    public function scopeSearch($query, $search)
+    {
+        if ($search) {
+            //            $query->where(function ($q) use ($search) {
+            //                $exp = explode(" ", $search);
+            //                foreach ($exp as $word) {
+            //                    $q->orWhere('desc', 'like', "%$word%");
+            //                }
+            //            });
+
+            $exp = explode(" ", $search);
+            foreach ($exp as $word) {
+                $query->where('desc', 'like', "%$word%");
+            }
+        }
+    }
+
     public function currency()
     {
         return $this->belongsTo(Currency::class);

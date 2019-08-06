@@ -27,7 +27,7 @@ class OrderController extends Controller
     {
         $chunk = min($request->get('chunk', 100), 500);
 
-        $data = Order::orderBy('date', 'desc')->orderBy('id', 'desc')->simplePaginate($chunk);
+        $data = Order::orderBy('date', 'desc')->orderBy('id', 'desc')->search($request->search)->simplePaginate($chunk);
 
         return Resource::collection($data, $request->include);
     }

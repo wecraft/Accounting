@@ -1,6 +1,17 @@
 <div class="create-btn-line">
 	<button mat-raised-button color="primary" (click)="create()">Add New</button>
 	<button mat-raised-button color="primary" class="ml-3" util-file-selector (onSelect)="import($event)">Import CSV</button>
+	<div class="d-inline-block ml-3">
+		<form (submit)="search()" class="inline-form">
+			<mat-form-field class="w-100">
+				<input matInput [(ngModel)]="searchTerm" name="searchTerm">
+			</mat-form-field>
+			<div class="pl-3">
+				<button mat-raised-button color="primary" type="submit">Search</button>
+			</div>
+		</form>
+	</div>
+
 </div>
 
 <mat-paginator [length]="dataCount" [pageSize]="chunk" [pageSizeOptions]="pageSizes" showFirstLastButtons></mat-paginator>

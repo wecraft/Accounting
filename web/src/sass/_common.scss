@@ -166,3 +166,7 @@ table {
     border-width: 1px 0;
     padding: 2rem !important;
 }
+
+.inline-form {
+    @include flex-jus-betw;
+}

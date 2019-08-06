@@ -18,14 +18,21 @@ export class BankTransComponent extends TableDataComponent<Order> {
 	dataSource: AppDataSource<Order>;
 	dataCount: number;
 	chunk: number = 100;
-	params = {
-		include: "currency,account"
-	};
+	searchTerm: string = "";
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
 	constructor(protected service: AppService, public dialog: MatDialog) {
 		super(service);
+	}
+
+	set params(params) {}
+
+	get params() {
+		return {
+			include: "currency,account",
+			search: this.searchTerm
+		};
 	}
 
 	getEndpoint() {
@@ -94,5 +101,9 @@ export class BankTransComponent extends TableDataComponent<Order> {
 				});
 			}
 		);
+	}
+
+	search() {
+		this.loadPage();
 	}
 }
