@@ -12,7 +12,7 @@ import { ProjectService } from "./components/project/project.service";
 import { InvoiceService } from "./components/invoice/invoice.service";
 import { AccountService } from "./components/account/account.service";
 import { ClientService } from "./components/client/client.service";
-import { Country } from "./models";
+import { Country, Category } from "./models";
 import { map } from "rxjs/operators";
 import { plainToClass } from "class-transformer";
 import { RegularService } from "./components/regular/regular.service";
@@ -20,6 +20,7 @@ import { RegularService } from "./components/regular/regular.service";
 @Injectable()
 export class AppService {
 	private _countries: Country[];
+	private _categories: Category[];
 
 	//Cache authUser
 	private _preloaderState: boolean;
@@ -138,6 +139,22 @@ export class AppService {
 				map(data => {
 					let res = plainToClass(Country, data["data"]);
 					this._countries = res;
+					return res;
+				})
+			);
+	}
+	getCategories(params: any = {}): Observable<Category[]> {
+		if (this._categories) {
+			return of(this._categories);
+		}
+		return this.http
+			.get(`/category`, {
+				params: params
+			})
+			.pipe(
+				map(data => {
+					let res = plainToClass(Category, data["data"]);
+					this._categories = res;
 					return res;
 				})
 			);

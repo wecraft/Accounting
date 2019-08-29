@@ -20,6 +20,7 @@ class Order extends Model
             'tax',
             'vat',
             'modelId',
+            'other',
 
         ];
     public $resourcable
@@ -31,9 +32,10 @@ class Order extends Model
             'desc',
             'tax',
             'vat',
+            'other',
         ];
 
-    public $includes = ['currency', 'account'];
+    public $includes = ['currency', 'account', 'category'];
     public $collectionIncludes = ['projects', 'invoices', 'pies', 'files'];
 
     public function getTypeResourcable()
@@ -78,6 +80,11 @@ class Order extends Model
     public function account()
     {
         return $this->belongsTo(Account::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
     public function pies()

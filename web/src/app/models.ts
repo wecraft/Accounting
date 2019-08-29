@@ -60,6 +60,11 @@ export class AppFile {
 	}
 }
 
+export class Category {
+	id: number;
+	name: string;
+}
+
 export class Order {
 	id: number;
 	amount: number;
@@ -70,12 +75,16 @@ export class Order {
 	tax: boolean;
 	vat: boolean;
 	createdAt: Date;
+	other: string;
 
 	@Type(() => Currency)
 	currency: Currency;
 
 	@Type(() => Account)
 	account: Account;
+
+	@Type(() => Category)
+	category: Category;
 
 	@Type(() => UserPie)
 	pies: UserPie[];
@@ -88,6 +97,22 @@ export class Order {
 
 	@Type(() => AppFile)
 	files: AppFile[];
+
+	get tableInfo(): string {
+		let info: string;
+
+		if (this.category) {
+			info = this.category.name;
+
+			//Show additional info if the category is "Other"
+			if (this.category.id == 27) {
+				info += `: ${this.other}`;
+			}
+		} else {
+			info = this.desc;
+		}
+		return info;
+	}
 }
 
 export class Account {

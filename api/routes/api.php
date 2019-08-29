@@ -52,6 +52,7 @@ Route::$namespace('Api')->group(function () use ($namespace) {
         });
 
         Route::apiResource('country', 'CountryController');
+        Route::apiResource('category', 'CategoryController');
 
         Route::group([
             'prefix' => 'regular',

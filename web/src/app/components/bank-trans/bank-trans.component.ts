@@ -30,7 +30,7 @@ export class BankTransComponent extends TableDataComponent<Order> {
 
 	get params() {
 		return {
-			include: "currency,account",
+			include: "currency,account,category",
 			search: this.searchTerm
 		};
 	}

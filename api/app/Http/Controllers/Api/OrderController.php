@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Account;
 use App\AccountTransaction;
+use App\Category;
 use App\Currency;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Resource;
@@ -99,19 +100,26 @@ class OrderController extends Controller
         $users = User::where("role", "admin")->get();
 
         foreach ($records as $record) {
-
+            if (!$record['account']) {
+                continue;
+            }
             if (strpos($record['desc'], 'ПОКУПКО ПРОДАЖБА') === false) {
                 $date = date('Y-m-d', strtotime($record['date']));
                 $currency = $currencies->where('name', $record['currency'])->first();
                 $accountCode = $record['currency'] == 'BGN' ? 'RL' : 'RE';
                 $account = $accounts->where('code', $accountCode)->first();
                 $rate = app('service')->getCurrencyRate($currency, $date);
+                $category = Category::where('id', $record['category_id'])->first();
+
+                //                $desc = mb_convert_case($record['desc'], MB_CASE_TITLE, 'UTF-8');
+                $desc = $record['desc'];
 
                 $data = [
                     'type'   => $record['type'] == 'Дт' ? -1 : 1,
                     'amount' => $record['amount'],
                     'date'   => $date,
-                    'desc'   => $record['desc'],
+                    'desc'   => $desc,
+                    'other'  => $record['other'],
                     'tax'    => 0,
                     'vat'    => 0,
                 ];
@@ -123,12 +131,24 @@ class OrderController extends Controller
                 $order->currency()->associate($currency);
                 $order->account()->associate($account);
 
+                if ($category) {
+                    $order->category()->associate($category);
+                }
+
                 $pies = new Collection();
 
                 //Create Pie
                 foreach ($users as $user) {
+                    //Get default from category
+                    if ($category) {
+                        $prop = "user_{$user->id}";
+                        $amount = $category->$prop;
+                    } else {
+                        $amount = 0.5;
+                    }
+
                     $userPie = new UserPie([
-                        'amount' => 0.5,
+                        'amount' => $amount,
                     ]);
                     $userPie->user()->associate($user);
                     $userPie->model()->associate($order);

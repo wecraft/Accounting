@@ -10,6 +10,7 @@ namespace App\Services;
 
 
 use App\Account;
+use App\Category;
 use App\Currency;
 use App\Order;
 
@@ -20,6 +21,7 @@ class OrderService
     {
         $currency = Currency::where('id', $data['currency'])->first();
         $account = Account::where('id', $data['account'])->first();
+        $category = Category::where('id', $data['category'])->first();
 
         $data['amount'] = str_replace(',', '.', $data['amount']);
 
@@ -35,6 +37,10 @@ class OrderService
 
         $order->currency()->associate($currency);
         $order->account()->associate($account);
+
+        if ($category) {
+            $order->category()->associate($category);
+        }
 
         $order->save();
 
@@ -54,6 +60,7 @@ class OrderService
     {
         $currency = Currency::where('id', $data['currency'])->first();
         $account = Account::where('id', $data['account'])->first();
+        $category = Category::where('id', $data['category'])->first();
 
         $data['amount'] = str_replace(',', '.', $data['amount']);
 
@@ -65,6 +72,10 @@ class OrderService
 
         $order->currency()->associate($currency);
         $order->account()->associate($account);
+
+        if ($category) {
+            $order->category()->associate($category);
+        }
 
         $order->save();
 

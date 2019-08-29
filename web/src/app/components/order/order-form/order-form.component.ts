@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { FormGroup } from "@angular/forms";
-import { Currency, Project, Order, AppFile } from "src/app/models";
+import { Currency, Project, Order, AppFile, Category } from "src/app/models";
 import { AppService } from "src/app/app.service";
 
 @Component({
@@ -12,6 +12,7 @@ export class OrderFormComponent implements OnInit {
 	@Input() form: FormGroup;
 	@Input() order: Order;
 	currencies: Currency[];
+	categories: Category[];
 	projects: Project[];
 
 	constructor(protected service: AppService) {}
@@ -20,6 +21,10 @@ export class OrderFormComponent implements OnInit {
 		this.service.account
 			.getCurrencies()
 			.subscribe(data => (this.currencies = data));
+
+		this.service
+			.getCategories()
+			.subscribe(data => (this.categories = data));
 
 		this.service.project.getProgressProjects().subscribe(data => {
 			this.projects = data;

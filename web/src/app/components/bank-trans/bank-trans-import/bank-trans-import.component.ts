@@ -73,7 +73,10 @@ export class BankTransImportComponent implements OnInit {
 			const pies = group.get("pies") as FormArray;
 
 			for (let i of [1, 2]) {
-				const userPie: UserPie = new UserPie(+i, 50);
+				const amount = order.pies
+					? order.pies.find(item => item.userId == i).amount
+					: 50;
+				const userPie: UserPie = new UserPie(+i, amount);
 
 				pies.push(this.fb.group(new UserPieForm(userPie)));
 			}

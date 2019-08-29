@@ -44,7 +44,8 @@ export class OrderComponent implements OnInit {
 			if (this.mode == "update") {
 				this.service.transaction
 					.getOrder(this.data.orderId, {
-						include: "account,currency,projects,invoices,pies,files"
+						include:
+							"account,currency,projects,invoices,pies,files,category"
 					})
 					.subscribe(data => {
 						this.order = data;

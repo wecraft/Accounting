@@ -7,9 +7,11 @@ export class OrderForm {
 	desc = new FormControl();
 	tax = new FormControl();
 	vat = new FormControl();
+	other = new FormControl();
 
 	currency = new FormControl();
 	account = new FormControl();
+	category = new FormControl();
 	invoices = new FormControl();
 	projects = new FormControl();
 	type = new FormControl();
@@ -28,12 +30,18 @@ export class OrderForm {
 		this.tax.setValue(order.tax);
 		this.vat.setValue(order.vat);
 		this.type.setValue(order.type);
+		this.other.setValue(order.other);
 
 		if (order.currency) {
 			this.currency.setValue(order.currency.id);
 		}
 		if (order.account) {
 			this.account.setValue(order.account.id);
+		}
+		if (order.category) {
+			this.category.setValue(order.category.id);
+		} else {
+			this.category.setValue(27);
 		}
 
 		if (order.invoices) {

@@ -50,6 +50,9 @@ export class AppRootComponent extends AuthenticableComponent {
 				});
 			}
 		);
+
+		//Get categories to avoid 429 error in csv import
+		this.service.getCategories().subscribe();
 	}
 
 	ngOnDestroy() {
