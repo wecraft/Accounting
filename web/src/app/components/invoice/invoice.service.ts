@@ -16,7 +16,7 @@ export class InvoiceService {
 			})
 			.pipe(
 				map(data => {
-					return plainToClass(Invoice, data["data"]);
+					return plainToClass(Invoice, data["data"] as Invoice[]);
 				})
 			);
 	};

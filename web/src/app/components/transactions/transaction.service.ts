@@ -16,7 +16,7 @@ export class TransactionService {
 			})
 			.pipe(
 				map(data => {
-					return plainToClass(Order, data["data"]);
+					return plainToClass(Order, data["data"] as Order[]);
 				})
 			);
 	};
@@ -61,7 +61,9 @@ export class TransactionService {
 			})
 			.pipe(
 				map(data => {
-					return plainToClass(AccountTrans, data["data"]);
+					return plainToClass(AccountTrans, data[
+						"data"
+					] as AccountTrans[]);
 				})
 			);
 	};
@@ -113,7 +115,7 @@ export class TransactionService {
 			})
 			.pipe(
 				map(data => {
-					return plainToClass(UserTrans, data["data"]);
+					return plainToClass(UserTrans, data["data"] as UserTrans[]);
 				})
 			);
 	};

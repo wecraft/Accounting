@@ -16,7 +16,7 @@ export class ClientService {
 			})
 			.pipe(
 				map(data => {
-					return plainToClass(Client, data["data"]);
+					return plainToClass(Client, data["data"] as Client[]);
 				})
 			);
 	};

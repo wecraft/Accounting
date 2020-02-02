@@ -17,7 +17,7 @@ export class ProjectService {
 			})
 			.pipe(
 				map(data => {
-					return plainToClass(Project, data["data"]);
+					return plainToClass(Project, data["data"] as Project[]);
 				})
 			);
 	};
@@ -33,7 +33,7 @@ export class ProjectService {
 			})
 			.pipe(
 				map(data => {
-					let res = plainToClass(Project, data["data"]);
+					let res = plainToClass(Project, data["data"] as Project[]);
 					this._projects = res;
 					return res;
 				})

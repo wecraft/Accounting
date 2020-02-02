@@ -16,7 +16,7 @@ export class RegularService {
 			})
 			.pipe(
 				map(data => {
-					return plainToClass(Order, data["data"]);
+					return plainToClass(Order, data["data"] as Order[]);
 				})
 			);
 	};
@@ -46,7 +46,7 @@ export class RegularService {
 			})
 			.pipe(
 				map(data => {
-					return plainToClass(Invoice, data["data"]);
+					return plainToClass(Invoice, data["data"] as Invoice[]);
 				})
 			);
 	};

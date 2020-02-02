@@ -22,7 +22,7 @@ export class AccountService {
 			})
 			.pipe(
 				map(data => {
-					let res = plainToClass(Account, data["data"]);
+					let res = plainToClass(Account, data["data"] as Account[]);
 					this._accounts = res;
 					return res;
 				})
@@ -39,7 +39,9 @@ export class AccountService {
 			})
 			.pipe(
 				map(data => {
-					let res = plainToClass(Currency, data["data"]);
+					let res = plainToClass(Currency, data[
+						"data"
+					] as Currency[]);
 					this._currencies = res;
 					return res;
 				})

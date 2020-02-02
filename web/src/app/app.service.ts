@@ -137,7 +137,7 @@ export class AppService {
 			})
 			.pipe(
 				map(data => {
-					let res = plainToClass(Country, data["data"]);
+					let res = plainToClass(Country, data["data"] as Country[]);
 					this._countries = res;
 					return res;
 				})
@@ -153,7 +153,9 @@ export class AppService {
 			})
 			.pipe(
 				map(data => {
-					let res = plainToClass(Category, data["data"]);
+					let res = plainToClass(Category, data[
+						"data"
+					] as Category[]);
 					this._categories = res;
 					return res;
 				})
