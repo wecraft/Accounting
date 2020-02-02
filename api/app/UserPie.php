@@ -18,7 +18,7 @@ class UserPie extends Model
 
     public function getAmountResourcable()
     {
-        return round($this->amount * 100);
+        return round($this->amount * 100, 1);
     }
 
     public function user()
