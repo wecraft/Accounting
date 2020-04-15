@@ -8,6 +8,7 @@ use App\Http\Resources\Resource;
 use App\Invoice;
 use App\Services\InvoiceService;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use PDF;
 
@@ -39,28 +40,13 @@ class InvoiceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request, InvoiceService $invoiceService)
     {
         $data = $request->all();
-
-        $data['prefix'] = auth()->user()->id;
-
-        $last = Invoice::orderBy('number', 'desc');
-
-        if ($data['proforma']) {
-            $last->where('proforma', 1);
-        } else {
-            $last->where('prefix', $data['prefix']);
-        }
-
-        $last = $last->first();
-
-        $data['number'] = (int)$last->number + 1;
-
 
         $action = $data['action'];
 
@@ -76,10 +62,42 @@ class InvoiceController extends Controller
         }
     }
 
+    public function copy($id, Request $request, InvoiceService $invoiceService)
+    {
+        $parent = Invoice::where('id', $id)->with('items')->firstOrFail();
+
+        $parent = $parent->toArray();
+
+        $items = [];
+
+        foreach ((array)$parent['items'] as $item) {
+            $items[] = [
+                'descBg' => $item['desc_bg'],
+                'descEn' => $item['desc_en'],
+                'amount' => $item['amount'],
+                'qty'    => $item['qty'],
+            ];
+        }
+
+        $data = [
+            'advance'   => $parent['advance'],
+            'proforma'  => $request->proforma ? 1 : 0,
+            'issueDate' => Carbon::now()->format('Y-m-d'),
+            'currency'  => $parent['currency_id'],
+            'project'   => $parent['project_id'],
+            'account'   => $parent['account_id'],
+            'items'     => $items,
+        ];
+
+        $invoice = $invoiceService->create($data);
+
+        return new Resource($invoice, 'currency,project,account,items');
+    }
+
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -152,8 +170,8 @@ class InvoiceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -171,7 +189,7 @@ class InvoiceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */

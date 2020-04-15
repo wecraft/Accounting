@@ -24,6 +24,21 @@ class InvoiceService
 
     public function create($data, $save = true)
     {
+        $data['prefix'] = auth()->user()->id;
+
+        $last = Invoice::orderBy('number', 'desc');
+
+        if ($data['proforma']) {
+            $last->where('proforma', 1);
+        } else {
+            $last->where('prefix', $data['prefix']);
+        }
+
+        $last = $last->first();
+
+        $data['number'] = (int)$last->number + 1;
+
+
         $currency = Currency::where('id', $data['currency'])->firstOrFail();
         $account = Account::where('id', $data['account'])->firstOrFail();
         $project = Project::where('id', $data['project'])->with('client.country')->firstOrFail();

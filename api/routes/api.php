@@ -34,6 +34,7 @@ Route::$namespace('Api')->group(function () use ($namespace) {
             Route::apiResource('user_trans', 'UserTransactionController');
 
             Route::get('invoice/count', 'InvoiceController@count');
+            Route::post('invoice/{id}/copy', 'InvoiceController@copy');
             Route::apiResource('invoice', 'InvoiceController');
 
             Route::get('project/count', 'ProjectController@count');

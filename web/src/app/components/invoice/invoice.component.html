@@ -10,7 +10,13 @@
 		<app-invoice-form [form]="form" *ngIf="form" [mode]="mode" [invoice]="invoice"></app-invoice-form>
 	</div>
 	<div mat-dialog-actions class="d-flex justify-content-end">
-		<button mat-raised-button color="warn" class="mr-auto" *ngIf="mode == 'update'" (click)="deleteInvoice()">Delete</button>
+		<div class="d-flex align-items-center mr-auto" *ngIf="mode == 'update'">
+			<button mat-raised-button color="warn" class="mr-2" (click)="deleteInvoice()">Delete</button>
+			<div class="app-copy d-flex align-items-center bg-secondary-light p-2">
+				<button mat-raised-button class="mr-2" (click)="copyInvoice()">Make a copy</button>
+				<mat-checkbox [(ngModel)]="proformaCopy">Proforma</mat-checkbox>
+			</div>
+		</div>
 		<button mat-raised-button (click)="viewPdf('copy')">Copy</button>
 		<button mat-raised-button (click)="viewPdf('original')">Original</button>
 		<button mat-raised-button color="primary" (click)="formModel.submit()" i18n>{mode, select, create {Create} update {Save}}</button>

@@ -14,7 +14,13 @@ import { BankTransImportComponent } from "./bank-trans-import/bank-trans-import.
 	styles: []
 })
 export class BankTransComponent extends TableDataComponent<Order> {
-	displayedColumns: string[] = ["date", "account", "desc", "amount"];
+	displayedColumns: string[] = [
+		"date",
+		"account",
+		"category",
+		"desc",
+		"amount"
+	];
 	dataSource: AppDataSource<Order>;
 	dataCount: number;
 	chunk: number = 100;

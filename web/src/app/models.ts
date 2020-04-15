@@ -99,7 +99,7 @@ export class Order {
 	files: AppFile[];
 
 	get tableInfo(): string {
-		let info: string;
+		let info: string = "";
 
 		if (this.category) {
 			info = this.category.name;
@@ -108,8 +108,6 @@ export class Order {
 			if (this.category.id == 27) {
 				info += `: ${this.other}`;
 			}
-		} else {
-			info = this.desc;
 		}
 		return info;
 	}

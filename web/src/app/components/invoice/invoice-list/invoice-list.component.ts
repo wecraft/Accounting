@@ -57,6 +57,9 @@ export class InvoiceListComponent extends TableDataComponent<Invoice> {
 					invoiceId: invoice.id,
 					onDelete: () => {
 						this.loadPage();
+					},
+					onCopy: () => {
+						this.loadPage();
 					}
 				},
 				DIALOG_BIG

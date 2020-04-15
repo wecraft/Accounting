@@ -11,13 +11,14 @@ import { InvoiceItemForm } from "./invoice-form/invoice-item.form";
 @Component({
 	selector: "app-invoice",
 	templateUrl: "./invoice.component.html",
-	styles: []
+	styleUrls: ["./invoice.component.scss"]
 })
 export class InvoiceComponent implements OnInit {
 	invoice: Invoice;
 	form: FormGroup;
 	formModel: FormModel;
 	mode: FormMode;
+	proformaCopy: boolean;
 
 	constructor(
 		protected service: AppService,
@@ -27,6 +28,7 @@ export class InvoiceComponent implements OnInit {
 		public data: {
 			invoiceId?: number;
 			onDelete?: () => {};
+			onCopy?: () => {};
 		}
 	) {}
 
@@ -88,14 +90,32 @@ export class InvoiceComponent implements OnInit {
 		this.service.delete(
 			this.service.invoice.deleteInvoice(this.invoice.id),
 			{
-				text: `Are you sure you want to delete Invoice #${
-					this.invoice.invoiceNumber
-				}?`,
+				text: `Are you sure you want to delete Invoice #${this.invoice.invoiceNumber}?`,
 				onConfirm: () => {
 					this.dialogRef.close();
 
 					if (this.data.onDelete) {
 						this.data.onDelete();
+					}
+				}
+			}
+		);
+	}
+
+	copyInvoice() {
+		this.service.delete(
+			this.service.invoice.copyInvoice(
+				this.invoice.id,
+				this.proformaCopy
+			),
+			{
+				text: `Are you sure you want to copy Invoice #${this.invoice.invoiceNumber}?`,
+				onConfirm: (data: Invoice) => {
+					this.invoice = data;
+					this.createForm();
+
+					if (this.data.onCopy) {
+						this.data.onCopy();
 					}
 				}
 			}

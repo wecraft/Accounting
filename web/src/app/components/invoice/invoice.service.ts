@@ -62,6 +62,21 @@ export class InvoiceService {
 		);
 	};
 
+	copyInvoice = (
+		id: number,
+		proforma: boolean = false
+	): Observable<Invoice> => {
+		const data = {
+			proforma: proforma ? 1 : 0
+		};
+
+		return this.http.post(`/invoice/${id}/copy`, data).pipe(
+			map(data => {
+				return plainToClass(Invoice, data["data"] as Invoice);
+			})
+		);
+	};
+
 	getNewInvoicePdf = (type: string, data: FormData): Observable<Blob> => {
 		data.append("action", type);
 		return this.http.post(`/invoice`, data, {
