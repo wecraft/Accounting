@@ -38,7 +38,7 @@ class Test extends Command
      */
     public function handle(StatService $statService)
     {
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 3; $i++) {
             $year = date('Y') - $i;
             $this->info($year);
             $this->info(print_r($statService->getYearlyTaxes($year), true));

@@ -80,4 +80,26 @@ class Fixes extends Command
 
         });
     }
+
+    public function handleMissingTaxes()
+    {
+        $ids = [];
+        $orders = Order::where('tax', 2)->get();
+
+        $orders->each(function (Order $order) {
+            $pies = [];
+            $order->pies->each(function (UserPie $pie) use (&$pies) {
+                $pies[] = [
+                    'userId' => $pie->user_id,
+                    'amount' => $pie->amount,
+                ];
+            });
+
+            $order->tax = 1;
+            $order->save();
+
+            $order->updatePies($pies);
+
+        });
+    }
 }
