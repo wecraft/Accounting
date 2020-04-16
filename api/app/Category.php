@@ -6,10 +6,7 @@ class Category extends Model
 {
 
     protected $table = 'categories';
-    protected $fillable
-        = [
-            'name',
-        ];
+    protected $guarded = [];
     public $resourcable
         = [
             'name',

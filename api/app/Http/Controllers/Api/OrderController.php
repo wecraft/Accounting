@@ -44,7 +44,7 @@ class OrderController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -68,7 +68,7 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -120,8 +120,8 @@ class OrderController extends Controller
                     'date'   => $date,
                     'desc'   => $desc,
                     'other'  => $record['other'],
-                    'tax'    => 0,
-                    'vat'    => 0,
+                    'tax'    => $record['tax'] == 'TRUE' ? 1 : 0,
+                    'vat'    => $record['vat'] == 'TRUE' ? 1 : 0,
                 ];
 
                 $order = new Order($data);
@@ -228,8 +228,8 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int                      $id
+     * @param \Illuminate\Http\Request $request
+     * @param int                      $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -252,7 +252,7 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
