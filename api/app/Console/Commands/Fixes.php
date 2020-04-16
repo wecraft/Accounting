@@ -3,7 +3,9 @@
 namespace App\Console\Commands;
 
 use App\AccountTransaction;
+use App\Order;
 use App\UserPart;
+use App\UserPie;
 use Illuminate\Console\Command;
 
 class Fixes extends Command
@@ -55,6 +57,27 @@ class Fixes extends Command
             $rate = app('service')->getCurrencyRate($item->currency_id, $item->date);
             $item->rate = $rate;
             $item->save();
+        });
+    }
+
+    public function handleIncomeTaxes()
+    {
+        $orders = Order::where('type', 1)->where('tax', 0)->where('account_id', '<=', 2)->with('pies')->get();
+
+        $orders->each(function (Order $order) {
+            $pies = [];
+            $order->pies->each(function (UserPie $pie) use (&$pies) {
+                $pies[] = [
+                    'userId' => $pie->user_id,
+                    'amount' => $pie->amount * 100,
+                ];
+            });
+
+            $order->tax = 1;
+            $order->save();
+
+            $order->updatePies($pies);
+
         });
     }
 }

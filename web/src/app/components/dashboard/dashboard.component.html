@@ -4,16 +4,28 @@
 
 		<div class="row">
 			<div class="col-6">
-				<div class=" bg-secondary-light d-flex justify-content-between align-items-center py-2 px-4">
+				<div class=" bg-secondary-light d-flex justify-content-between align-items-center py-2 px-3">
 					<h4>Alex</h4>
-					<h4>{{data.users[1].amount | number}}</h4>
+					<h4>{{data.users[1].amount | number:'1.2-2'}}</h4>
 				</div>
+				<table class="table">
+					<tr *ngFor="let item of data.users[1].tax">
+						<td>{{item.year}}</td>
+						<td class="text-right">{{item.tax}}%</td>
+					</tr>
+				</table>
 			</div>
 			<div class="col-6">
-				<div class="bg-secondary-light d-flex justify-content-between align-items-center py-2 px-4">
+				<div class="bg-secondary-light d-flex justify-content-between align-items-center py-2 px-3">
 					<h4>Valentin</h4>
-					<h4>{{data.users[2].amount | number}}</h4>
+					<h4>{{data.users[2].amount | number:'1.2-2'}}</h4>
 				</div>
+				<table class="table">
+					<tr *ngFor="let item of data.users[2].tax">
+						<td>{{item.year}}</td>
+						<td class="text-right">{{item.tax}}%</td>
+					</tr>
+				</table>
 
 			</div>
 		</div>
@@ -32,7 +44,7 @@
 					<app-account-icon [account]="account"></app-account-icon>
 					<br />
 					<br />
-					<h4>{{data.total | number}}</h4>
+					<h4>{{data.total | number:'1.2-2'}}</h4>
 				</div>
 			</ng-container>
 		</div>
@@ -45,7 +57,7 @@
 		<div class="d-flex align-items-center justify-content-between">
 			<div>
 				<h5>Cash flow</h5>
-				<h4><span class="text-success">+{{summary?.income | number}}</span>&nbsp;<span class="text-danger">-{{summary?.cost | number}}</span>&nbsp;<span class="text-primary">{{summary?.profit | number}}</span></h4>
+				<h4><span class="text-success">+{{summary?.income | number:'1.2-2'}}</span>&nbsp;<span class="text-danger">-{{summary?.cost | number:'1.2-2'}}</span>&nbsp;<span class="text-primary">{{summary?.profit | number:'1.2-2'}}</span></h4>
 			</div>
 			<div class="mr-auto"></div>
 			<div style="width: 150px" class="mr-2">
