@@ -9,7 +9,7 @@
 			<mat-datepicker #pickerTo></mat-datepicker>
 		</mat-form-field>
 		<mat-form-field class="pl-4">
-			<mat-select [(ngModel)]="searchTerm.categoreis" name="categories" placeholder="Categories" multiple>
+			<mat-select [(ngModel)]="searchTerm.categories" name="categories" placeholder="Categories" multiple>
 				<mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
 			</mat-select>
 		</mat-form-field>
