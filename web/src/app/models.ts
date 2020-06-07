@@ -76,6 +76,7 @@ export class Order {
 	vat: boolean;
 	createdAt: Date;
 	other: string;
+	files_count: number;
 
 	@Type(() => Currency)
 	currency: Currency;

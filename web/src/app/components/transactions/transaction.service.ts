@@ -21,8 +21,14 @@ export class TransactionService {
 			);
 	};
 
-	getOrdersCount(): Observable<number> {
-		return this.http.get(`/order/count`).pipe(map(data => data["data"]));
+	getOrdersCount(searchTerm?: string): Observable<number> {
+		return this.http
+			.get(`/order/count`, {
+				params: {
+					search: searchTerm
+				}
+			})
+			.pipe(map(data => data["data"]));
 	}
 
 	getOrder(id: number, params: any = {}): Observable<Order> {

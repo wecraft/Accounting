@@ -28,15 +28,19 @@ class OrderController extends Controller
     {
         $chunk = min($request->get('chunk', 100), 500);
 
-        $data = Order::orderBy('date', 'desc')->orderBy('id', 'desc')->search($request->search)->simplePaginate($chunk);
+        $criteria = json_decode($request->search, true);
+
+        $data = Order::orderBy('date', 'desc')->orderBy('id', 'desc')->search($criteria)->simplePaginate($chunk);
 
         return Resource::collection($data, $request->include);
     }
 
-    public function count()
+    public function count(Request $request)
     {
 
-        $count = Order::count();
+        $criteria = json_decode($request->search, true);
+
+        $count = Order::search($criteria)->count();
 
         return response()->json(['data' => $count]);
     }

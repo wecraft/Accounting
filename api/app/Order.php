@@ -37,6 +37,7 @@ class Order extends Model
 
     public $includes = ['currency', 'account', 'category'];
     public $collectionIncludes = ['projects', 'invoices', 'pies', 'files'];
+    public $countIncludes = ['files_count'];
 
     public function getTypeResourcable()
     {
@@ -55,9 +56,9 @@ class Order extends Model
         $this->attributes['date'] = date('Y-m-d', $time);
     }
 
-    public function scopeSearch($query, $search)
+    public function scopeSearch($query, $criteria)
     {
-        if ($search) {
+        if ($criteria) {
             //            $query->where(function ($q) use ($search) {
             //                $exp = explode(" ", $search);
             //                foreach ($exp as $word) {
@@ -65,10 +66,49 @@ class Order extends Model
             //                }
             //            });
 
-            $exp = explode(" ", $search);
-            foreach ($exp as $word) {
-                $query->where('desc', 'like', "%$word%");
+
+            if ($search = $criteria['search']) {
+                $exp = explode(" ", $search);
+                foreach ($exp as $word) {
+                    $query->where('desc', 'like', "%$word%");
+                }
             }
+
+            if (!$criteria['income']) {
+                $query->where('type', '!=', 1);
+            }
+
+            if (!$criteria['expense']) {
+                $query->where('type', '!=', -1);
+            }
+
+            if ($accounts = $criteria['accounts']) {
+                $query->whereIn('account_id', $accounts);
+            }
+
+            if ($categories = $criteria['categories']) {
+                $query->whereIn('category_id', $categories);
+            }
+
+            if ($files = $criteria['files']) {
+                if ($files == 'with_files') {
+                    $query->whereHas('files');
+                } elseif ($files == 'without_files') {
+                    $query->whereDoesntHave('files');
+                }
+            }
+
+            if ($dateFrom = $criteria['dateFrom']) {
+                $dateFrom = date('Y-m-d', strtotime($dateFrom));
+                $query->where('date', '>=', $dateFrom);
+            }
+
+            if ($dateTo = $criteria['dateTo']) {
+                $dateTo = date('Y-m-d', strtotime($dateTo));
+                $query->where('date', '<=', $dateTo);
+            }
+
+
         }
     }
 
@@ -115,6 +155,13 @@ class Order extends Model
     public function files()
     {
         return $this->morphMany(File::class, 'object');
+    }
+
+    public function files_count()
+    {
+        return $this->hasOne(File::class, 'object_id')
+            ->selectRaw('object_id, count(id) as count')
+            ->groupBy('object_id');
     }
 
     public function updatePies($data)

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { AppService } from "src/app/app.service";
 import { MatPaginator, MatDialog } from "@angular/material";
-import { Order } from "src/app/models";
+import { Order, Account, Category } from "src/app/models";
 import { AppDataSource } from "../shared/extends/AppDataSource";
 import { TableDataComponent } from "../shared/extends/TableDataComponent";
 import { OrderComponent } from "../order/order.component";
@@ -19,12 +19,27 @@ export class BankTransComponent extends TableDataComponent<Order> {
 		"account",
 		"category",
 		"desc",
+		"files",
 		"amount"
 	];
 	dataSource: AppDataSource<Order>;
 	dataCount: number;
 	chunk: number = 100;
-	searchTerm: string = "";
+	searchTerm: any = {
+		search: "",
+		income: true,
+		expense: true,
+		accounts: [],
+		categories: [],
+		files: 0,
+		dateFrom: new Date(new Date().getTime() - 24 * 30 * 3 * 3600 * 1000), // 3 months back
+		dateTo: new Date()
+		// dateFrom: "",
+		// dateTo: ""
+	};
+
+	accounts: Account[] = [];
+	categories: Category[] = [];
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -36,8 +51,8 @@ export class BankTransComponent extends TableDataComponent<Order> {
 
 	get params() {
 		return {
-			include: "currency,account,category",
-			search: this.searchTerm
+			include: "currency,account,category,files_count",
+			search: JSON.stringify(this.searchTerm)
 		};
 	}
 
@@ -46,11 +61,21 @@ export class BankTransComponent extends TableDataComponent<Order> {
 	}
 
 	getCountMethod() {
-		return this.service.transaction.getOrdersCount();
+		return this.service.transaction.getOrdersCount(
+			JSON.stringify(this.searchTerm)
+		);
 	}
 
 	ngOnInit() {
 		super.ngOnInit();
+
+		this.service.getCategories().subscribe(data => {
+			this.categories = data;
+		});
+
+		this.service.account.getAccounts().subscribe(data => {
+			this.accounts = data;
+		});
 	}
 
 	onClickRow(order: Order) {

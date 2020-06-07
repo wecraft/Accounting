@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Collection;
 
 class Resource extends JsonResource
 {
@@ -83,6 +84,30 @@ class Resource extends JsonResource
                 $resourceClass = $this->relationResources[$include] ?: ResourceCollection::class;
 
                 $data[$include] = new $resourceClass($this->whenLoaded(snake_case($include)));
+            }
+        }
+
+        //Include count relations
+        if (is_array($this->countIncludes)) {
+            $countIncludes = $this->countIncludes;
+        } else {
+            if (is_array($this->resource->countIncludes)) {
+                $countIncludes = $this->resource->countIncludes;
+            }
+        }
+
+        if ($countIncludes) {
+            foreach ($countIncludes as $include) {
+                if (!$this->resource->relationLoaded($include)) {
+                    continue;
+                }
+                if ($this->resource->$include instanceof Collection) {
+                    $related = $this->resource->getRelation($include)->first();
+                } else {
+                    $related = $this->resource->$include;
+                }
+
+                $data[$include] = ($related) ? $related->count : 0;
             }
         }
 

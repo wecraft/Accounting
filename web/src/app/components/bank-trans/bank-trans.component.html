@@ -1,17 +1,48 @@
+<form (submit)="search()" class="pt-3">
+	<div class="inline-form">
+		<mat-form-field>
+			<input matInput [matDatepicker]="pickerFrom" placeholder="From" name="dateFrom" [(ngModel)]="searchTerm.dateFrom" (click)="pickerFrom.open()" autocomplete="off">
+			<mat-datepicker #pickerFrom></mat-datepicker>
+		</mat-form-field>
+		<mat-form-field class="pl-4">
+			<input matInput [matDatepicker]="pickerTo" placeholder="To" name="dateTo" [(ngModel)]="searchTerm.dateTo" (click)="pickerTo.open()" autocomplete="off">
+			<mat-datepicker #pickerTo></mat-datepicker>
+		</mat-form-field>
+		<mat-form-field class="pl-4">
+			<mat-select [(ngModel)]="searchTerm.categoreis" name="categories" placeholder="Categories" multiple>
+				<mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
+			</mat-select>
+		</mat-form-field>
+		<mat-form-field class="pl-4">
+			<mat-select [(ngModel)]="searchTerm.accounts" name="accounts" placeholder="Accounts" multiple>
+				<mat-option *ngFor="let account of accounts" [value]="account.id">{{account.name}}</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</div>
+	<div class="inline-form">
+		<mat-checkbox name="income" [(ngModel)]="searchTerm.income">Income</mat-checkbox>
+		<mat-checkbox class="pl-4" name="expense" [(ngModel)]="searchTerm.expense">Expense</mat-checkbox>
+
+		<mat-form-field class="pl-4">
+			<mat-select [(ngModel)]="searchTerm.files" name="files" placeholder="Attachments">
+				<mat-option [value]="0">All</mat-option>
+				<mat-option [value]="'with_files'">With files</mat-option>
+				<mat-option [value]="'without_files'">Without files</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+		<mat-form-field class="flex-grow-2 pl-4">
+			<input matInput [(ngModel)]="searchTerm.search" name="search" placeholder="Search in description...">
+		</mat-form-field>
+		<div class="pl-2">
+			<button mat-raised-button color="primary" type="submit">Search</button>
+		</div>
+	</div>
+</form>
+
 <div class="create-btn-line">
 	<button mat-raised-button color="primary" (click)="create()">Add New</button>
 	<button mat-raised-button color="primary" class="ml-3" util-file-selector (onSelect)="import($event)">Import CSV</button>
-	<div class="d-inline-block ml-3">
-		<form (submit)="search()" class="inline-form">
-			<mat-form-field class="w-100">
-				<input matInput [(ngModel)]="searchTerm" name="searchTerm">
-			</mat-form-field>
-			<div class="pl-3">
-				<button mat-raised-button color="primary" type="submit">Search</button>
-			</div>
-		</form>
-	</div>
-
 </div>
 
 <mat-paginator [length]="dataCount" [pageSize]="chunk" [pageSizeOptions]="pageSizes" showFirstLastButtons></mat-paginator>
@@ -25,17 +56,23 @@
 	<ng-container matColumnDef="account">
 		<th mat-header-cell *matHeaderCellDef> Account </th>
 		<td mat-cell *matCellDef="let element" class="text-nowrap">
-			<app-account-icon [account]="element.account" class="mr-2"></app-account-icon>
+			<app-account-icon [account]="element.account" class="mx-2"></app-account-icon>
 			<span>{{element.account?.name}}</span>
 		</td>
 	</ng-container>
 	<ng-container matColumnDef="category">
 		<th mat-header-cell *matHeaderCellDef> Category </th>
-		<td mat-cell *matCellDef="let element" class="px-1"> {{element.tableInfo}} </td>
+		<td mat-cell *matCellDef="let element" class="px-2"> {{element.tableInfo}} </td>
 	</ng-container>
 	<ng-container matColumnDef="desc">
 		<th mat-header-cell *matHeaderCellDef> Description </th>
-		<td mat-cell *matCellDef="let element" class="px-1"> {{element.desc}} </td>
+		<td mat-cell *matCellDef="let element" class="px-2"> {{element.desc}} </td>
+	</ng-container>
+	<ng-container matColumnDef="files">
+		<th mat-header-cell *matHeaderCellDef> </th>
+		<td mat-cell *matCellDef="let element" class="px-2">
+			<mat-icon *ngIf="element.files_count > 0">attach_file</mat-icon>
+		</td>
 	</ng-container>
 	<ng-container matColumnDef="amount">
 		<th mat-header-cell *matHeaderCellDef class="text-right"> Amount </th>
@@ -52,4 +89,4 @@
 	<tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onClickRow(row)" class="clickable"></tr>
 </table>
 
-<mat-paginator [length]="dataCount" [pageSize]="chunk" [pageSizeOptions]="pageSizes" showFirstLastButtons></mat-paginator>
+<div class="py-3"></div>
