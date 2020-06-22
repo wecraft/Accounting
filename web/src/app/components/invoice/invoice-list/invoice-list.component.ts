@@ -27,8 +27,18 @@ export class InvoiceListComponent extends TableDataComponent<Invoice> {
 	dataSource: AppDataSource<Invoice>;
 	dataCount: number;
 	chunk: number = 100;
-	params = {
-		include: "currency,project,items"
+
+	set params(params) {}
+
+	get params() {
+		return {
+			include: "currency,project,items",
+			search: JSON.stringify(this.searchTerm)
+		};
+	}
+
+	searchTerm: any = {
+		type: "all"
 	};
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;

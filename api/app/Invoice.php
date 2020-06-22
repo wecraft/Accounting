@@ -54,6 +54,22 @@ class Invoice extends Model
         }
     }
 
+    public function scopeSearch($query, $criteria)
+    {
+        if ($criteria) {
+            if ($type = $criteria['type']) {
+                switch ($type) {
+                    case 'original':
+                        $query->where('proforma', 0);
+                        break;
+                    case 'proforma':
+                        $query->where('proforma', 1);
+                        break;
+                }
+            }
+        }
+    }
+
     public function currency()
     {
         return $this->belongsTo(Currency::class);

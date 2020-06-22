@@ -1,7 +1,16 @@
 <div class="container">
-	<div class="create-btn-line">
-		<button mat-raised-button color="primary" (click)="create()">Add New</button>
-	</div>
+	<form class="pt-3">
+		<div class="inline-form">
+			<button mat-raised-button type="button" color="primary" (click)="create()">Add New</button>
+			<mat-form-field class="pl-4">
+				<mat-select [(ngModel)]="searchTerm.type" (ngModelChange)="loadPage()" name="type" placeholder="Invoice Type">
+					<mat-option [value]="'all'">All</mat-option>
+					<mat-option [value]="'original'">Original</mat-option>
+					<mat-option [value]="'proforma'">Proforma</mat-option>
+				</mat-select>
+			</mat-form-field>
+		</div>
+	</form>
 
 	<mat-paginator [length]="dataCount" [pageSize]="chunk" [pageSizeOptions]="pageSizes" showFirstLastButtons></mat-paginator>
 

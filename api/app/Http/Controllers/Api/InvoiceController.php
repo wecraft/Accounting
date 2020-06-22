@@ -21,10 +21,11 @@ class InvoiceController extends Controller
      */
     public function index(Request $request)
     {
-
         $chunk = min($request->get('chunk', 100), 500);
 
-        $data = Invoice::orderBy('issue_date', 'desc')->orderBy('number', 'desc')->simplePaginate($chunk);
+        $criteria = json_decode($request->search, true);
+
+        $data = Invoice::orderBy('issue_date', 'desc')->orderBy('number', 'desc')->search($criteria)->simplePaginate($chunk);
 
         return Resource::collection($data, $request->include);
     }
