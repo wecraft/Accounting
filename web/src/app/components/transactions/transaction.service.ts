@@ -9,13 +9,18 @@ import { map } from "rxjs/operators";
 export class TransactionService {
 	constructor(public http: HttpClient) {}
 
+	ordersSummary: number = 0;
+
 	getOrders = (params: any = {}): Observable<Order[]> => {
 		return this.http
 			.get(`/order`, {
-				params: params
+				params: params,
 			})
 			.pipe(
-				map(data => {
+				map((data) => {
+					if (data["meta"] && data["meta"]["summary"]) {
+						this.ordersSummary = data["meta"]["summary"];
+					}
 					return plainToClass(Order, data["data"] as Order[]);
 				})
 			);
@@ -25,19 +30,19 @@ export class TransactionService {
 		return this.http
 			.get(`/order/count`, {
 				params: {
-					search: searchTerm
-				}
+					search: searchTerm,
+				},
 			})
-			.pipe(map(data => data["data"]));
+			.pipe(map((data) => data["data"]));
 	}
 
 	getOrder(id: number, params: any = {}): Observable<Order> {
 		return this.http
 			.get(`/order/${id}`, {
-				params: params
+				params: params,
 			})
 			.pipe(
-				map(data => {
+				map((data) => {
 					return plainToClass(Order, data["data"] as Order);
 				})
 			);
@@ -50,7 +55,7 @@ export class TransactionService {
 	updateOrder = (id: number, data: FormData): Observable<Order> => {
 		data.append("_method", "PUT");
 		return this.http.post(`/order/${id}`, data).pipe(
-			map(data => {
+			map((data) => {
 				return plainToClass(Order, data["data"] as Order);
 			})
 		);
@@ -63,13 +68,14 @@ export class TransactionService {
 	getAccountTransactions = (params: any = {}): Observable<AccountTrans[]> => {
 		return this.http
 			.get(`/account_trans`, {
-				params: params
+				params: params,
 			})
 			.pipe(
-				map(data => {
-					return plainToClass(AccountTrans, data[
-						"data"
-					] as AccountTrans[]);
+				map((data) => {
+					return plainToClass(
+						AccountTrans,
+						data["data"] as AccountTrans[]
+					);
 				})
 			);
 	};
@@ -77,19 +83,20 @@ export class TransactionService {
 	getAccountTransCount(): Observable<number> {
 		return this.http
 			.get(`/account_trans/count`)
-			.pipe(map(data => data["data"]));
+			.pipe(map((data) => data["data"]));
 	}
 
 	getAccountTrans(id: number, params: any = {}): Observable<AccountTrans> {
 		return this.http
 			.get(`/account_trans/${id}`, {
-				params: params
+				params: params,
 			})
 			.pipe(
-				map(data => {
-					return plainToClass(AccountTrans, data[
-						"data"
-					] as AccountTrans);
+				map((data) => {
+					return plainToClass(
+						AccountTrans,
+						data["data"] as AccountTrans
+					);
 				})
 			);
 	}
@@ -104,7 +111,7 @@ export class TransactionService {
 	): Observable<AccountTrans> => {
 		data.append("_method", "PUT");
 		return this.http.post(`/account_trans/${id}`, data).pipe(
-			map(data => {
+			map((data) => {
 				return plainToClass(AccountTrans, data["data"] as AccountTrans);
 			})
 		);
@@ -117,10 +124,10 @@ export class TransactionService {
 	getUserTransactions = (params: any = {}): Observable<UserTrans[]> => {
 		return this.http
 			.get(`/user_trans`, {
-				params: params
+				params: params,
 			})
 			.pipe(
-				map(data => {
+				map((data) => {
 					return plainToClass(UserTrans, data["data"] as UserTrans[]);
 				})
 			);
@@ -129,16 +136,16 @@ export class TransactionService {
 	getUserTransCount(): Observable<number> {
 		return this.http
 			.get(`/user_trans/count`)
-			.pipe(map(data => data["data"]));
+			.pipe(map((data) => data["data"]));
 	}
 
 	getUserTrans(id: number, params: any = {}): Observable<UserTrans> {
 		return this.http
 			.get(`/user_trans/${id}`, {
-				params: params
+				params: params,
 			})
 			.pipe(
-				map(data => {
+				map((data) => {
 					return plainToClass(UserTrans, data["data"] as UserTrans);
 				})
 			);
@@ -151,7 +158,7 @@ export class TransactionService {
 	updateUserTrans = (id: number, data: FormData): Observable<UserTrans> => {
 		data.append("_method", "PUT");
 		return this.http.post(`/user_trans/${id}`, data).pipe(
-			map(data => {
+			map((data) => {
 				return plainToClass(UserTrans, data["data"] as UserTrans);
 			})
 		);
@@ -165,7 +172,7 @@ export class TransactionService {
 		let data = new FormData();
 		data.append("file", file);
 		return this.http.post(`/order/import`, data).pipe(
-			map(data => {
+			map((data) => {
 				return plainToClass(BankImport, data["data"] as BankImport);
 			})
 		);

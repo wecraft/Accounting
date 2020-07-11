@@ -11,7 +11,7 @@ import { BankTransImportComponent } from "./bank-trans-import/bank-trans-import.
 @Component({
 	selector: "app-bank-trans",
 	templateUrl: "./bank-trans.component.html",
-	styles: []
+	styles: [],
 })
 export class BankTransComponent extends TableDataComponent<Order> {
 	displayedColumns: string[] = [
@@ -20,7 +20,7 @@ export class BankTransComponent extends TableDataComponent<Order> {
 		"category",
 		"desc",
 		"files",
-		"amount"
+		"amount",
 	];
 	dataSource: AppDataSource<Order>;
 	dataCount: number;
@@ -33,7 +33,7 @@ export class BankTransComponent extends TableDataComponent<Order> {
 		categories: [],
 		files: 0,
 		dateFrom: new Date(new Date().getTime() - 24 * 30 * 3 * 3600 * 1000), // 3 months back
-		dateTo: new Date()
+		dateTo: new Date(),
 		// dateFrom: "",
 		// dateTo: ""
 	};
@@ -52,8 +52,12 @@ export class BankTransComponent extends TableDataComponent<Order> {
 	get params() {
 		return {
 			include: "currency,account,category,files_count",
-			search: JSON.stringify(this.searchTerm)
+			search: JSON.stringify(this.searchTerm),
 		};
+	}
+
+	get ordersSummary(): number {
+		return this.service.transaction.ordersSummary;
 	}
 
 	getEndpoint() {
@@ -69,11 +73,11 @@ export class BankTransComponent extends TableDataComponent<Order> {
 	ngOnInit() {
 		super.ngOnInit();
 
-		this.service.getCategories().subscribe(data => {
+		this.service.getCategories().subscribe((data) => {
 			this.categories = data;
 		});
 
-		this.service.account.getAccounts().subscribe(data => {
+		this.service.account.getAccounts().subscribe((data) => {
 			this.accounts = data;
 		});
 	}
@@ -85,7 +89,7 @@ export class BankTransComponent extends TableDataComponent<Order> {
 				orderId: order.id,
 				onDelete: () => {
 					this.loadPage();
-				}
+				},
 			})
 		);
 
@@ -107,7 +111,7 @@ export class BankTransComponent extends TableDataComponent<Order> {
 			new MaterialDialogConfig()
 		);
 
-		dialogRef.afterClosed().subscribe(data => {
+		dialogRef.afterClosed().subscribe((data) => {
 			if (data) {
 				this.loadPage();
 			}
@@ -117,15 +121,15 @@ export class BankTransComponent extends TableDataComponent<Order> {
 	import(file: File) {
 		this.service.submit(
 			this.service.transaction.importOrders(file),
-			data => {
+			(data) => {
 				const dialogRef = this.dialog.open(
 					BankTransImportComponent,
 					new MaterialDialogConfig({
-						data: data
+						data: data,
 					})
 				);
 
-				dialogRef.afterClosed().subscribe(data => {
+				dialogRef.afterClosed().subscribe((data) => {
 					if (data) {
 						this.loadPage();
 					}

@@ -30,9 +30,18 @@ class OrderController extends Controller
 
         $criteria = json_decode($request->search, true);
 
-        $data = Order::orderBy('date', 'desc')->orderBy('id', 'desc')->search($criteria)->simplePaginate($chunk);
+        $query = Order::orderBy('date', 'desc')->orderBy('id', 'desc')->search($criteria);
 
-        return Resource::collection($data, $request->include);
+        $data = $query->simplePaginate($chunk);
+
+        $summary = $query->selectRaw('SUM(orders.amount*orders.type*orders.rate) as summary')
+            ->first();
+
+        return Resource::collection($data, $request->include)->additional([
+            'meta' => [
+                'summary' => round($summary['summary'], 2),
+            ],
+        ]);
     }
 
     public function count(Request $request)

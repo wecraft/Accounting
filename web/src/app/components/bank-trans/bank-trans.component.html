@@ -43,6 +43,9 @@
 <div class="create-btn-line">
 	<button mat-raised-button color="primary" (click)="create()">Add New</button>
 	<button mat-raised-button color="primary" class="ml-3" util-file-selector (onSelect)="import($event)">Import CSV</button>
+	<h5 class="d-inline-block ml-3 align-middle" *ngIf="ordersSummary > 0">
+		Summary: {{this.ordersSummary | number:'1.2-2'}} BGN
+	</h5>
 </div>
 
 <mat-paginator [length]="dataCount" [pageSize]="chunk" [pageSizeOptions]="pageSizes" showFirstLastButtons></mat-paginator>
