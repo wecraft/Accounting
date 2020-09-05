@@ -10,15 +10,22 @@ import { MaterialDialogConfig } from "src/app/globals/material-dialog-config";
 @Component({
 	selector: "app-regular-transactions",
 	templateUrl: "./regular-transactions.component.html",
-	styles: []
+	styles: [],
 })
 export class RegularTransactionsComponent extends TableDataComponent<Order> {
-	displayedColumns: string[] = ["date", "account", "desc", "files", "amount"];
+	displayedColumns: string[] = [
+		"date",
+		"account",
+		"category",
+		"desc",
+		"files",
+		"amount",
+	];
 	dataSource: AppDataSource<Order>;
 	dataCount: number;
 	chunk: number = 100;
 	params = {
-		include: "currency,account,files"
+		include: "currency,category,account,files",
 	};
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;

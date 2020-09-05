@@ -16,7 +16,9 @@ class RegularController extends Controller
         $chunk = min($request->get('chunk', 100), 500);
 
         $data = Order::orderBy('date', 'desc')
-            ->whereHas('files')
+            ->where(function($q){
+                $q->whereHas('files')->orWhere('category_id', '<=', 4);
+            })
             ->orderBy('id', 'desc')->simplePaginate($chunk);
 
         return Resource::collection($data, $request->include);
