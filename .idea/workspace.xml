@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5246f400-7e67-4d30-a615-a1b1eb0546dc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/api/app/Http/Controllers/Api/RegularController.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/app/Http/Controllers/Api/RegularController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/app/components/regular/regular-transactions/regular-transactions.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/app/components/regular/regular-transactions/regular-transactions.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/src/app/components/regular/regular-transactions/regular-transactions.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/web/src/app/components/regular/regular-transactions/regular-transactions.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/app/Services/StatService.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/app/Services/StatService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/app/UserPie.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/app/UserPie.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/app/helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/app/helpers.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/config/services.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/config/services.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/database/migrations/2019_04_02_184442_create_user_pies_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/database/migrations/2019_04_02_184442_create_user_pies_table.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,7 +15,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/api/composer.json</pharConfigPath>
     <execution>
       <executable />
@@ -171,7 +174,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1599298727655</updated>
-      <workItem from="1599298728837" duration="200000" />
+      <workItem from="1599298728837" duration="834000" />
+      <workItem from="1617359908089" duration="2405000" />
     </task>
     <servers />
   </component>
@@ -183,7 +187,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

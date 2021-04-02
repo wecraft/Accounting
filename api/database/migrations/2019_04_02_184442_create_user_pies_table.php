@@ -17,7 +17,7 @@ class CreateUserPiesTable extends Migration
             $table->increments('id');
             $table->morphs('model');
             $table->integer('user_id')->unsigned()->nullable();
-            $table->decimal('amount'); //percent
+            $table->decimal('amount', 8, 4); //percent
             $table->timestamps();
 
             $table->foreign('user_id')

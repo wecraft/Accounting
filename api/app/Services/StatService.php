@@ -70,11 +70,12 @@ class StatService
         });
 
 
+
         $amount = $result[1] + $result[2];
 
         $result = [
-            1          => round(($result[1] / $amount) * 100, 2),
-            2          => round(($result[2] / $amount) * 100, 2),
+            1          => round(($result[1] / max($amount, 1)) * 100, 2),
+            2          => round(($result[2] / max($amount, 1)) * 100, 2),
             'amount'   => $amount,
             'amount_1' => $result[1],
             'amount_2' => $result[2],

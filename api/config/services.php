@@ -34,4 +34,7 @@ return [
     'google'    => [
         'key' => env('GOOGLE_API_KEY'),
     ],
+    'exchange_rates' => [
+        'key' => env('EXCHANGE_RATES_API_KEY')
+    ]
 ];
