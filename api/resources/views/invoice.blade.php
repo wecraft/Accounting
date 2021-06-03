@@ -65,12 +65,12 @@
                 </tr>
                 <tr>
                     <td>{{__('messages.date_created', [], $lang)}}:</td>
-                    <td class="al-r"><?= date("Y-m-d", strtotime($invoice->issueDate)) ?></td>
+                    <td class="al-r"><?= date("Y-m-d", strtotime($invoice->issueDate) + 18000) ?></td>
                 </tr>
                 @if($invoice->dueDate)
                     <tr>
                         <td>{{__('messages.due_date', [], $lang)}}:</td>
-                        <td class="al-r"><?= date("Y-m-d", strtotime($invoice->dueDate)) ?></td>
+                        <td class="al-r"><?= date("Y-m-d", strtotime($invoice->dueDate) + 18000) ?></td>
                     </tr>
                 @endif
                 <tr style="background: #eaeaea">
@@ -172,11 +172,11 @@
                                 <td style="padding: 0 3mm 0 0">
                                     @if($lang == 'bg' && !$invoice->proforma)
                                         {{__('messages.date_event', [], $lang)}}
-                                        : {{date('Y-m-d', strtotime($invoice->issueDate))}}<br/>
+                                        : {{date('Y-m-d', strtotime($invoice->issueDate) + 18000)}}<br/>
 
                                         @if($invoice->advance)
                                             {{__('messages.date_adv_payment', [], $lang)}}
-                                            : {{date('Y-m-d', strtotime($invoice->adv_date))}}<br/>
+                                            : {{date('Y-m-d', strtotime($invoice->adv_date) + 18000)}}<br/>
                                         @endif
                                     @endif
 
