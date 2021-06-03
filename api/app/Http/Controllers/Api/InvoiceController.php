@@ -117,6 +117,8 @@ class InvoiceController extends Controller
 
     private function genPdf($invoice, $type)
     {
+        date_default_timezone_set('Europe/Sofia');
+
         $invoice->load(['currency', 'account']);
 
         $lang = $type == 'copy' ? 'bg' : $invoice->lang;
