@@ -18,6 +18,7 @@ class Invoice extends Model
             'advance',
             'proforma',
             'issueDate',
+            'dueDate',
             'pmtDate',
             'advPmtDate',
             'modelId',
@@ -31,6 +32,7 @@ class Invoice extends Model
             'advance',
             'proforma',
             'issueDate',
+            'dueDate',
             'pmtDate',
             'advPmtDate',
             'invoiceNumber',
@@ -39,6 +41,15 @@ class Invoice extends Model
     public $casts
         = [
             'meta' => 'array',
+        ];
+
+    public $dates
+        = [
+            'created_at',
+            'updated_at',
+            'issue_date',
+            'due_date',
+            'adv_pmt_date',
         ];
 
     public $includes = ['project', 'account', 'currency'];

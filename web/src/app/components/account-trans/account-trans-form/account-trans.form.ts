@@ -16,7 +16,9 @@ export class AccountTransForm {
 	constructor(accountTrans: AccountTrans) {
 		this.amount1.setValue(accountTrans.amount1);
 		this.amount2.setValue(accountTrans.amount2);
-		this.date.setValue(new Date(accountTrans.date));
+		if (accountTrans.date) {
+			this.date.setValue(new Date(accountTrans.date));
+		}
 
 		if (accountTrans.currency1) {
 			this.currency1.setValue(accountTrans.currency1.id);

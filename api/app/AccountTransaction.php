@@ -20,14 +20,14 @@ class AccountTransaction extends Model
             'date',
         ];
 
+    public $dates
+        = [
+            "created_at",
+            'updated_at',
+            "date",
+        ];
+
     public $includes = ['account1', 'account2', 'currency1', 'currency2'];
-
-    public function setDateAttribute($value)
-    {
-        $time = strtotime($value);
-
-        $this->attributes['date'] = date('Y-m-d', $time);
-    }
 
     public function account1()
     {

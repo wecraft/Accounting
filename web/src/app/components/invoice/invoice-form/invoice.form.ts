@@ -5,6 +5,7 @@ export class InvoiceForm {
 	advance = new FormControl();
 	proforma = new FormControl();
 	issueDate = new FormControl();
+	dueDate = new FormControl();
 	pmtDate = new FormControl();
 	advPmtDate = new FormControl();
 
@@ -17,20 +18,29 @@ export class InvoiceForm {
 	include = new FormControl("currency,project,account,items");
 
 	constructor(invoice: Invoice) {
-		this.advance.setValue(invoice.advance);
-		this.proforma.setValue(invoice.proforma);
-		this.issueDate.setValue(invoice.issueDate);
-		this.pmtDate.setValue(invoice.pmtDate);
-		this.advPmtDate.setValue(invoice.advPmtDate);
+		if (invoice) {
+			this.advance.setValue(invoice.advance);
+			this.proforma.setValue(invoice.proforma);
+			if (invoice.issueDate) {
+				this.issueDate.setValue(new Date(invoice.issueDate));
+			}
+			if (invoice.dueDate) {
+				this.dueDate.setValue(new Date(invoice.dueDate));
+			}
+			if (invoice.advPmtDate) {
+				this.advPmtDate.setValue(new Date(invoice.advPmtDate));
+			}
+			this.pmtDate.setValue(invoice.pmtDate);
 
-		if (invoice.currency) {
-			this.currency.setValue(invoice.currency.id);
-		}
-		if (invoice.project) {
-			this.project.setValue(invoice.project.id);
-		}
-		if (invoice.account) {
-			this.account.setValue(invoice.account.id);
+			if (invoice.currency) {
+				this.currency.setValue(invoice.currency.id);
+			}
+			if (invoice.project) {
+				this.project.setValue(invoice.project.id);
+			}
+			if (invoice.account) {
+				this.account.setValue(invoice.account.id);
+			}
 		}
 	}
 }

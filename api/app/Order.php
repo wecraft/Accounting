@@ -35,6 +35,13 @@ class Order extends Model
             'other',
         ];
 
+    public $dates
+        = [
+            'created_at',
+            'updated_at',
+            'date',
+        ];
+
 
     public $includes = ['currency', 'account', 'category'];
     public $collectionIncludes = ['projects', 'invoices', 'pies', 'files'];
@@ -43,18 +50,6 @@ class Order extends Model
     public function getTypeResourcable()
     {
         return $this->type == -1 ? 'cost' : 'income';
-    }
-
-    public function getDateResourcable()
-    {
-        return strtotime($this->date) * 1000;
-    }
-
-    public function setDateAttribute($value)
-    {
-        $time = strtotime($value);
-
-        $this->attributes['date'] = date('Y-m-d', $time);
     }
 
     public function scopeSearch($query, $criteria)

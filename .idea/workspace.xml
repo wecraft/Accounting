@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5246f400-7e67-4d30-a615-a1b1eb0546dc" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/app/Services/StatService.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/app/Services/StatService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/app/UserPie.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/app/UserPie.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/app/helpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/app/helpers.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/config/services.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/config/services.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/database/migrations/2019_04_02_184442_create_user_pies_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/database/migrations/2019_04_02_184442_create_user_pies_table.php" afterDir="false" />
-    </list>
+    <list default="true" id="5246f400-7e67-4d30-a615-a1b1eb0546dc" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,7 +140,7 @@
   <component name="ProjectId" id="1h5QyWzQg1q19EcmVwD9gpVOC0u" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Expobo2/api" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
@@ -175,7 +168,7 @@
       <option name="presentableId" value="Default" />
       <updated>1599298727655</updated>
       <workItem from="1599298728837" duration="834000" />
-      <workItem from="1617359908089" duration="2405000" />
+      <workItem from="1617359908089" duration="3011000" />
     </task>
     <servers />
   </component>

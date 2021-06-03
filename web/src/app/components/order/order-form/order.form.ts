@@ -25,7 +25,11 @@ export class OrderForm {
 
 	constructor(order: Order) {
 		this.amount.setValue(order.amount);
-		this.date.setValue(new Date(order.date));
+		if (order.date) {
+			this.date.setValue(new Date(order.date));
+		} else {
+			this.date.setValue(new Date());
+		}
 		this.desc.setValue(order.desc);
 		this.tax.setValue(order.tax);
 		this.vat.setValue(order.vat);
@@ -45,10 +49,10 @@ export class OrderForm {
 		}
 
 		if (order.invoices) {
-			this.invoices.setValue(order.invoices.map(item => item.id));
+			this.invoices.setValue(order.invoices.map((item) => item.id));
 		}
 		if (order.projects) {
-			this.projects.setValue(order.projects.map(item => item.id));
+			this.projects.setValue(order.projects.map((item) => item.id));
 		}
 	}
 }

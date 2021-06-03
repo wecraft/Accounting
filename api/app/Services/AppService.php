@@ -101,12 +101,13 @@ class AppService
             return 1;
         }
 
+
         if (!$date) {
             $date = date("Y-m-d");
-        }
-
-        if ($yesterday) {
+        } elseif ($yesterday) {
             $date = date('Y-m-d', strtotime("$date -1 day"));
+        } else {
+            $date = date("Y-m-d", strtotime($date));
         }
 
         $check = CurrencyRate::where('currency_id', $currency->id)->date($date)->first();

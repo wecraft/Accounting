@@ -35,15 +35,21 @@
 				<mat-datepicker #picker></mat-datepicker>
 			</mat-form-field>
 		</div>
-		<div class="col-sm-4">
+		<div class="col-sm-3">
+			<mat-form-field class="w-100">
+				<input matInput [matDatepicker]="picker2" placeholder="Due Date" formControlName="dueDate" (click)="picker2.open()" autocomplete="off">
+				<mat-datepicker #picker2></mat-datepicker>
+			</mat-form-field>
+		</div>
+		<div class="col-sm-2">
 			<mat-form-field class="w-100">
 				<input matInput placeholder="Payment Date" formControlName="pmtDate">
 			</mat-form-field>
 		</div>
-		<div class="col-sm-3">
+		<div class="col-sm-2">
 			<mat-form-field class="w-100">
-				<input matInput [matDatepicker]="picker2" placeholder="Advance Payment Date" formControlName="advPmtDate" (click)="picker2.open()" autocomplete="off">
-				<mat-datepicker #picker2></mat-datepicker>
+				<input matInput [matDatepicker]="picker3" placeholder="Advance Payment Date" formControlName="advPmtDate" (click)="picker3.open()" autocomplete="off">
+				<mat-datepicker #picker3></mat-datepicker>
 			</mat-form-field>
 		</div>
 

@@ -4,7 +4,7 @@ import {
 	Project,
 	Account,
 	InvoiceItem,
-	Invoice
+	Invoice,
 } from "src/app/models";
 import { FormGroup, FormArray, FormBuilder } from "@angular/forms";
 import { AppService } from "src/app/app.service";
@@ -14,7 +14,7 @@ import { InvoiceItemForm } from "./invoice-item.form";
 @Component({
 	selector: "app-invoice-form",
 	templateUrl: "./invoice-form.component.html",
-	styles: []
+	styles: [],
 })
 export class InvoiceFormComponent implements OnInit {
 	@Input() form: FormGroup;
@@ -33,13 +33,13 @@ export class InvoiceFormComponent implements OnInit {
 	ngOnInit() {
 		this.service.account
 			.getCurrencies()
-			.subscribe(data => (this.currencies = data));
+			.subscribe((data) => (this.currencies = data));
 
 		this.service.account
 			.getAccounts()
-			.subscribe(data => (this.accounts = data));
+			.subscribe((data) => (this.accounts = data));
 
-		this.service.project.getProgressProjects().subscribe(data => {
+		this.service.project.getProgressProjects().subscribe((data) => {
 			this.projects = data;
 
 			if (this.invoice && this.invoice.project) {
@@ -51,11 +51,11 @@ export class InvoiceFormComponent implements OnInit {
 			this.form.controls.advPmtDate.disable();
 		}
 
-		this.form.controls.advance.valueChanges.subscribe(value => {
+		this.form.controls.advance.valueChanges.subscribe((value) => {
 			if (value) {
 				this.form.controls.advPmtDate.enable();
 			} else {
-				this.form.controls.advPmtDate.enable();
+				this.form.controls.advPmtDate.disable();
 			}
 		});
 

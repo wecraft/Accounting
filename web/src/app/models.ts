@@ -182,6 +182,7 @@ export class Invoice {
 	advance: boolean;
 	proforma: boolean;
 	issueDate: Date;
+	dueDate: Date;
 	pmtDate: string;
 	advPmtDate: Date;
 	createdAt: Date;
@@ -206,7 +207,7 @@ export class Invoice {
 		let amount = 0;
 
 		if (this.items) {
-			this.items.forEach(item => {
+			this.items.forEach((item) => {
 				amount += item.amount;
 			});
 		}
@@ -251,7 +252,7 @@ export class Project {
 		}
 
 		const sum = this.orders
-			.filter(item => item.type == "income")
+			.filter((item) => item.type == "income")
 			.reduce((sum, current) => sum + current.amount, 0);
 		const percent = Math.round((sum / this.price) * 100);
 

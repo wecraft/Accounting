@@ -2,6 +2,7 @@
 return [
     "invoice_number"      => "Invoice #",
     "date_created"        => "Invoice Date",
+    "due_date"            => "Due Date",
     "total_amount"        => "Amount Due",
     "invoice"             => "INVOICE",
     "original"            => "ORIGINAL",

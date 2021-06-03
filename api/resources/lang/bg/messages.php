@@ -2,6 +2,7 @@
 return [
     "invoice_number"      => "Фактура Номер",
     "date_created"        => "Дата на издаване",
+    "due_date"            => "Плащане до",
     "total_amount"        => "Обща стойност",
     "invoice"             => "ФАКТУРА",
     "original"            => "ОРИГИНАЛ",

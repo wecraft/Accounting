@@ -67,6 +67,12 @@
                     <td>{{__('messages.date_created', [], $lang)}}:</td>
                     <td class="al-r"><?= date("Y-m-d", strtotime($invoice->issueDate)) ?></td>
                 </tr>
+                @if($invoice->dueDate)
+                    <tr>
+                        <td>{{__('messages.due_date', [], $lang)}}:</td>
+                        <td class="al-r"><?= date("Y-m-d", strtotime($invoice->dueDate)) ?></td>
+                    </tr>
+                @endif
                 <tr style="background: #eaeaea">
                     <td>{{__('messages.total_amount', [], $lang)}}:</td>
                     <td class="al-r">{{$total}} {{$invoice->currency->name}}</td>
