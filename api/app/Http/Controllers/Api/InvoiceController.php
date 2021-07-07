@@ -128,7 +128,7 @@ class InvoiceController extends Controller
             $total += $item->amount * $item->qty;
         });
 
-        if ($type == 'copy' && $invoice->currency->name != 'BGN') {
+        if ($lang == "bg" && $invoice->currency->name != 'BGN') {
             $bottom_total = $total * $invoice->meta['rate'];
             $bottom_currency = Currency::where('name', 'BGN')->first();
         } else {
